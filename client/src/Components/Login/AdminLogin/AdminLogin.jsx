@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'; 
 import { useCon } from "../../../UserContext";
 
@@ -12,7 +12,7 @@ const AdminLogin = () => {
 
     async function handleSubmit(ev) {
         ev.preventDefault();
-        const url = "http://localhost:8080/loginAdmin";
+        const url = "/loginAdmin";
         console.log(url);
 
         // Perform login operation using axios
