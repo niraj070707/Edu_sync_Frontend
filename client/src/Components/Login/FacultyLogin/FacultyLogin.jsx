@@ -32,7 +32,7 @@ const FacultyLogin = () => {
         <div className=' flex justify-center items-center flex-col h-dvh bg-gray-100'>
             <div>
                 <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
-                    Sign in to your admin account
+                    Sign in to your Teacher account
                 </h2>
 
             </div>
