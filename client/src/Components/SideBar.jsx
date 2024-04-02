@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {useCon} from "../../UserContext"
+import {useCon} from "../UserContext"
 
-import Control from "../../assets/Control.png";
-import Logo from "../../assets/Logo.png";
-import Chart_fill from "../../assets/Chart_fill.png";
-import Profile from "../../assets/Profile.png";
-import Faculty from "../../assets/Faculty.png";
-import Add from "../../assets/Add.png";
-import Remove from "../../assets/Remove.png";
-import List from "../../assets/List.png";
-
-
+import Control from "../assets/Control.png";
+import Logo from "../assets/Logo.png";
+import Chart_fill from "../assets/Chart_fill.png";
+import Profile from "../assets/Profile.png";
+import Faculty from "../assets/Faculty.png";
+import Add from "../assets/Add.png";
+import Remove from "../assets/Remove.png";
+import List from "../assets/List.png";
 
 
 const AdminSideBar = () => {
