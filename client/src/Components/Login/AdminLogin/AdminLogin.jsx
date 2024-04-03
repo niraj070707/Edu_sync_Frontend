@@ -21,7 +21,11 @@ const AdminLogin = () => {
             const {data} = await axios.post(url, { email, password });
             storeUserInLS(data);
             // Redirect to admin dashboard on successful login
-            toast.success("Login Successfull");
+            if(data){
+                toast.success("Login Successfull");
+            }else{
+                toast.error("Login Failed")
+            }
             navigate('/admin/dashboard');
         } catch (error) {
             console.error('Login failed', error);

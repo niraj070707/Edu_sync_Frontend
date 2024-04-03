@@ -4,24 +4,29 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 
 
-const AddFaculty = () => {
+const AddStudent = () => {
     const [regid, setRegid] = useState('');
     const [fname, setFname] = useState('');
     const [mobile, setMobile] = useState('');
     const [lname, setLname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [division, setDivision] = useState('');
+    const [year, setYear] = useState('');
+    const [rollno, setRollno] = useState('');
+    const [batch, setbatch] = useState('');
+    
 
     async function handleSubmit(ev) {
         ev.preventDefault();
-        const url = "/registerTeacher";
+        const url = "/registerStudent";
         // console.log(url);
 
         // Perform register operation using axios
         try {
-            const {data} = await axios.post(url, {regid,fname,lname,email,mobile,password});
+            const {data} = await axios.post(url, {regid,fname,lname,email,mobile,division,year,rollno,batch,password});
             // Redirect to admin dashboard on successful login
-            // console.log("Teacher ", data);
+            console.log("Student ", data);
             setRegid('');setEmail('');setFname('');setLname('');setMobile('');setPassword('');
             toast.success("Registration Successfull");
         } catch (error) {
@@ -176,4 +181,4 @@ const AddFaculty = () => {
     )
 }
 
-export default AddFaculty
+export default AddStudent

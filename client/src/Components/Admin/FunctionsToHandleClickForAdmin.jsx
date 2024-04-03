@@ -13,6 +13,8 @@ const handleAdminClick = ({Menu, navigate}) => {
             navigate("/admin/adminprofile");
         }else if(Menu.title === "Faculty List"){
             navigate("/admin/facultylist");
+        }else if(Menu.title === "Student List"){
+            navigate("/admin/studentlist");
         }
     }
 };

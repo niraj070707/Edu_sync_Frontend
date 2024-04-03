@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from "react";
-import {useCon} from "../UserContext"
+import React, { useEffect, useState } from "react";
+import {useCon} from "../../UserContext"
 import { useNavigate } from "react-router";
 
 
-import Control from "../assets/Control.png";
-import Logo from "../assets/Logo.png";
-import Chart_fill from "../assets/Chart_fill.png";
-import Profile from "../assets/Profile.png";
-import Faculty from "../assets/Faculty.png";
-import Add from "../assets/Add.png";
-import Remove from "../assets/Remove.png";
-import List from "../assets/List.png";
+import Control from "../../assets/Control.png";
+import Logo from "../../assets/Logo.png";
+import Chart_fill from "../../assets/Chart_fill.png";
+import Profile from "../../assets/Profile.png";
+import Faculty from "../../assets/Faculty.png";
+import Add from "../../assets/Add.png";
+import Remove from "../../assets/Remove.png";
+import List from "../../assets/List.png";
 
-import handleAdminClick from "./Admin/FunctionsToHandleClickForAdmin"
+import handleAdminClick from "../Admin/FunctionsToHandleClickForAdmin"
 
 const SideBar = () => {
     const [username, setUsername] = useState("");
     const [open, setOpen] = useState(true);
     const [Menus, setMenus] = useState([]);
     const [lastPartOfUrl, setLastPartOfUrl] = useState('');
-
 
     const { User } = useCon();
     const navigate = useNavigate();
@@ -28,8 +27,9 @@ const SideBar = () => {
         "dashboard" : "Dashboard",
         "addfaculty" : "Add Faculty",
         "removefaculty" : "Remove Faculty",
-        "facultyList" : "Faculty List",
-        "profile" : "Profile",
+        "facultylist" : "Faculty List",
+        "adminprofile" : "Profile",
+        "studentlist" : "Student List",
     }
 
     useEffect(()=>{
@@ -42,7 +42,8 @@ const SideBar = () => {
                 { title: "Add Faculty", src: Add },
                 { title: "Remove Faculty", src: Remove },
                 { title: "Faculty List", src: List },
-                
+                { title: "Our Students", src: Faculty, gap: true, readOnly: true },
+                { title: "Student List", src: List },
             ]);
         }else if(User.user_type === "teacher"){
             setUsername(User.fname);
@@ -65,8 +66,9 @@ const SideBar = () => {
     };
 
     const handleResize = () => {
-        setOpen(window.innerWidth >= window.screen.width * 0.7);
+        setOpen(window.innerWidth >= window.screen.availWidth * 0.7);
     };
+    
 
     useEffect(() => {
         handleResize(); // Initial check

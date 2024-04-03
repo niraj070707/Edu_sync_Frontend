@@ -13,6 +13,8 @@ import AddFaculty from "./Components/Admin/AddFaculty";
 import RemoveFaculty from "./Components/Admin/RemoveFaculty";
 import AdminProfile from "./Components/Admin/AdminProfile";
 import FacultyList from "./Components/Admin/FacultyList";
+import StudentList from "./Components/Admin/StudentList";
+
 
 // Faculty
 import FacultyLogin from "./Components/Login/FacultyLogin/FacultyLogin";
@@ -46,6 +48,7 @@ function App() {
                 <Route exact path="/admin/removefaculty" element={User && User.user_type == "admin" ? <RemoveFaculty /> : <Navigate to="/login/adminlogin" />} />
                 <Route exact path="/admin/adminprofile" element={User && User.user_type == "admin" ? <AdminProfile /> : <Navigate to="/login/adminlogin" />} />
                 <Route exact path="/admin/facultylist" element={User && User.user_type == "admin" ? <FacultyList /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/studentlist" element={User && User.user_type == "admin" ? <StudentList /> : <Navigate to="/login/adminlogin" />} />
 
 
                 {/* Faculty */}
