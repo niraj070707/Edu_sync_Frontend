@@ -1,9 +1,10 @@
 import React from 'react'
+import SideBar from '../SideBar'
 
 const StudentDashboard = () => {
-  return (
-    <div>StudentDashboard</div>
-  )
+    return (
+        <SideBar />
+    )
 }
 
 export default StudentDashboard

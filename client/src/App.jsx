@@ -9,6 +9,10 @@ import Login from "./Components/Login/Login";
 // Admin
 import AdminLogin from "./Components/Login/AdminLogin/AdminLogin";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
+import AddFaculty from "./Components/Admin/AddFaculty";
+import RemoveFaculty from "./Components/Admin/RemoveFaculty";
+import AdminProfile from "./Components/Admin/AdminProfile";
+import FacultyList from "./Components/Admin/FacultyList";
 
 // Faculty
 import FacultyLogin from "./Components/Login/FacultyLogin/FacultyLogin";
@@ -17,6 +21,9 @@ import FacultyDashboard from "./Components/Faculty/FacultyDashboard";
 // Student
 import StudentLogin from "./Components/Login/StudentLogin/StudentLogin";
 import StudentDashboard from "./Components/Student/StudentDashboard";
+
+
+
 
 
 function App() {
@@ -35,6 +42,11 @@ function App() {
                 {/* Admin */}
                 <Route exact path="/login/adminlogin" element={User && User.user_type == "admin" ? <Navigate to="/admin/dashboard" /> : <AdminLogin />} />
                 <Route exact path="/admin/dashboard" element={User && User.user_type == "admin" ? <AdminDashboard /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/addfaculty" element={User && User.user_type == "admin" ? <AddFaculty /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/removefaculty" element={User && User.user_type == "admin" ? <RemoveFaculty /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/adminprofile" element={User && User.user_type == "admin" ? <AdminProfile /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/facultylist" element={User && User.user_type == "admin" ? <FacultyList /> : <Navigate to="/login/adminlogin" />} />
+
 
                 {/* Faculty */}
                 <Route path="/login/facultylogin" element={User && User.user_type == "teacher" ? <Navigate to="/faculty/dashboard" /> : <FacultyLogin />} />
