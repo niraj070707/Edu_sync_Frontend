@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useCon } from "../../UserContext";
-import AdminSideBar from "../SideBar";
+import { useCon } from "../../UserContext"; 
+import SideBar from "../ReusableComponents/SideBar";
 
 function Chats() {
   const { User } = useCon();
@@ -21,7 +21,7 @@ function Chats() {
 
   return (
     <div className="flex">
-      <AdminSideBar />
+      <SideBar/>
       <div className="flex-1 mt-3">
         <div className="container mx-auto shadow-lg rounded-lg">
           <div className="px-5 py-5 flex justify-between items-center bg-white border-b-2">

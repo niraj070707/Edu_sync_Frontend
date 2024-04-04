@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'; 
 import { useCon } from "../../../UserContext";
+import { toast } from 'react-toastify';
 
 const AdminLogin = () => {
     const [email, setEmail] = useState('');
@@ -20,9 +21,15 @@ const AdminLogin = () => {
             const {data} = await axios.post(url, { email, password });
             storeUserInLS(data);
             // Redirect to admin dashboard on successful login
+            if(data){
+                toast.success("Login Successfull");
+            }else{
+                toast.error("Login Failed")
+            }
             navigate('/admin/dashboard');
         } catch (error) {
             console.error('Login failed', error);
+            toast.error("Login Failed")
             // Handle login failure, show error message to user, etc.
         }
     }

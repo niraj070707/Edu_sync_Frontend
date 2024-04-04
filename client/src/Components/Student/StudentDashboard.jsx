@@ -1,4 +1,4 @@
-import AdminSideBar from "./../SideBar";
+ 
 import { React, useEffect, useState } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import Calendar from "react-calendar";
@@ -13,6 +13,7 @@ import "react-calendar/dist/Calendar.css";
 import ReplyIcon from "@mui/icons-material/Reply";
 import { useNavigate } from "react-router-dom";
 import { useCon } from "../../UserContext";
+import SideBar from "../ReusableComponents/SideBar";
 
 const StudentDashboard = () => {
   const [open, setOpen] = useState(false);
@@ -28,7 +29,7 @@ const StudentDashboard = () => {
 
   return (
     <div className="flex">
-      <AdminSideBar />
+      <SideBar />
       <div className="flex-1 mt-3">
         <div className="flex-[0.05] flex justify-between items-center mx-5 my-2">
           <div className="flex items-center ">

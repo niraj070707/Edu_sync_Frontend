@@ -1,13 +1,13 @@
 import React from 'react'
 import SideBar from '../ReusableComponents/SideBar';
 
-const Assignments = () => {
+const StudentProfile = () => {
   return (
     <div className="flex">
       <SideBar />
-      <div>Assignments</div>
+      <div>AdminProfile</div>
     </div>
   );
 }
 
-export default Assignments
+export default StudentProfile

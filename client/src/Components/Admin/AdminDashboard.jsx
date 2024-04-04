@@ -1,10 +1,10 @@
 import React from 'react'
-import AdminSideBar from '../SideBar'
+import SideBar from '../ReusableComponents/SideBar'
 
 const AdminDashboard = () => {
     return (
         <div className=' flex'>
-            <AdminSideBar />
+            <SideBar />
             <div className=' text-lg'>
                 DashBoard
             </div>
