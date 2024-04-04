@@ -15,6 +15,14 @@ const handleAdminClick = ({Menu, navigate}) => {
             navigate("/admin/facultylist");
         }else if(Menu.title === "Student List"){
             navigate("/admin/studentlist");
+        }else if(Menu.title === "Add Division"){
+            navigate("/admin/adddivision");
+        }else if(Menu.title === "Add Batch"){
+            navigate("/admin/addbatch");
+        }else if(Menu.title === "Batch List"){
+            navigate("/admin/batchlist");
+        }else if(Menu.title === "Division List"){
+            navigate("/admin/divisionlist");
         }
     }
 };

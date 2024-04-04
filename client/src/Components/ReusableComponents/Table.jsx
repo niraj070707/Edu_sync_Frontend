@@ -6,34 +6,85 @@ import DownloadTableDataInExel from "./DownloadTableDataInExel";
 import DebouncedInput from "./DebounceInput";
 import Search from "../../assets/Search.png";
 
-const TanStackTable = ({USERS}) => {
+const TanStackTable = ({ USERS, type }) => {
     const columnHelper = createColumnHelper();
-    console.log("User : " , USERS)
+    // console.log("type : ", USERS)
+    const [data, setData] = useState([]);
+
 
     const columns = [
-        columnHelper.accessor("regid", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "regId",
-        }),
-        columnHelper.accessor("fname", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "First Name",
-        }),
-        columnHelper.accessor("lname", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Last Name",
-        }),
-        columnHelper.accessor("email", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "email",
-        }),
-        columnHelper.accessor("mobile", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Mobile",
-        }),
+        // division
+        ...(type === "division"
+            ? [
+                columnHelper.accessor("division", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Division",
+                }),
+                columnHelper.accessor("year", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Year",
+                }),
+                columnHelper.accessor("CCID", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "ID Of CC",
+                }),
+                // Add a column for displaying batches
+                columnHelper.accessor("batches", {
+                    cell: (info) => (
+                        <span>
+                            {info.row.original.batches.map((batch) => (
+                                <div key={batch}>
+                                    {batch}
+                                </div>
+                            ))}
+                        </span>
+                    ),
+                    header: "Batch ID",
+                }),
+            ]
+        : []),
+
+        // batches
+        ...(type === "batch"
+            ? [
+                columnHelper.accessor("name", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "name Of Batch",
+                }),
+                columnHelper.accessor("TGID", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Teacher Gaurdian ID",
+                }),
+            ]
+        : []),
+
+        // facultyOrStudent
+        ...(type === "facultyOrStudent"
+            ? [
+                columnHelper.accessor("regid", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "regId",
+                }),
+                columnHelper.accessor("fname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "First Name",
+                }),
+                columnHelper.accessor("lname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Last Name",
+                }),
+                columnHelper.accessor("email", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "email",
+                }),
+                columnHelper.accessor("mobile", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Mobile",
+                }),
+            ]
+        : []),
     ];
 
-    const [data, setData] = useState([]);
 
     useEffect(() => {
         setData([...USERS]); // Update data whenever USERS changes
@@ -68,8 +119,8 @@ const TanStackTable = ({USERS}) => {
                 <DownloadTableDataInExel data={data} fileName={"peoples"} />
             </div>
 
-            <table className="border shadow-sm text-white border-gray-100 w-full text-left">
-                <thead className="bg-indigo-600">
+            <table className="border shadow-sm border-gray-100 w-full text-left">
+                <thead className="text-white bg-indigo-600">
                     {table.getHeaderGroups().map((headerGroup) => (
                         <tr key={headerGroup.id}>
                             {headerGroup.headers.map((header) => (
@@ -83,11 +134,11 @@ const TanStackTable = ({USERS}) => {
                         </tr>
                     ))}
                 </thead>
-                
+
                 <tbody>
                     {table.getRowModel().rows.length ? (
                         table.getRowModel().rows.map((row, i) => (
-                            <tr key={row.id} className={` ${i % 2 === 0 ? "bg-gray-900" : "bg-gray-800"} `}>
+                            <tr key={row.id} className={` ${i % 2 === 0 ? "bg-gray-900" : "bg-gray-800"} text-white`}>
                                 {row.getVisibleCells().map((cell) => (
                                     <td key={cell.id} className="px-3.5 py-2">
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -96,7 +147,7 @@ const TanStackTable = ({USERS}) => {
                             </tr>
                         ))
                     ) : (
-                        <tr className="text-center h-32">
+                        <tr className="text-center text-black h-32">
                             <td colSpan={12}>No Recoard Found!</td>
                         </tr>
                     )}

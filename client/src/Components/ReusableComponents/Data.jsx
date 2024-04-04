@@ -23,4 +23,28 @@ async function FetchStudentData() {
     }
 }
 
-export { FetchTeacherData, FetchStudentData };
+async function FetchDivisionData() {
+    const url = "/getdivision";
+    try {
+        const {data} = await axios.get(url);
+        // console.log("division :" , data);
+        return data
+    } catch (error) {
+        console.error('Not getting data', error);
+        toast.error("Not getting data");
+    }
+}
+
+async function FetchBatchData() {
+    const url = "/getbatches";
+    try {
+        const {data} = await axios.get(url);
+        return data
+    } catch (error) {
+        console.error('Not getting data', error);
+        toast.error("Not getting data");
+    }
+}
+
+
+export { FetchTeacherData, FetchStudentData, FetchBatchData, FetchDivisionData};

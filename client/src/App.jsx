@@ -14,6 +14,10 @@ import RemoveFaculty from "./Components/Admin/RemoveFaculty";
 import AdminProfile from "./Components/Admin/AdminProfile";
 import FacultyList from "./Components/Admin/FacultyList";
 import StudentList from "./Components/Admin/StudentList";
+import AddDivision from "./Components/Admin/AddDivision";
+import AddBatch from "./Components/Admin/AddBatch";
+import BatchList from "./Components/Admin/BatchList";
+import DivisionList from "./Components/Admin/DivisionList";
 
 
 // Faculty
@@ -23,9 +27,6 @@ import FacultyDashboard from "./Components/Faculty/FacultyDashboard";
 // Student
 import StudentLogin from "./Components/Login/StudentLogin/StudentLogin";
 import StudentDashboard from "./Components/Student/StudentDashboard";
-
-
-
 
 
 function App() {
@@ -49,6 +50,10 @@ function App() {
                 <Route exact path="/admin/adminprofile" element={User && User.user_type == "admin" ? <AdminProfile /> : <Navigate to="/login/adminlogin" />} />
                 <Route exact path="/admin/facultylist" element={User && User.user_type == "admin" ? <FacultyList /> : <Navigate to="/login/adminlogin" />} />
                 <Route exact path="/admin/studentlist" element={User && User.user_type == "admin" ? <StudentList /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/adddivision" element={User && User.user_type == "admin" ? <AddDivision /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/addbatch" element={User && User.user_type == "admin" ? <AddBatch /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/batchlist" element={User && User.user_type == "admin" ? <BatchList /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/divisionlist" element={User && User.user_type == "admin" ? <DivisionList /> : <Navigate to="/login/adminlogin" />} />
 
 
                 {/* Faculty */}
