@@ -17,6 +17,7 @@ import FacultyDashboard from "./Components/Faculty/FacultyDashboard";
 // Student
 import StudentLogin from "./Components/Login/StudentLogin/StudentLogin";
 import StudentDashboard from "./Components/Student/StudentDashboard";
+import Chats from "./Components/Student/Chats";
 
 
 function App() {
@@ -25,28 +26,97 @@ function App() {
 
     const { User } = useCon();
 
+
     console.log("App_User", User);
+    // console.log(User.user_type);
     return (
-        <>
-            <Routes>
-                {/* Home */}
-                <Route exact path="/" element={<Login />} />
+      <>
+        <Routes>
+          {/* Home */}
+          <Route exact path="/" element={<Login />} />
 
-                {/* Admin */}
-                <Route exact path="/login/adminlogin" element={User && User.user_type == "admin" ? <Navigate to="/admin/dashboard" /> : <AdminLogin />} />
-                <Route exact path="/admin/dashboard" element={User && User.user_type == "admin" ? <AdminDashboard /> : <Navigate to="/login/adminlogin" />} />
+          {/* Admin */}
+          <Route
+            exact
+            path="/login/adminlogin"
+            element={
+              User && User.user_type == "admin" ? (
+                <Navigate to="/admin/dashboard" />
+              ) : (
+                <AdminLogin />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/admin/dashboard"
+            element={
+              User && User.user_type == "admin" ? (
+                <AdminDashboard />
+              ) : (
+                <Navigate to="/login/adminlogin" />
+              )
+            }
+          />
 
-                {/* Faculty */}
-                <Route path="/login/facultylogin" element={User && User.user_type == "teacher" ? <Navigate to="/faculty/dashboard" /> : <FacultyLogin />} />
-                <Route exact path="/faculty/dashboard" element={User && User.user_type == "teacher" ? <FacultyDashboard /> : <Navigate to="/login/facultylogin" />} />
+          {/* Faculty */}
+          <Route
+            path="/login/facultylogin"
+            element={
+              User && User.user_type == "teacher" ? (
+                <Navigate to="/faculty/dashboard" />
+              ) : (
+                <FacultyLogin />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/faculty/dashboard"
+            element={
+              User && User.user_type == "teacher" ? (
+                <FacultyDashboard />
+              ) : (
+                <Navigate to="/login/facultylogin" />
+              )
+            }
+          />
 
-                {/* Student */}
-                <Route path="/login/studentlogin" element={User && User.user_type == "student" ? <Navigate to="/student/dashboard" /> : <StudentLogin />} />
-                <Route exact path="/student/dashboard" element={User && User.user_type == "student" ? <StudentDashboard /> : <Navigate to="/login/studentlogin" />} />
-
-            </Routes>
-        </>
-    )
+          {/* Student */}
+          <Route
+            path="/login/studentlogin"
+            element={
+              User && User.user_type == "student" ? (
+                <Navigate to="/student/dashboard" />
+              ) : (
+                <StudentLogin />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/student/dashboard"
+            element={
+              User && User.user_type == "student" ? (
+                <StudentDashboard />
+              ) : (
+                <Navigate to="/login/studentlogin" />
+              )
+            }
+          />
+          <Route
+            path="/student/studentchats"
+            element={
+              User && User.user_type == "student" ? (
+                <Chats/>
+              ) : (
+                <StudentLogin />
+              )
+            }
+          />
+        </Routes>
+      </>
+    );
 
 }
 
