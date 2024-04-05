@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.11.5",
+    "@headlessui/react": "^1.7.18",
+    "@heroicons/react": "^2.1.3",
     "@mui/icons-material": "^5.15.14",
     "@tanstack/match-sorter-utils": "^8.15.1",
     "@tanstack/qwik-table": "^8.15.3",

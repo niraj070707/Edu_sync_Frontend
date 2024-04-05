@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {useCon} from "../../UserContext"
 import { useNavigate } from "react-router";
-
 
 import Control from "../../assets/Control.png";
 import Logo from "../../assets/Logo.png";
@@ -20,6 +19,8 @@ const SideBar = () => {
     const [open, setOpen] = useState(true);
     const [Menus, setMenus] = useState([]);
     const [lastPartOfUrl, setLastPartOfUrl] = useState('');
+    const [scrollPosition, setScrollPosition] = useState(0); // State to store the scroll position
+    const scrollContainerRef = useRef(null); // Reference to the scrollable container
 
     const { User } = useCon();
     const navigate = useNavigate();
@@ -31,6 +32,10 @@ const SideBar = () => {
         "facultylist" : "Faculty List",
         "adminprofile" : "Profile",
         "studentlist" : "Student List",
+        "adddivision" : "Add Division",
+        "addbatch" : "Add Batch",
+        "batchlist" : "Batch List",
+        "divisionlist" : "Division List",
     }
 
     useEffect(()=>{
@@ -43,6 +48,12 @@ const SideBar = () => {
                 { title: "Add Faculty", src: Add },
                 { title: "Remove Faculty", src: Remove },
                 { title: "Faculty List", src: List },
+                { title: "Batch", src: Faculty, gap: true, readOnly: true },
+                { title: "Add Batch", src: Add },
+                { title: "Batch List", src: List },
+                { title: "Division", src: Faculty, gap: true, readOnly: true },
+                { title: "Add Division", src: Add },
+                { title: "Division List", src: List },
                 { title: "Our Students", src: Faculty, gap: true, readOnly: true },
                 { title: "Student List", src: List },
             ]);
@@ -63,7 +74,10 @@ const SideBar = () => {
         }
     },[])
 
+
     const handleClick = (Menu) => {
+        localStorage.setItem('scrollPosition', JSON.stringify(scrollContainerRef.current.scrollTop));
+
         if((User.user_type === "admin") && (!Menu.readOnly)){
             handleAdminClick({Menu, navigate});
         }else if((User.user_type === "student") && (!Menu.readOnly)){
@@ -92,6 +106,29 @@ const SideBar = () => {
         setLastPartOfUrl(lastPart);
     }, []);
 
+
+    useEffect(() => {
+        const savedScrollPosition = localStorage.getItem('scrollPosition');
+        if (savedScrollPosition) {
+            setScrollPosition(parseInt(savedScrollPosition, 10));
+        }
+    
+        const handleBeforeUnload = () => {
+            localStorage.setItem('scrollPosition', JSON.stringify(scrollContainerRef.current.scrollTop));
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+    
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+    
+    useEffect(() => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = scrollPosition;
+        }
+    }, [scrollPosition]);
+
     return (
         <div>
             <div className={`${open ? "w-72" : "w-20"} bg-dark-purple min-h-screen p-5 flex flex-col  pt-8 relative duration-300`}>
@@ -115,7 +152,7 @@ const SideBar = () => {
                 </div>
 
                 <div className=" relative flex-grow mt-2">
-                    <ul className="pt-4 absolute top-0 left-0 right-0 bottom-0 overflow-y-scroll no-scrollbar">
+                    <ul className="pt-4 absolute top-0 left-0 right-0 bottom-0 overflow-y-scroll no-scrollbar" ref={scrollContainerRef}>
                         {Menus.map((Menu, index) => (
                             <li
                                 key={index}

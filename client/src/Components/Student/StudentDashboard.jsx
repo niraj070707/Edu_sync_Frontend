@@ -6,7 +6,6 @@ import EngineeringIcon from "@mui/icons-material/Engineering";
 import BoyIcon from "@mui/icons-material/Boy";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
-4;
 import Avatar from "@mui/icons-material/MenuBook";
 import LogoutIcon from "@mui/icons-material/MenuBook";
 import "react-calendar/dist/Calendar.css";

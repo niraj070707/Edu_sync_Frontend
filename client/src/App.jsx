@@ -14,6 +14,10 @@ import RemoveFaculty from "./Components/Admin/RemoveFaculty";
 import AdminProfile from "./Components/Admin/AdminProfile";
 import FacultyList from "./Components/Admin/FacultyList";
 import StudentList from "./Components/Admin/StudentList";
+import AddDivision from "./Components/Admin/AddDivision";
+import AddBatch from "./Components/Admin/AddBatch";
+import BatchList from "./Components/Admin/BatchList";
+import DivisionList from "./Components/Admin/DivisionList";
 
 // Faculty
 import FacultyLogin from "./Components/Login/FacultyLogin/FacultyLogin";
@@ -22,10 +26,14 @@ import FacultyDashboard from "./Components/Faculty/FacultyDashboard";
 // Student
 import StudentLogin from "./Components/Login/StudentLogin/StudentLogin";
 import StudentDashboard from "./Components/Student/StudentDashboard";
+<<<<<<< HEAD
 import Chats from "./Components/Student/Chats";
 import StudentProfile from "./Components/Student/StudentProfile";
 import Assignments from "./Components/Student/Assignments";
 import Subject from "./Components/Student/Subject";
+=======
+
+>>>>>>> dev
 
 function App() {
   axios.defaults.baseURL = "http://localhost:8080";
@@ -41,6 +49,7 @@ function App() {
         {/* Home */}
         <Route exact path="/" element={<Login />} />
 
+<<<<<<< HEAD
         {/* Admin */}
         <Route
           exact
@@ -119,6 +128,20 @@ function App() {
             )
           }
         />
+=======
+                {/* Admin */}
+                <Route exact path="/login/adminlogin" element={User && User.user_type == "admin" ? <Navigate to="/admin/dashboard" /> : <AdminLogin />} />
+                <Route exact path="/admin/dashboard" element={User && User.user_type == "admin" ? <AdminDashboard /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/addfaculty" element={User && User.user_type == "admin" ? <AddFaculty /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/removefaculty" element={User && User.user_type == "admin" ? <RemoveFaculty /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/adminprofile" element={User && User.user_type == "admin" ? <AdminProfile /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/facultylist" element={User && User.user_type == "admin" ? <FacultyList /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/studentlist" element={User && User.user_type == "admin" ? <StudentList /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/adddivision" element={User && User.user_type == "admin" ? <AddDivision /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/addbatch" element={User && User.user_type == "admin" ? <AddBatch /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/batchlist" element={User && User.user_type == "admin" ? <BatchList /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/divisionlist" element={User && User.user_type == "admin" ? <DivisionList /> : <Navigate to="/login/adminlogin" />} />
+>>>>>>> dev
 
         {/* Faculty */}
         <Route

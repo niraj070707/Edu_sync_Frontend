@@ -32,7 +32,7 @@ const StudentList = () => {
 
                     <div className="flex-grow relative mt-5 max-w-full w-full ">
                         <div className='overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-2 absolute p-5 bg-white border w-full'>
-                            <TanStackTable USERS={studentData} />
+                            <TanStackTable USERS={studentData} type={"facultyOrStudent"}/>
                         </div>
                     </div>
                 </div>
