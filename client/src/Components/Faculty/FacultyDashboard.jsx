@@ -4,7 +4,12 @@ import SideBar from '../ReusableComponents/SideBar'
 
 const FacultyDashboard = () => {
   return (
-    <div>FacultyDashboard</div>
+    <div className=' flex'>
+            <SideBar />
+            <div className=' text-lg'>
+                  
+            </div>
+    </div>        
   )
 }
 

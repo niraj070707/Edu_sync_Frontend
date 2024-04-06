@@ -46,5 +46,42 @@ async function FetchBatchData() {
     }
 }
 
+async function FetchCurrentAdmin(){
+    //yecha route aahe ka nhi mahit nahi backend la 
+    const url="/getcurentstudent";
+    try{
+        const {data}=await axios.get(url);
+        return data
+    }
+    catch(error){
+        console.error('Not getting data',error);
+        toast.error("Not getting data");
+    }
+}
+async function FetchCurrentStudent(){
+    //yecha route aahe ka nhi mahit nahi backend la 
+    const url="/getcurrentstudent";
+    try{
+        const {data}=await axios.get(url);
+        return data
+    }
+    catch(error){
+        console.error('Not getting data',error);
+        toast.error("Not getting data");
+    }
+}
+async function FetchCurrentTeacher(){
+    //yecha route aahe ka nhi mahit nahi backend la 
+    const url="/getcurrentteacher";
+    try{
+        const {data}=await axios.get(url);
+        return data
+    }
+    catch(error){
+        console.error('Not getting data',error);
+        toast.error("Not getting data");
+    }
+}
 
-export { FetchTeacherData, FetchStudentData, FetchBatchData, FetchDivisionData};
+
+export { FetchTeacherData, FetchStudentData, FetchBatchData, FetchDivisionData,FetchCurrentAdmin,FetchCurrentStudent,FetchCurrentTeacher};

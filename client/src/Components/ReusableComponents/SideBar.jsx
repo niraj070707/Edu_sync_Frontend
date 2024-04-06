@@ -10,9 +10,13 @@ import Faculty from "../../assets/Faculty.png";
 import Add from "../../assets/Add.png";
 import Remove from "../../assets/Remove.png";
 import List from "../../assets/List.png";
+import Chat from "../../assets/Chat.png";
+import Folder from "../../assets/Folder.png";
+
 
 import handleAdminClick from "../Admin/FunctionsToHandleClickForAdmin"
-
+import handleStudentClick from "../Student/FunctionsToHandleClickForStudent";
+import handlefacultyClick from "../Faculty/FunctionsToHandleClickForFaculty";
 const SideBar = () => {
     const [username, setUsername] = useState("");
     const [open, setOpen] = useState(true);
@@ -62,10 +66,24 @@ const SideBar = () => {
             ]);
         }else if(User.user_type === "teacher"){
             setUsername(User.fname);
-            setMenus([]);
+            setMenus([
+                { title: "Dashboard", src: Chart_fill },
+                { title: "Profile", src: Profile }, // Corrected src reference
+                { title: "My Divisons", src: List, gap: true},
+                { title: "My Batch", src: List, gap: true},
+                { title: "Assingments", src: Folder ,gap:true },
+                { title: "Mentorship Groups", src: Faculty, gap: true},
+                { title: "Chats ", src: Chat, gap: true},
+            ]);
         }else{
             setUsername(User.fname);
-            setMenus([]);
+            setMenus([
+              { title: "Dashboard", src: Chart_fill },
+              { title: "Profile", src: Profile }, // Corrected src reference
+              { title: "Subject List", src: List },
+              { title: "Assignment List", src: List },
+              { title: "Chats", src: List },
+            ]);
         }
     },[])
 
@@ -76,9 +94,9 @@ const SideBar = () => {
         if((User.user_type === "admin") && (!Menu.readOnly)){
             handleAdminClick({Menu, navigate});
         }else if((User.user_type === "student") && (!Menu.readOnly)){
-            
+            handleStudentClick({ Menu, navigate });
         }else if((User.user_type === "teacher") && (!Menu.readOnly)){
-
+            handlefacultyClick({ Menu, navigate });
         }
         
     };

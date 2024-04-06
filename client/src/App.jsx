@@ -1,6 +1,6 @@
-import { Routes, Route, useInRouterContext } from "react-router-dom";
-import './App.css'
-import { useCon } from "./UserContext"
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import { useCon } from "./UserContext";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
@@ -21,7 +21,6 @@ import DivisionList from "./Components/Admin/DivisionList";
 import AddStudent from "./Components/Admin/AddStudent";
 import RemoveStudent from "./Components/Admin/RemoveStudent";
 
-
 // Faculty
 import FacultyLogin from "./Components/Login/FacultyLogin/FacultyLogin";
 import FacultyDashboard from "./Components/Faculty/FacultyDashboard";
@@ -29,7 +28,10 @@ import FacultyDashboard from "./Components/Faculty/FacultyDashboard";
 // Student
 import StudentLogin from "./Components/Login/StudentLogin/StudentLogin";
 import StudentDashboard from "./Components/Student/StudentDashboard";
-
+import StudentProfile from "./Components/Student/StudentProfile";
+import Chats from "./Components/Student/Chats";
+import Subject from "./Components/Student/Subject";
+import Assignments from "./Components/Student/Assignments"
 
 function App() {
     axios.defaults.baseURL = "http://localhost:8080";
@@ -38,6 +40,7 @@ function App() {
     const { User } = useCon();
 
     console.log("App_User", User);
+    // console.log(User.user_type);
     return (
         <>
             <Routes>
@@ -59,19 +62,68 @@ function App() {
                 <Route exact path="/admin/registerstudent" element={User && User.user_type == "admin" ? <AddStudent /> : <Navigate to="/login/adminlogin" />} />
                 <Route exact path="/admin/removestudent" element={User && User.user_type == "admin" ? <RemoveStudent /> : <Navigate to="/login/adminlogin" />} />
 
-
                 {/* Faculty */}
-                <Route path="/login/facultylogin" element={User && User.user_type == "teacher" ? <Navigate to="/faculty/dashboard" /> : <FacultyLogin />} />
-                <Route exact path="/faculty/dashboard" element={User && User.user_type == "teacher" ? <FacultyDashboard /> : <Navigate to="/login/facultylogin" />} />
+                <Route path="/login/facultylogin" element={User && User.user_type == "teacher" ? ( <Navigate to="/faculty/dashboard" />):(<FacultyLogin />)}/>
+                <Route exact path="/faculty/dashboard" element={ User && User.user_type == "teacher"?(<FacultyDashboard /> ):(<Navigate to="/login/facultylogin"/>)}/>
 
                 {/* Student */}
-                <Route path="/login/studentlogin" element={User && User.user_type == "student" ? <Navigate to="/student/dashboard" /> : <StudentLogin />} />
-                <Route exact path="/student/dashboard" element={User && User.user_type == "student" ? <StudentDashboard /> : <Navigate to="/login/studentlogin" />} />
-
+                <Route
+                    path="/login/studentlogin"
+                    element={
+                        User && User.user_type == "student" ? (
+                            <Navigate to="/student/dashboard" />
+                        ) : (
+                            <StudentLogin />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/student/dashboard"
+                    element={
+                        User && User.user_type == "student" ? (
+                            <StudentDashboard />
+                        ) : (
+                            <Navigate to="/login/studentlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/student/studentprofile"
+                    element={
+                        User && User.user_type == "student" ? (
+                            <StudentProfile />
+                        ) : (
+                            <Navigate to="/login/studentlogin" />
+                        )
+                    }
+                />
+                <Route
+                    path="/student/studentchats"
+                    element={
+                        User && User.user_type == "student" ? <Chats /> : <StudentLogin />
+                    }
+                />
+                <Route
+                    path="/student/subjects"
+                    element={
+                        User && User.user_type == "student" ? <Subject /> : <StudentLogin />
+                    }
+                />
+                <Route
+                    path="/student/assignments"
+                    element={
+                        User && User.user_type == "student" ? (
+                            <Assignments />
+                        ) : (
+                            <StudentLogin />
+                        )
+                    }
+                />
             </Routes>
         </>
-    )
-
+    );
 }
 
-export default App
+export default App;
