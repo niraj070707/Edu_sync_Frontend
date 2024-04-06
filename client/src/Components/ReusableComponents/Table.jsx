@@ -11,7 +11,6 @@ const TanStackTable = ({ USERS, type }) => {
     // console.log("type : ", USERS)
     const [data, setData] = useState([]);
 
-
     const columns = [
         // division
         ...(type === "division"
@@ -26,12 +25,12 @@ const TanStackTable = ({ USERS, type }) => {
                 }),
                 columnHelper.accessor("CCID", {
                     cell: (info) => <span>{info.getValue()}</span>,
-                    header: "ID Of CC",
+                    header: "Name Of CC",
                 }),
                 // Add a column for displaying batches
                 columnHelper.accessor("batches", {
                     cell: (info) => (
-                        <span>
+                        <span className="flex gap-2">
                             {info.row.original.batches.map((batch) => (
                                 <div key={batch}>
                                     {batch}
@@ -39,7 +38,7 @@ const TanStackTable = ({ USERS, type }) => {
                             ))}
                         </span>
                     ),
-                    header: "Batch ID",
+                    header: "Name of Batches",
                 }),
             ]
         : []),
@@ -51,9 +50,9 @@ const TanStackTable = ({ USERS, type }) => {
                     cell: (info) => <span>{info.getValue()}</span>,
                     header: "name Of Batch",
                 }),
-                columnHelper.accessor("TGID", {
+                columnHelper.accessor("tgname", {
                     cell: (info) => <span>{info.getValue()}</span>,
-                    header: "Teacher Gaurdian ID",
+                    header: "Name of Teacher Gaurdian",
                 }),
             ]
         : []),
@@ -84,7 +83,6 @@ const TanStackTable = ({ USERS, type }) => {
             ]
         : []),
     ];
-
 
     useEffect(() => {
         setData([...USERS]); // Update data whenever USERS changes

@@ -26,7 +26,7 @@ const SideBar = () => {
 
     const Map = {
         "dashboard" : "Dashboard",
-        "addfaculty" : "Add Faculty",
+        "registerfaculty" : "Register Faculty",
         "removefaculty" : "Remove Faculty",
         "facultylist" : "Faculty List",
         "adminprofile" : "Profile",
@@ -35,6 +35,8 @@ const SideBar = () => {
         "addbatch" : "Add Batch",
         "batchlist" : "Batch List",
         "divisionlist" : "Division List",
+        "registerstudent" : "Register Student",
+        "removestudent" : "Remove Student",
     }
 
     useEffect(()=>{
@@ -44,7 +46,7 @@ const SideBar = () => {
                 { title: "Dashboard", src: Chart_fill },
                 { title: "Profile", src: Profile }, // Corrected src reference
                 { title: "Our Faculty", src: Faculty, gap: true, readOnly: true },
-                { title: "Add Faculty", src: Add },
+                { title: "Register Faculty", src: Add },
                 { title: "Remove Faculty", src: Remove },
                 { title: "Faculty List", src: List },
                 { title: "Batch", src: Faculty, gap: true, readOnly: true },
@@ -54,6 +56,8 @@ const SideBar = () => {
                 { title: "Add Division", src: Add },
                 { title: "Division List", src: List },
                 { title: "Our Students", src: Faculty, gap: true, readOnly: true },
+                { title: "Register Student", src: Add },
+                { title: "Remove Student", src: Remove },
                 { title: "Student List", src: List },
             ]);
         }else if(User.user_type === "teacher"){

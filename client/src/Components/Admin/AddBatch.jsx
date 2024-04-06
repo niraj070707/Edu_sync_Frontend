@@ -11,9 +11,9 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 const AddBatch = () => {
     const [batch, setBatch] = useState('');
     const [teacherData, setTeacherData] = useState([]);
-    const [selected, setSelected] = useState({regid : "Select" , fname : "" , lname : ""})
+    const [selected, setSelected] = useState({ regid: "Select", fname: "", lname: "" })
     const [query, setQuery] = useState('')
-    console.log("teacher : ",selected)
+    console.log("teacher : ", selected)
 
     const filteredPeople =
         query === ''
@@ -46,12 +46,16 @@ const AddBatch = () => {
 
         // Perform register operation using axios
         try {
+            if (selected._id) {
+                const { data } = await axios.post(url, { name: batch, teacherID: selected._id });
+                // Redirect to admin dashboard on successful login
+                // console.log("Teacher ", data);
+                setBatch(''); setSelected({ regid: "Select", fname: "", lname: "" });
+                toast.success("Batch Added Successfully");
+            }else{
+                toast.info("Select Teacher");
+            }
 
-            const { data } = await axios.post(url, { name: batch, teacherID: selected._id });
-            // Redirect to admin dashboard on successful login
-            // console.log("Teacher ", data);
-            setBatch(''); setSelected({regid : "Select" , fname : "" , lname : ""});
-            toast.success("Registration Successfull");
         } catch (error) {
             console.error('Registration failed', error);
             // Handle login failure, show error message to user, etc.
@@ -100,7 +104,7 @@ const AddBatch = () => {
                                             <div className="relative border border-gray-200 block w-full rounded-md text-gray-900 shadow-sm ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                 <Combobox.Input
                                                     className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-700 focus:ring-0"
-                                                    displayValue={(teacher)=>`${teacher.regid} ${teacher.fname} ${teacher.lname}`}
+                                                    displayValue={(teacher) => `${teacher.regid} ${teacher.fname} ${teacher.lname}`}
                                                     onChange={(event) => setQuery(event.target.value)}
                                                 />
                                                 <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">

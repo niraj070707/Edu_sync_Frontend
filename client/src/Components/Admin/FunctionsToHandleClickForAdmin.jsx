@@ -3,8 +3,8 @@
 const handleAdminClick = ({Menu, navigate}) => {
     // console.log(Menu);
     if (!Menu.readOnly) {
-        if (Menu.title === "Add Faculty") {
-            navigate("/admin/addfaculty");
+        if (Menu.title === "Register Faculty") {
+            navigate("/admin/registerfaculty");
         }else if(Menu.title === "Remove Faculty"){
             navigate("/admin/removefaculty");
         }else if(Menu.title === "Dashboard"){
@@ -23,6 +23,10 @@ const handleAdminClick = ({Menu, navigate}) => {
             navigate("/admin/batchlist");
         }else if(Menu.title === "Division List"){
             navigate("/admin/divisionlist");
+        }else if(Menu.title === "Register Student"){
+            navigate("/admin/registerstudent");
+        }else if(Menu.title === "Remove Student"){
+            navigate("/admin/removestudent");
         }
     }
 };

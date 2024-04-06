@@ -1,23 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import SideBar from '../ReusableComponents/SideBar'
-import { FetchBatchData } from "../ReusableComponents/Data"
+import { FetchBatchData, FetchTeacherData } from "../ReusableComponents/Data"
 import TanStackTable from '../ReusableComponents/Table'
 
 const BatchList = () => {
     const [batchData, setBatchData] = useState([]);
+    const [teacherData, setTeacherData] = useState([]);
+    const [batchesWithName, setBatchesWithName] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const data = await FetchBatchData();
-                if(data){
-                    setBatchData(data);
-                }
+                const data1 = await FetchTeacherData();
+                if(data){setBatchData(data);}
+                if(data1){setTeacherData(data1);}
             } catch (error) {
                 console.error('Error fetching student data:', error);
             }
         };
         fetchData(); 
     }, []);
+
+    useEffect(() => {
+        const batchDataWithNames = batchData.map(batch => {
+            // Replace teacher ID with combined first name and last name
+            const teacher = teacherData.find(teacher => teacher._id === batch.TGID);
+            const teacherName = teacher ? `${teacher.fname} ${teacher.lname}` : '';
+            return {
+                _id : batch._id,
+                tgname : teacherName,
+                name : batch.name,
+            };
+        });
+        setBatchesWithName(batchDataWithNames);
+    }, [batchData, teacherData]);
 
     return (
         <div className='flex'>
@@ -32,7 +48,7 @@ const BatchList = () => {
 
                     <div className="flex-grow relative mt-5 max-w-full w-full ">
                         <div className='overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-2 absolute p-5 bg-white border w-full'>
-                            <TanStackTable USERS={batchData} type={"batch"} />
+                            <TanStackTable USERS={batchesWithName} type={"batch"} />
                         </div>
                     </div>
                 </div>
