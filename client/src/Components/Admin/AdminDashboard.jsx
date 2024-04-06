@@ -70,7 +70,7 @@ const AdminDashboard = () => {
                                 </svg>
                             </div>
                             <div>
-                                <span className="block text-2xl font-bold">{batchData.length}</span>
+                                <span className="block text-2xl font-bold">{divisionData.length}</span>
                                 <span className="block text-gray-500">Total Divisions</span>
                             </div>
                         </div>
@@ -81,7 +81,7 @@ const AdminDashboard = () => {
                                 </svg>
                             </div>
                             <div>
-                                <span className="block text-2xl font-bold">{divisionData.length}</span>
+                                <span className="block text-2xl font-bold">{batchData.length}</span>
                                 <span className="block text-gray-500">Total Batches</span>
                             </div>
                         </div>
