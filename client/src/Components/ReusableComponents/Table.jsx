@@ -5,12 +5,13 @@ import { useEffect, useState } from "react";
 import DownloadTableDataInExel from "./DownloadTableDataInExel";
 import DebouncedInput from "./DebounceInput";
 import Search from "../../assets/Search.png"; 
-
+import { useNavigate } from "react-router";
 
 const TanStackTable = ({ USERS, type }) => {
     const columnHelper = createColumnHelper();
     // console.log("type : ", USERS)
     const [data, setData] = useState([]);
+    const navigate = useNavigate();
 
     const columns = [ 
 
@@ -86,6 +87,7 @@ const TanStackTable = ({ USERS, type }) => {
                 }),
             ]
         : []),
+        
 
         // batches
         ...(type === "batch"
@@ -156,6 +158,74 @@ const TanStackTable = ({ USERS, type }) => {
                 columnHelper.accessor("mobile", {
                     cell: (info) => <span>{info.getValue()}</span>,
                     header: "Mobile",
+                }),
+            ]
+        : []),
+
+        // mentorshipgrps for falcuty
+        ...(type === "mymentorshipgrps"
+            ? [
+                columnHelper.accessor("group_id", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Group ID NO.",
+                }),
+                columnHelper.accessor("type", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Course Type",
+                }),
+                // Add a column for displaying batches
+                columnHelper.accessor("std_ids", {
+                    cell: (info) => (
+                        <span className="flex gap-2">
+                            {info.row.original.std-ids.map((stdid) => (
+                                <div key={stdid}>
+                                    {stdid}
+                                </div>
+                            ))}
+                        </span>
+                    ),
+                    header: "Name of Students",
+                }),
+                columnHelper.accessor("none", {
+                    cell: (info) => <button className=" bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center">Click to Chat</button>,
+                    header: "Chat",
+                }),
+            ]
+        : []),
+
+
+
+        // mydivision for faculty
+        ...(type === "mydivisions"
+            ? [
+                columnHelper.accessor("divID", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Divison Id",
+                }),
+                columnHelper.accessor("subject", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Subject",
+                }),
+                columnHelper.accessor("Show Students", {
+                    cell: (info) => <button className=" bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center">Show Students</button>,
+                    header: "Link",
+                }),
+            ]
+        : []),
+        // mybatches for faculty
+        ...(type === "mydivisions"
+            ? [
+                columnHelper.accessor("batchID", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Batch Id",
+                }),
+                columnHelper.accessor("subject", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Subject",
+                }),
+                columnHelper.accessor("Show Students", {
+                    cell: (info) => <button className=" bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center">Show Students</button>,
+                    header: "Link",
                 }),
             ]
         : []),
