@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import SideBar from '../ReusableComponents/SideBar'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import LogoutIcon from "@mui/icons-material/LogoutOutlined";
 
 
 const AddFaculty = () => {
@@ -36,10 +37,12 @@ const AddFaculty = () => {
             <SideBar />
             <div className='flex-grow flex flex-col p-3 '>
                 <div className='flex-grow flex justify-center items-center flex-col h-full bg-gray-100 rounded-md '>
-                    <div>
-                        <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
-                            Register Faculty
-                        </h2>
+                <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between  ">
+                        <div className="mr-6">
+                            <h1 className="text-4xl font-bold text-indigo-800 mb-2"> Add Faculty</h1>
+                        </div>
+                       
+
                     </div>
 
                     <div className="flex-grow relative mt-10 sm:mx-auto sm:w-full sm:max-w-xl">

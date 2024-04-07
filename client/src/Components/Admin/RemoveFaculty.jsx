@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import SideBar from '../ReusableComponents/SideBar'
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import LogoutIcon from "@mui/icons-material/LogoutOutlined";
 
 const RemoveFaculty = () => {
     const [regid, setRegid] = useState('');
@@ -28,10 +29,10 @@ const RemoveFaculty = () => {
             <SideBar />
             <div className='flex-grow p-3 '>
                 <div className=' flex justify-center items-center flex-col h-dvh bg-gray-100'>
-                    <div>
-                        <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
-                            Remove Faculty
-                        </h2>
+                    <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between ">
+                        <div className="mr-6">
+                            <h1 className="text-4xl font-bold text-indigo-800 mb-2"> Remove Faculties</h1>
+                        </div>
 
                     </div>
 

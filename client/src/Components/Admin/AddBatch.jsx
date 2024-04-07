@@ -4,6 +4,8 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { FetchTeacherData } from '../ReusableComponents/Data'
 import { Menu, Transition } from '@headlessui/react';
+import HomeIcon from "@mui/icons-material/Home";
+import LogoutIcon from "@mui/icons-material/LogoutOutlined";
 
 const AddBatch = () => {
     const [teacher, setTeacher] = useState('');
@@ -33,8 +35,8 @@ const AddBatch = () => {
 
         // Perform register operation using axios
         try {
-             
-            const { data } = await axios.post(url, { name : batch, teacherID : teacher });
+
+            const { data } = await axios.post(url, { name: batch, teacherID: teacher });
             // Redirect to admin dashboard on successful login
             // console.log("Teacher ", data);
             setCurrentTeacher(''); setBatch(''); setTeacher('');
@@ -55,10 +57,11 @@ const AddBatch = () => {
             <SideBar />
             <div className='flex-grow flex flex-col p-3 '>
                 <div className=' flex justify-center items-center flex-col h-full bg-gray-100 rounded-md '>
-                    <div>
-                        <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
-                            Add Batch
-                        </h2>
+                    <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
+                        <div className="mr-6">
+                            <h1 className="text-4xl font-bold text-indigo-800 mb-2">  Add Batches</h1>
+                        </div>
+
                     </div>
 
                     <div className="flex-grow relative mt-10 sm:mx-auto sm:w-full sm:max-w-xl">
@@ -87,13 +90,13 @@ const AddBatch = () => {
                                         Select Teacher
                                     </label>
                                     <Menu as='div' className='relative text-left flex '>
-                                        <Menu.Button className={`${currentTeacher? " text-black ":" text-gray-400 "} flex-grow p-2 pl-3 flex justify-between w-full rounded-md border-0   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}>
-                                            {currentTeacher ? currentTeacher :"Select Teacher"}
+                                        <Menu.Button className={`${currentTeacher ? " text-black " : " text-gray-400 "} flex-grow p-2 pl-3 flex justify-between w-full rounded-md border-0   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}>
+                                            {currentTeacher ? currentTeacher : "Select Teacher"}
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                                                 <path fillRule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clipRule="evenodd" />
                                             </svg>
                                         </Menu.Button>
-                                        
+
                                         <Transition
                                             as={Fragment}
                                             enter='transition ease-out duration-100'
@@ -121,7 +124,7 @@ const AddBatch = () => {
                                                                         'flex w-full px-4 py-2 text-sm'
                                                                     )}
                                                                 >
-                                                                    { ` ${teacher.regid} ${teacher.fname} ${teacher.lname}`}
+                                                                    {` ${teacher.regid} ${teacher.fname} ${teacher.lname}`}
                                                                 </button>
                                                             )}
                                                         </Menu.Item>

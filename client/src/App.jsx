@@ -30,6 +30,10 @@ import StudentProfile from "./Components/Student/StudentProfile";
 import Chats from "./Components/Student/Chats";
 import Subject from "./Components/Student/Subject";
 import Assignments from "./Components/Student/Assignments"
+import FacultyProfile from "./Components/Faculty/FacultyProfile";
+import MyDivision from "./Components/Faculty/MyDivision";
+import MyBatches from "./Components/Faculty/MyBatches";
+import MentorshipGrps from "./Components/Faculty/MentorshipGrps";
 
 function App() {
     axios.defaults.baseURL = "http://localhost:8080";
@@ -61,6 +65,13 @@ function App() {
                 {/* Faculty */}
                 <Route path="/login/facultylogin" element={User && User.user_type == "teacher" ? ( <Navigate to="/faculty/dashboard" />):(<FacultyLogin />)}/>
                 <Route exact path="/faculty/dashboard" element={ User && User.user_type == "teacher"?(<FacultyDashboard /> ):(<Navigate to="/login/facultylogin"/>)}/>
+                <Route exact path="/faculty/facultyprofile" element={ User && User.user_type == "teacher"?(<FacultyProfile/> ):(<Navigate to="/login/facultylogin"/>)}/>
+                <Route exact path="/faculty/divisions" element={ User && User.user_type == "teacher"?(<MyDivision/> ):(<Navigate to="/login/facultylogin"/>)}/>
+                <Route exact path="/faculty/batches" element={ User && User.user_type == "teacher"?(<MyBatches/> ):(<Navigate to="/login/facultylogin"/>)}/>
+                <Route exact path="/faculty/mentorshipgrps" element={ User && User.user_type == "teacher"?(<MentorshipGrps/> ):(<Navigate to="/login/facultylogin"/>)}/>
+                {/* <Route exact path="/faculty/assignments" element={ User && User.user_type == "teacher"?(<FacultyProfile/> ):(<Navigate to="/login/facultylogin"/>)}/> */}
+                {/* <Route exact path="/faculty/facultychats" element={ User && User.user_type == "teacher"?(<FacultyProfile/> ):(<Navigate to="/login/facultylogin"/>)}/> */}
+
 
                 {/* Student */}
                 <Route
