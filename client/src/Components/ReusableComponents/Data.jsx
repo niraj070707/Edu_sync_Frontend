@@ -45,6 +45,33 @@ async function FetchBatchData() {
         toast.error("Not getting data");
     }
 }
+async function FetchCompletedAssignments() {
+  const url = "/getCompleted";
+  try {
+    const { data } = await axios.get(url);
+    return data;
+  } catch (error) {
+    console.error("Not getting data", error);
+    toast.error("Not getting data");
+  }
+}
+async function FetchIncompletedAssignments() {
+  const url = "/getIncomplete";
+  try {
+    const { data } = await axios.get(url);
+    return data;
+  } catch (error) {
+    console.error("Not getting data", error);
+    toast.error("Not getting data");
+  }
+}
 
 
-export { FetchTeacherData, FetchStudentData, FetchBatchData, FetchDivisionData};
+export {
+  FetchTeacherData,
+  FetchStudentData,
+  FetchBatchData,
+  FetchDivisionData,
+  FetchCompletedAssignments,
+  FetchIncompletedAssignments,
+};

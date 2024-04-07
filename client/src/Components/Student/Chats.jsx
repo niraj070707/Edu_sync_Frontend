@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useCon } from "../../UserContext"; 
 import SideBar from "../ReusableComponents/SideBar";
+import   axios   from 'axios';
 
 function Chats() {
   const { User } = useCon();
@@ -9,14 +10,21 @@ function Chats() {
   const [chats, setChats] = useState([]);
 
   useEffect(() => {
-    fetch(`/getstudentchats/${teacherId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.chats) {
-          setChats(data.chats);
+
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(
+          '/getstudentchats/:660c16c5714eb5bbae48ace4'
+        );
+        if (data) {
+          setChats(data); 
         }
-      })
-      .catch((error) => console.error("Error fetching chats:", error));
+      } catch (error) {
+        console.error("Error fetching student data:", error);
+      }
+    };
+    fetchData();
+      
   }, [teacherId]);
 
   return (
@@ -56,17 +64,7 @@ function Chats() {
                   key={index}
                   className="flex flex-row py-4 px-2 justify-center items-center border-b-2"
                 >
-                  <div className="w-1/4">
-                    <img
-                      src={
-                        chat.sender === "teacher"
-                          ? chat.teacherImageUrl
-                          : chat.studentImageUrl
-                      }
-                      className="object-cover h-12 w-12 rounded-full"
-                      alt="sender"
-                    />
-                  </div>
+                   
                   <div className="w-full">
                     <div className="text-lg font-semibold">{chat.sender}</div>
                     <span className="text-gray-500">{chat.message}</span>

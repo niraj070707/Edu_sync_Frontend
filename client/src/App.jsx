@@ -26,14 +26,11 @@ import FacultyDashboard from "./Components/Faculty/FacultyDashboard";
 // Student
 import StudentLogin from "./Components/Login/StudentLogin/StudentLogin";
 import StudentDashboard from "./Components/Student/StudentDashboard";
-<<<<<<< HEAD
 import Chats from "./Components/Student/Chats";
 import StudentProfile from "./Components/Student/StudentProfile";
 import Assignments from "./Components/Student/Assignments";
 import Subject from "./Components/Student/Subject";
-=======
 
->>>>>>> dev
 
 function App() {
   axios.defaults.baseURL = "http://localhost:8080";
@@ -49,7 +46,6 @@ function App() {
         {/* Home */}
         <Route exact path="/" element={<Login />} />
 
-<<<<<<< HEAD
         {/* Admin */}
         <Route
           exact
@@ -128,7 +124,6 @@ function App() {
             )
           }
         />
-=======
                 {/* Admin */}
                 <Route exact path="/login/adminlogin" element={User && User.user_type == "admin" ? <Navigate to="/admin/dashboard" /> : <AdminLogin />} />
                 <Route exact path="/admin/dashboard" element={User && User.user_type == "admin" ? <AdminDashboard /> : <Navigate to="/login/adminlogin" />} />
@@ -141,7 +136,6 @@ function App() {
                 <Route exact path="/admin/addbatch" element={User && User.user_type == "admin" ? <AddBatch /> : <Navigate to="/login/adminlogin" />} />
                 <Route exact path="/admin/batchlist" element={User && User.user_type == "admin" ? <BatchList /> : <Navigate to="/login/adminlogin" />} />
                 <Route exact path="/admin/divisionlist" element={User && User.user_type == "admin" ? <DivisionList /> : <Navigate to="/login/adminlogin" />} />
->>>>>>> dev
 
         {/* Faculty */}
         <Route

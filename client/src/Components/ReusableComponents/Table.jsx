@@ -4,7 +4,9 @@ import { createColumnHelper, flexRender, getCoreRowModel, getFilteredRowModel, g
 import { useEffect, useState } from "react";
 import DownloadTableDataInExel from "./DownloadTableDataInExel";
 import DebouncedInput from "./DebounceInput";
-import Search from "../../assets/Search.png";
+import Search from "../../assets/Search.png"; 
+import { storage } from './firebase';
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 const TanStackTable = ({ USERS, type }) => {
     const columnHelper = createColumnHelper();
@@ -13,77 +15,119 @@ const TanStackTable = ({ USERS, type }) => {
 
 
     const columns = [
-        // division
-        ...(type === "division"
-            ? [
-                columnHelper.accessor("division", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "Division",
-                }),
-                columnHelper.accessor("year", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "Year",
-                }),
-                columnHelper.accessor("CCID", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "ID Of CC",
-                }),
-                // Add a column for displaying batches
-                columnHelper.accessor("batches", {
-                    cell: (info) => (
-                        <span>
-                            {info.row.original.batches.map((batch) => (
-                                <div key={batch}>
-                                    {batch}
-                                </div>
-                            ))}
-                        </span>
-                    ),
-                    header: "Batch ID",
-                }),
-            ]
+      // division
+      ...(type === "division"
+        ? [
+            columnHelper.accessor("division", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "Division",
+            }),
+            columnHelper.accessor("year", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "Year",
+            }),
+            columnHelper.accessor("CCID", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "ID Of CC",
+            }),
+            // Add a column for displaying batches
+            columnHelper.accessor("batches", {
+              cell: (info) => (
+                <span>
+                  {info.row.original.batches.map((batch) => (
+                    <div key={batch}>{batch}</div>
+                  ))}
+                </span>
+              ),
+              header: "Batch ID",
+            }),
+          ]
         : []),
 
-        // batches
-        ...(type === "batch"
-            ? [
-                columnHelper.accessor("name", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "name Of Batch",
-                }),
-                columnHelper.accessor("TGID", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "Teacher Gaurdian ID",
-                }),
-            ]
+      // batches
+      ...(type === "batch"
+        ? [
+            columnHelper.accessor("name", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "name Of Batch",
+            }),
+            columnHelper.accessor("TGID", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "Teacher Gaurdian ID",
+            }),
+          ]
         : []),
 
-        // facultyOrStudent
-        ...(type === "facultyOrStudent"
-            ? [
-                columnHelper.accessor("regid", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "regId",
-                }),
-                columnHelper.accessor("fname", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "First Name",
-                }),
-                columnHelper.accessor("lname", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "Last Name",
-                }),
-                columnHelper.accessor("email", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "email",
-                }),
-                columnHelper.accessor("mobile", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "Mobile",
-                }),
-            ]
+      // facultyOrStudent
+      ...(type === "facultyOrStudent"
+        ? [
+            columnHelper.accessor("regid", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "regId",
+            }),
+            columnHelper.accessor("fname", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "First Name",
+            }),
+            columnHelper.accessor("lname", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "Last Name",
+            }),
+            columnHelper.accessor("email", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "email",
+            }),
+            columnHelper.accessor("mobile", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "Mobile",
+            }),
+          ]
+        : []),
+
+      ...(type === "CompletedAssignments"
+        ? [
+            columnHelper.accessor("subject", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "Subject",
+            }),
+            columnHelper.accessor("problemstatement", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "problemstatement",
+            }),
+            columnHelper.accessor("uploaded_doc_link", {
+              cell: (info) => <button>{info.getValue()}</button>,
+              header: "Links",
+            }),
+          ]
+        : []),
+
+      ...(type === "IncompletedAssignments"
+        ? [
+            columnHelper.accessor("subject", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "Subject",
+            }),
+            columnHelper.accessor("problemstatement", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "problemstatement",
+            }),
+            columnHelper.accessor("uploaded_doc_link", {
+              cell: (info) => (
+                <>
+                  <p>{info.getValue()}</p>
+                  <form className="form">
+                    <input type="file" />
+                    <button type="submit">Upload</button>
+                  </form>
+                </>
+              ),
+              header: "Upload",
+            }),
+          ]
         : []),
     ];
+
+     
 
 
     useEffect(() => {
