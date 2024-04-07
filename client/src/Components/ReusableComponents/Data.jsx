@@ -1,6 +1,7 @@
 import axios from "axios"
 import { toast } from "react-toastify";
 
+
 async function FetchTeacherData() {
     const url = "/getteachers";
     try {
@@ -45,6 +46,26 @@ async function FetchBatchData() {
         toast.error("Not getting data");
     }
 }
+async function FetchCompletedAssignments() {
+  const url = "/getCompleted";
+  try {
+    const { data } = await axios.get(url);
+    return data;
+  } catch (error) {
+    console.error("Not getting data", error);
+    toast.error("Not getting data");
+  }
+}
+async function FetchIncompletedAssignments() {
+  const url = "/getIncomplete";
+  try {
+    const { data } = await axios.get(url);
+    return data;
+  } catch (error) {
+    console.error("Not getting data", error);
+    toast.error("Not getting data");
+  }
+}
 
 async function FetchCurrentAdmin(){
     //yecha route aahe ka nhi mahit nahi backend la 
@@ -83,5 +104,15 @@ async function FetchCurrentTeacher(){
     }
 }
 
-
-export { FetchTeacherData, FetchStudentData, FetchBatchData, FetchDivisionData,FetchCurrentAdmin,FetchCurrentStudent,FetchCurrentTeacher};
+export {
+  FetchTeacherData,
+  FetchStudentData,
+  FetchBatchData,
+  FetchDivisionData,
+  FetchCompletedAssignments,
+  FetchIncompletedAssignments,
+  FetchCurrentAdmin,
+  FetchCurrentStudent,
+  FetchCurrentTeacher,
+};
+ 

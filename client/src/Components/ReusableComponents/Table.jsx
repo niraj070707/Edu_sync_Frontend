@@ -4,14 +4,58 @@ import { createColumnHelper, flexRender, getCoreRowModel, getFilteredRowModel, g
 import { useEffect, useState } from "react";
 import DownloadTableDataInExel from "./DownloadTableDataInExel";
 import DebouncedInput from "./DebounceInput";
-import Search from "../../assets/Search.png";
+import Search from "../../assets/Search.png"; 
+
 
 const TanStackTable = ({ USERS, type }) => {
     const columnHelper = createColumnHelper();
     // console.log("type : ", USERS)
     const [data, setData] = useState([]);
 
-    const columns = [
+    const columns = [ 
+
+      ...(type === "CompletedAssignments"
+        ? [
+            columnHelper.accessor("subject", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "Subject",
+            }),
+            columnHelper.accessor("problemstatement", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "problemstatement",
+            }),
+            columnHelper.accessor("uploaded_doc_link", {
+              cell: (info) => <button>{info.getValue()}</button>,
+              header: "Links",
+            }),
+          ]
+        : []),
+
+      ...(type === "IncompletedAssignments"
+        ? [
+            columnHelper.accessor("subject", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "Subject",
+            }),
+            columnHelper.accessor("problemstatement", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "problemstatement",
+            }),
+            columnHelper.accessor("uploaded_doc_link", {
+              cell: (info) => (
+                <>
+                  <p>{info.getValue()}</p>
+                  <form className="form">
+                    <input type="file" />
+                    <button type="submit">Upload</button>
+                  </form>
+                </>
+              ),
+              header: "Upload",
+            }),
+          ]
+        : []),
+    
         // division
         ...(type === "division"
             ? [
