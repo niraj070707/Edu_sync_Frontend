@@ -57,8 +57,41 @@ const TanStackTable = ({ USERS, type }) => {
             ]
         : []),
 
+        ...(type === "student"
+            ? [
+                columnHelper.accessor("regid", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "regId",
+                }),
+                columnHelper.accessor("fname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "First Name",
+                }),
+                columnHelper.accessor("lname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Last Name",
+                }),
+                columnHelper.accessor("email", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "email",
+                }),
+                columnHelper.accessor("mobile", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Mobile",
+                }),
+                columnHelper.accessor("division", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Division",
+                }),
+                columnHelper.accessor("batch", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Batch",
+                }),
+            ]
+        : []),
+
         // facultyOrStudent
-        ...(type === "facultyOrStudent"
+        ...(type === "faculty"
             ? [
                 columnHelper.accessor("regid", {
                     cell: (info) => <span>{info.getValue()}</span>,

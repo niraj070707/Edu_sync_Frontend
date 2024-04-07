@@ -41,6 +41,7 @@ const SideBar = () => {
         "divisionlist" : "Division List",
         "registerstudent" : "Register Student",
         "removestudent" : "Remove Student",
+        "subjectorpractical" : "Subject Or Practical",
     }
 
     useEffect(()=>{
@@ -63,6 +64,7 @@ const SideBar = () => {
                 { title: "Register Student", src: Add },
                 { title: "Remove Student", src: Remove },
                 { title: "Student List", src: List },
+                { title: "Subject Or Practical", src: Add, gap: true },
             ]);
         }else if(User.user_type === "teacher"){
             setUsername(User.fname);

@@ -48,9 +48,7 @@ const DivisionList = () => {
 
     }, [divisionData, batchData, teacherData]);
     
-    console.log("divisionWithNames : ", divisionWithNames)
-    console.log("divisionData : " , divisionData);
-    console.log("teacherData : " , teacherData);
+   
 
     return (
         <div className='flex'>

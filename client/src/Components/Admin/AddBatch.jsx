@@ -97,7 +97,7 @@ const AddBatch = () => {
 
                                 <div className="w-full">
                                     <label htmlFor="teacher" className="block text-lg font-medium leading-6 text-gray-900 pb-2">
-                                        Select Teacher
+                                        Select Teacher Gaurdian
                                     </label>
                                     <Combobox value={selected} onChange={setSelected}>
                                         <div className="relative mt-1 ">

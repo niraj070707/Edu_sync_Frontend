@@ -27,6 +27,8 @@ const handleAdminClick = ({Menu, navigate}) => {
             navigate("/admin/registerstudent");
         }else if(Menu.title === "Remove Student"){
             navigate("/admin/removestudent");
+        }else if(Menu.title === "Subject Or Practical"){
+            navigate("/admin/subjectorpractical");
         }
     }
 };
