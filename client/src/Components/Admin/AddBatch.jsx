@@ -3,13 +3,27 @@ import SideBar from '../ReusableComponents/SideBar'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { FetchTeacherData } from '../ReusableComponents/Data'
-import { Menu, Transition } from '@headlessui/react';
+import { Combobox, Transition } from '@headlessui/react'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+
+
 
 const AddBatch = () => {
-    const [teacher, setTeacher] = useState('');
     const [batch, setBatch] = useState('');
     const [teacherData, setTeacherData] = useState([]);
-    const [currentTeacher, setCurrentTeacher] = useState('');
+    const [selected, setSelected] = useState({ regid: "Select", fname: "", lname: "" })
+    const [query, setQuery] = useState('')
+    console.log("teacher : ", selected)
+
+    const filteredPeople =
+        query === ''
+            ? teacherData
+            : teacherData.filter((teacher) =>
+                `${teacher.regid} ${teacher.fname} ${teacher.lname}`
+                    .toLowerCase()
+                    .replace(/\s+/g, '')
+                    .includes(query.toLowerCase().replace(/\s+/g, ''))
+            )
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,7 +37,6 @@ const AddBatch = () => {
         fetchData();
     }, []);
 
-    console.log(teacher);
 
 
     async function handleSubmit(ev) {
@@ -33,21 +46,21 @@ const AddBatch = () => {
 
         // Perform register operation using axios
         try {
-             
-            const { data } = await axios.post(url, { name : batch, teacherID : teacher });
-            // Redirect to admin dashboard on successful login
-            // console.log("Teacher ", data);
-            setCurrentTeacher(''); setBatch(''); setTeacher('');
-            toast.success("Registration Successfull");
+            if (selected._id) {
+                const { data } = await axios.post(url, { name: batch, teacherID: selected._id });
+                // Redirect to admin dashboard on successful login
+                // console.log("Teacher ", data);
+                setBatch(''); setSelected({ regid: "Select", fname: "", lname: "" });
+                toast.success("Batch Added Successfully");
+            }else{
+                toast.info("Select Teacher");
+            }
+
         } catch (error) {
             console.error('Registration failed', error);
             // Handle login failure, show error message to user, etc.
             toast.error("Registration Failed");
         }
-    }
-
-    function classNames(...classes) {
-        return classes.filter(Boolean).join(' ');
     }
 
     return (
@@ -82,54 +95,66 @@ const AddBatch = () => {
                                     </div>
                                 </div>
 
-                                <div className=' w-full'>
+                                <div className="w-full">
                                     <label htmlFor="teacher" className="block text-lg font-medium leading-6 text-gray-900 pb-2">
-                                        Select Teacher
+                                        Select Teacher Gaurdian
                                     </label>
-                                    <Menu as='div' className='relative text-left flex '>
-                                        <Menu.Button className={`${currentTeacher? " text-black ":" text-gray-400 "} flex-grow p-2 pl-3 flex justify-between w-full rounded-md border-0   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}>
-                                            {currentTeacher ? currentTeacher :"Select Teacher"}
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                                <path fillRule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clipRule="evenodd" />
-                                            </svg>
-                                        </Menu.Button>
-                                        
-                                        <Transition
-                                            as={Fragment}
-                                            enter='transition ease-out duration-100'
-                                            enterFrom='transform opacity-0 scale-95'
-                                            enterTo='transform opacity-100 scale-100'
-                                            leave='transition ease-in duration-100'
-                                            leaveFrom='transform opacity-100 scale-100'
-                                            leaveTo='transform opacity-0 scale-95'
-                                        >
-                                            <Menu.Items className='origin-top-left absolute left-0 top-10 mt-2 w-56 rounded-md shadow-lg bg-white divide-y divide-gray-100 focus:outline-none'>
-                                                <div className='py-1'>
-                                                    {teacherData.map((teacher, index) => (
-                                                        <Menu.Item key={teacher._id}>
-                                                            {({ active }) => (
-                                                                <button
-                                                                    key={index}
-                                                                    onClick={() => {
-                                                                        setTeacher(teacher._id);
-                                                                        setCurrentTeacher(`${teacher.regid} ${teacher.fname} ${teacher.lname}`)
-                                                                    }}
-                                                                    className={classNames(
-                                                                        active
-                                                                            ? 'bg-gray-100 text-gray-900'
-                                                                            : 'text-gray-700',
-                                                                        'flex w-full px-4 py-2 text-sm'
-                                                                    )}
-                                                                >
-                                                                    { ` ${teacher.regid} ${teacher.fname} ${teacher.lname}`}
-                                                                </button>
-                                                            )}
-                                                        </Menu.Item>
-                                                    ))}
-                                                </div>
-                                            </Menu.Items>
-                                        </Transition>
-                                    </Menu>
+                                    <Combobox value={selected} onChange={setSelected}>
+                                        <div className="relative mt-1 ">
+                                            <div className="relative border border-gray-200 block w-full rounded-md text-gray-900 shadow-sm ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                <Combobox.Input
+                                                    className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-700 focus:ring-0"
+                                                    displayValue={(teacher) => `${teacher.regid} ${teacher.fname} ${teacher.lname}`}
+                                                    onChange={(event) => setQuery(event.target.value)}
+                                                />
+                                                <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                                                    <ChevronUpDownIcon
+                                                        className="h-5 w-5 text-gray-400"
+                                                        aria-hidden="true"
+                                                    />
+                                                </Combobox.Button>
+                                            </div>
+                                            <Transition
+                                                as={Fragment}
+                                                leave="transition ease-in duration-100"
+                                                leaveFrom="opacity-100"
+                                                leaveTo="opacity-0"
+                                                afterLeave={() => setQuery('')}
+                                            >
+                                                <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                                                    {filteredPeople.length === 0 && query !== '' ? (
+                                                        <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
+                                                            Nothing found.
+                                                        </div>
+                                                    ) : (
+                                                        filteredPeople.map((teacher) => (
+                                                            <Combobox.Option
+                                                                key={teacher._id}
+                                                                className={({ active }) =>
+                                                                    `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-indigo-600 text-white' : 'text-gray-900'
+                                                                    }`
+                                                                }
+                                                                value={teacher}
+                                                            >
+                                                                {({ selected, active }) => (
+                                                                    <>
+                                                                        <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`} >
+                                                                            {`${teacher.regid} ${teacher.fname} ${teacher.lname}`}
+                                                                        </span>
+                                                                        {selected ? (
+                                                                            <span className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? 'text-white' : 'text-indigo-600'}`}>
+                                                                                <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                            </span>
+                                                                        ) : null}
+                                                                    </>
+                                                                )}
+                                                            </Combobox.Option>
+                                                        ))
+                                                    )}
+                                                </Combobox.Options>
+                                            </Transition>
+                                        </div>
+                                    </Combobox>
                                 </div>
 
                                 <button

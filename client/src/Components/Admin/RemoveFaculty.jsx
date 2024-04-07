@@ -27,9 +27,9 @@ const RemoveFaculty = () => {
         <div className='flex'>
             <SideBar />
             <div className='flex-grow p-3 '>
-                <div className=' flex justify-center items-center flex-col h-dvh bg-gray-100'>
+                <div className=' flex justify-center items-center flex-col h-full bg-gray-100'>
                     <div>
-                        <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
+                        <h2 className="mt-5 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
                             Remove Faculty
                         </h2>
 
