@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import SideBar from '../ReusableComponents/SideBar'
 import { FetchBatchData, FetchDivisionData, FetchStudentData, FetchTeacherData } from '../ReusableComponents/Data';
+import HomeIcon from "@mui/icons-material/Home";
+import LogoutIcon from "@mui/icons-material/LogoutOutlined";
+import Calendar from "react-calendar";
+import ReplyIcon from "@mui/icons-material/Reply";
 
 const AdminDashboard = () => {
+    const [value, onChange] = useState(new Date());
+
     const [studentData, setStudentData] = useState([]);
     const [teacherData, setTeacherData] = useState([]);
     const [batchData, setBatchData] = useState([]);
@@ -14,15 +20,15 @@ const AdminDashboard = () => {
                 const data2 = await FetchTeacherData();
                 const data3 = await FetchBatchData();
                 const data4 = await FetchDivisionData();
-                if(data1){setStudentData(data1);}
-                if(data2){setTeacherData(data2);}
-                if(data3){setBatchData(data3);}
-                if(data4){setDivisionData(data4);}
+                if (data1) { setStudentData(data1); }
+                if (data2) { setTeacherData(data2); }
+                if (data3) { setBatchData(data3); }
+                if (data4) { setDivisionData(data4); }
             } catch (error) {
                 console.error('Error fetching student data:', error);
             }
         };
-        fetchData(); 
+        fetchData();
     }, []);
 
 
@@ -33,8 +39,11 @@ const AdminDashboard = () => {
                 <main className="p-6 sm:p-10 space-y-6">
                     <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
                         <div className="mr-6">
-                            <h1 className="text-4xl font-semibold mb-2">Dashboard</h1>
-                            <h2 className="text-gray-600 ml-0.5">Overall Usage of the website</h2>
+                            <h1 className="text-4xl font-bold text-indigo-800 mb-2"> <HomeIcon className=" space-x-4 " /> Dashboard</h1>
+                        </div>
+                        <div className="mr-6 ">
+                            <LogoutIcon className="cursor-pointer  hover:scale-125 transition-all " fontSize="large" />
+                            <h2 className="text-indigo-500 font-semibold text-sm ml-0.5 text-decoration-font: italic ">Username</h2>
                         </div>
 
                     </div>
@@ -70,7 +79,7 @@ const AdminDashboard = () => {
                                 </svg>
                             </div>
                             <div>
-                                <span className="block text-2xl font-bold">{divisionData.length}</span>
+                                <span className="block text-2xl font-bold">{batchData.length}</span>
                                 <span className="block text-gray-500">Total Divisions</span>
                             </div>
                         </div>
@@ -81,11 +90,36 @@ const AdminDashboard = () => {
                                 </svg>
                             </div>
                             <div>
-                                <span className="block text-2xl font-bold">{batchData.length}</span>
+                                <span className="block text-2xl font-bold">{divisionData.length}</span>
                                 <span className="block text-gray-500">Total Batches</span>
                             </div>
                         </div>
                     </section>
+                    <section>
+            <div className="flex space-x-5">
+              <div className="flex flex-col space-y-4 w-2/6">
+                <div className="bg-white h-[17rem] rounded-xxl shadow-lg">
+                  <Calendar onChange={onChange} value={value} />
+                </div>
+              </div>
+              <div className="bg-white h-[17rem] w-full rounded-xl shadow-lg flex flex-col  pt-3">
+                <div className="flex px-3">
+                  {open && (
+                    <ReplyIcon
+                      onClick={() => setOpen(false)}
+                      className="cursor-pointer"
+                    />
+                  )}
+                  <h1 className="font-bold text-xl w-full text-center text-indigo-500">
+                    Notices
+                  </h1>
+                </div>
+                <div className="mx-5 mt-5 space-y-3 overflow-y-auto h-[12rem]">
+                  Notice will be displayed here
+                </div>
+              </div>
+            </div>
+          </section>
                 </main>
             </div>
         </div>

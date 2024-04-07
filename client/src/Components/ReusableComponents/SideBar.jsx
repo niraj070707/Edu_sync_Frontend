@@ -72,7 +72,7 @@ const SideBar = () => {
                 { title: "Dashboard", src: Chart_fill },
                 { title: "Profile", src: Profile }, // Corrected src reference
                 { title: "My Divisons", src: List, gap: true},
-                { title: "My Batch", src: List, gap: true},
+                { title: "My Batches", src: List, gap: true},
                 { title: "Assingments", src: Folder ,gap:true },
                 { title: "Mentorship Groups", src: Faculty, gap: true},
                 { title: "Chats ", src: Chat, gap: true},
