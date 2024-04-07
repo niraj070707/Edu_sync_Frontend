@@ -21,6 +21,7 @@ import DivisionList from "./Components/Admin/DivisionList";
 import AddStudent from "./Components/Admin/AddStudent";
 import RemoveStudent from "./Components/Admin/RemoveStudent";
 import SubjectOrPractical from "./Components/Admin/SubjectOrPractical";
+import SubjectClassroomTeacherAssignment from "./Components/Admin/SubjectClassroomTeacherAssignment";
 
 // Faculty
 import FacultyLogin from "./Components/Login/FacultyLogin/FacultyLogin";
@@ -67,6 +68,7 @@ function App() {
                 <Route exact path="/admin/registerstudent" element={User && User.user_type == "admin" ? <AddStudent /> : <Navigate to="/login/adminlogin" />} />
                 <Route exact path="/admin/removestudent" element={User && User.user_type == "admin" ? <RemoveStudent /> : <Navigate to="/login/adminlogin" />} />
                 <Route exact path="/admin/subjectorpractical" element={User && User.user_type == "admin" ? <SubjectOrPractical /> : <Navigate to="/login/adminlogin" />} />
+                <Route exact path="/admin/subjectclassroomteacherassignment" element={User && User.user_type == "admin" ? <SubjectClassroomTeacherAssignment /> : <Navigate to="/login/adminlogin" />} />
 
                 {/* Faculty */}
                 <Route path="/login/facultylogin" element={User && User.user_type == "teacher" ? ( <Navigate to="/faculty/dashboard" />):(<FacultyLogin />)}/>
