@@ -2,10 +2,33 @@ import axios from "axios"
 import { toast } from "react-toastify";
 
 
+async function FetchSubjectData() {
+    const url = "/getSubjects";
+    try {
+        const { data } = await axios.get(url);
+        return data
+    } catch (error) {
+        console.error('Not getting data', error);
+        toast.error("Not getting data");
+    }
+}
+
+async function FetchPracticalData() {
+    const url = "/getPracticals";
+    try {
+        const { data } = await axios.get(url);
+        return data
+    } catch (error) {
+        console.error('Not getting data', error);
+        toast.error("Not getting data");
+    }
+}
+
+
 async function FetchTeacherData() {
     const url = "/getteachers";
     try {
-        const {data} = await axios.get(url);
+        const { data } = await axios.get(url);
         return data
     } catch (error) {
         console.error('Not getting data', error);
@@ -16,7 +39,7 @@ async function FetchTeacherData() {
 async function FetchStudentData() {
     const url = "/getstudents";
     try {
-        const {data} = await axios.get(url);
+        const { data } = await axios.get(url);
         return data
     } catch (error) {
         console.error('Not getting data', error);
@@ -27,7 +50,7 @@ async function FetchStudentData() {
 async function FetchDivisionData() {
     const url = "/getdivision";
     try {
-        const {data} = await axios.get(url);
+        const { data } = await axios.get(url);
         // console.log("division :" , data);
         return data
     } catch (error) {
@@ -39,7 +62,7 @@ async function FetchDivisionData() {
 async function FetchBatchData() {
     const url = "/getbatches";
     try {
-        const {data} = await axios.get(url);
+        const { data } = await axios.get(url);
         return data
     } catch (error) {
         console.error('Not getting data', error);
@@ -47,72 +70,74 @@ async function FetchBatchData() {
     }
 }
 async function FetchCompletedAssignments() {
-  const url = "/getCompleted";
-  try {
-    const { data } = await axios.get(url);
-    return data;
-  } catch (error) {
-    console.error("Not getting data", error);
-    toast.error("Not getting data");
-  }
+    const url = "/getCompleted";
+    try {
+        const { data } = await axios.get(url);
+        return data;
+    } catch (error) {
+        console.error("Not getting data", error);
+        toast.error("Not getting data");
+    }
 }
 async function FetchIncompletedAssignments() {
-  const url = "/getIncomplete";
-  try {
-    const { data } = await axios.get(url);
-    return data;
-  } catch (error) {
-    console.error("Not getting data", error);
-    toast.error("Not getting data");
-  }
+    const url = "/getIncomplete";
+    try {
+        const { data } = await axios.get(url);
+        return data;
+    } catch (error) {
+        console.error("Not getting data", error);
+        toast.error("Not getting data");
+    }
 }
 
-async function FetchCurrentAdmin(){
+async function FetchCurrentAdmin() {
     //yecha route aahe ka nhi mahit nahi backend la 
-    const url="/getcurentstudent";
-    try{
-        const {data}=await axios.get(url);
+    const url = "/getcurentstudent";
+    try {
+        const { data } = await axios.get(url);
         return data
     }
-    catch(error){
-        console.error('Not getting data',error);
+    catch (error) {
+        console.error('Not getting data', error);
         toast.error("Not getting data");
     }
 }
-async function FetchCurrentStudent(){
+async function FetchCurrentStudent() {
     //yecha route aahe ka nhi mahit nahi backend la 
-    const url="/getcurrentstudent";
-    try{
-        const {data}=await axios.get(url);
+    const url = "/getcurrentstudent";
+    try {
+        const { data } = await axios.get(url);
         return data
     }
-    catch(error){
-        console.error('Not getting data',error);
+    catch (error) {
+        console.error('Not getting data', error);
         toast.error("Not getting data");
     }
 }
-async function FetchCurrentTeacher(){
+async function FetchCurrentTeacher() {
     //yecha route aahe ka nhi mahit nahi backend la 
-    const url="/getcurrentteacher";
-    try{
-        const {data}=await axios.get(url);
+    const url = "/getcurrentteacher";
+    try {
+        const { data } = await axios.get(url);
         return data
     }
-    catch(error){
-        console.error('Not getting data',error);
+    catch (error) {
+        console.error('Not getting data', error);
         toast.error("Not getting data");
     }
 }
 
 export {
-  FetchTeacherData,
-  FetchStudentData,
-  FetchBatchData,
-  FetchDivisionData,
-  FetchCompletedAssignments,
-  FetchIncompletedAssignments,
-  FetchCurrentAdmin,
-  FetchCurrentStudent,
-  FetchCurrentTeacher,
+    FetchPracticalData,
+    FetchSubjectData,
+    FetchTeacherData,
+    FetchStudentData,
+    FetchBatchData,
+    FetchDivisionData,
+    FetchCompletedAssignments,
+    FetchIncompletedAssignments,
+    FetchCurrentAdmin,
+    FetchCurrentStudent,
+    FetchCurrentTeacher,
 };
- 
+

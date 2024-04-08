@@ -42,7 +42,8 @@ const SideBar = () => {
         "registerstudent" : "Register Student",
         "removestudent" : "Remove Student",
         "subjectorpractical" : "Subject Or Practical",
-        "subjectclassroomteacherassignment" : "Subject Classroom Teacher Assignment"
+        "subjectclassroomteacherassignment" : "Subject Classroom Teacher Assignment",
+        "practicalbatchteacherassignment" : "Practical Batch Teacher Assignment",
     }
 
     useEffect(()=>{
@@ -67,6 +68,8 @@ const SideBar = () => {
                 { title: "Student List", src: List },
                 { title: "Subject Or Practical", src: Add, gap: true },
                 { title: "Subject Classroom Teacher Assignment", src: Add, gap: true },
+                { title: "Practical Batch Teacher Assignment", src: Add, gap: true },
+
             ]);
         }else if(User.user_type === "teacher"){
             setUsername(User.fname);

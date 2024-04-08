@@ -31,6 +31,10 @@ const handleAdminClick = ({Menu, navigate}) => {
             navigate("/admin/subjectorpractical");
         }else if(Menu.title === "Subject Classroom Teacher Assignment"){
             navigate("/admin/subjectclassroomteacherassignment");
+        }else if(Menu.title === "Subject Classroom Teacher Assignment"){
+            navigate("/admin/subjectclassroomteacherassignment");
+        }else if(Menu.title === "Practical Batch Teacher Assignment"){
+            navigate("/admin/practicalbatchteacherassignment");
         }
     }
 };
