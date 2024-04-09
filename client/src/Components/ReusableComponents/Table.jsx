@@ -212,8 +212,10 @@ const TanStackTable = ({ USERS, type }) => {
                 }),
             ]
         : []),
+
+
         // mybatches for faculty
-        ...(type === "mydivisions"
+        ...(type === "mybatches"
             ? [
                 columnHelper.accessor("batchID", {
                     cell: (info) => <span>{info.getValue()}</span>,

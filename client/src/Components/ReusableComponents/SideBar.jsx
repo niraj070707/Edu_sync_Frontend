@@ -78,7 +78,10 @@ const SideBar = () => {
                 { title: "Profile", src: Profile }, // Corrected src reference
                 { title: "My Divisons", src: List, gap: true},
                 { title: "My Batches", src: List, gap: true},
-                { title: "Assingments", src: Folder ,gap:true },
+                { title: "Upload Marks and Attendence", src: Add, gap: true},
+                { title: "Assingments", src: Folder ,gap:true ,readOnly:true },
+                { title: "Create for Division", src: Add,gap:true  },
+                { title: "Create for Batch", src: Add ,gap:true  },
                 { title: "Mentorship Groups", src: Faculty, gap: true},
                 { title: "Chats ", src: Chat, gap: true},
             ]);

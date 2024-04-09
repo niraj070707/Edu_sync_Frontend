@@ -9,7 +9,7 @@ const MyDivision = () => {
 
   const { User } = useCon();
   return (
-    <div className="flex h-full">
+    <div className="flex h-screen">
       <SideBar />
       <div className="flex-grow relative m-4 max-w-full w-full flex ">
         <div className='overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-0 rounded-md absolute p-5 bg-gray-100 border flex-grow'>

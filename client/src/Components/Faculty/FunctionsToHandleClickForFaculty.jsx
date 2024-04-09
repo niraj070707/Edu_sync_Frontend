@@ -8,9 +8,15 @@ const handlefacultyClick = ({ Menu, navigate }) => {
     } else if (Menu.title === "My Divisons") {
       navigate("/faculty/divisions");
     } else if (Menu.title === "My Batches") {
-      navigate("/faculty/batches"); 
-    } else if (Menu.title === "Assignments") {
-      navigate("/faculty/assignments");
+      navigate("/faculty/batches");
+    }
+    else if (Menu.title === "Upload Marks and Attendence") {
+      navigate("/faculty/uploadMarksAttendence");
+    } else if (Menu.title === "Create for Division") {
+      navigate("/faculty/assignmentsfordivision");
+    }
+    else if (Menu.title === "Create for Batch") {
+      navigate("/faculty/assignmentsforbatch");
     } else if (Menu.title === "Mentorship Groups") {
       navigate("/faculty/mentorshipgrps");
     } else if (Menu.title === "Chats") {
