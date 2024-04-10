@@ -12,7 +12,7 @@ const MyDivision = () => {
     <div className="flex h-screen">
       <SideBar />
       <div className="flex-grow relative m-4 max-w-full w-full flex ">
-        <div className='overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-0 rounded-md absolute p-5 bg-gray-100 border flex-grow'>
+        <div className='sm:overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-0 rounded-md absolute p-5 bg-gray-100 border flex-grow'>
           <div className=' text-lg p-6 sm:p-10 space-y-6'>
             <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
               <div className="mr-6">
@@ -25,9 +25,9 @@ const MyDivision = () => {
 
             </div>
           </div>
-          <section className="flex-grow flex justify-center items-center flex-col h-5/6 bg-gray-100 rounded-md sm:p-5">
-            <div className="flex-grow relative mt-5 max-w-full w-full">
-              <div className='overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-2 absolute p-5 bg-white border w-full'>
+          <section className="flex-grow flex justify-center items-center flex-col h-4/5  bg-gray-100 rounded-md ">
+            <div className="flex-grow relative mt-2 max-w-full w-full">
+              <div className='overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-2 absolute p-5 bg-white border mb-5 w-full'>
                 <TanStackTable USERS={User.division} type={"mydivisions"} /> 
                 {/* here proper data should be passed directly the user.divisions ok  */}
               </div>
@@ -42,17 +42,3 @@ const MyDivision = () => {
 
 export default MyDivision
 
-
-// <div className='text-lg p-6 sm:p-10 space-y-6 w-3/4 '>
-//         <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between w-full">
-//           <div className="mr-6">
-//             <h1 className="text-4xl font-bold text-indigo-800 mb-2">My Divisions </h1>
-//           </div>
-//           <div className="mr-6 relative top-0 right-5">
-//             <LogoutIcon className="cursor-pointer  hover:scale-125 transition-all " fontSize="large" />
-//             <h2 className="text-indigo-500 font-semibold text-sm ml-0.5 text-decoration-font: italic ">Username</h2>
-//           </div>
-
-//         </div>
-
-//       </div>
