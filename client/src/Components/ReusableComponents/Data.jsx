@@ -69,6 +69,29 @@ async function FetchBatchData() {
         toast.error("Not getting data");
     }
 }
+
+async function FetchMySubjects() {
+  const url = "/getStudentSubjectInfo";
+  try {
+    const  {data}  = await axios.get(url);
+    return data;
+  } catch (error) {
+    console.error("Not getting data", error);
+    toast.error("Not getting data");
+  }
+}
+
+async function FetchMyLabs() {
+  const url = "/getStudentPracticalInfo";
+  try {
+    const { data } = await axios.get(url);
+    return data;
+  } catch (error) {
+    console.error("Not getting data", error);
+    toast.error("Not getting data");
+  }
+}
+
 async function FetchCompletedAssignments() {
     const url = "/getCompleted";
     try {
