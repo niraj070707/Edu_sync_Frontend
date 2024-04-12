@@ -8,10 +8,10 @@ import { useCon } from '../../UserContext';
 const MyBatches = () => {
   const { User } = useCon();
   return (
-    <div className="flex h-full">
+    <div className="flex h-screen">
       <SideBar />
       <div className="flex-grow relative m-4 max-w-full w-full flex ">
-        <div className='overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-0 rounded-md absolute p-5 bg-gray-100 border flex-grow'>
+        <div className='sm:overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-0 rounded-md absolute p-5 bg-gray-100 border flex-grow'>
           <div className=' text-lg p-6 sm:p-10 space-y-6'>
             <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
               <div className="mr-6">
@@ -24,9 +24,9 @@ const MyBatches = () => {
 
             </div>
           </div>
-          <section className="flex-grow flex justify-center items-center flex-col h-5/6 bg-gray-100 rounded-md sm:p-5">
-            <div className="flex-grow relative mt-5 max-w-full w-full">
-              <div className='overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-2 absolute p-5 bg-white border w-full'>
+          <section className="flex-grow flex justify-center items-center flex-col h-4/5 bg-gray-100 rounded-md ">
+            <div className="flex-grow relative mt-2 max-w-full w-full">
+              <div className='overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-2 absolute p-5 bg-white border mb-5 w-full'>
                 <TanStackTable USERS={User.batch} type={"mybatches"} /> 
                 {/* here proper data should be passed directly the user.divisions ok  */}
               </div>

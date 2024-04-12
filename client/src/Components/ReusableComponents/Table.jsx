@@ -6,13 +6,63 @@ import DownloadTableDataInExel from "./DownloadTableDataInExel";
 import DebouncedInput from "./DebounceInput";
 import Search from "../../assets/Search.png"; 
 import { useNavigate } from "react-router";
+import { FetchBatchData, FetchDivisionData, FetchStudentData } from "../ReusableComponents/Data"
 
 const TanStackTable = ({ USERS, type }) => {
+//..... ......................................for the sdent list as per need......................
+    const [studentData, setStudentData] = useState([]);
+    const [divisionData, setDivisionData] = useState([]);
+    const [batchData, setBatchData] = useState([]);
+    const [studentWithName, setStudentWithName] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await FetchStudentData();
+                const data1 = await FetchBatchData();
+                const data2 = await FetchDivisionData();
+                if (data) { setStudentData(data); }
+                if (data1) { setBatchData(data1); }
+                if (data2) { setDivisionData(data2); }
+            } catch (error) {
+                console.error('Error fetching student data:', error);
+            }
+        };
+        fetchData(); 
+    }, []);
+    
+    useEffect(() => {
+        // Check if both divisionData and batchData are populated
+        if (divisionData.length > 0 && batchData.length > 0) {
+            const studentDataWithNames = studentData.map(student => {
+                const division = divisionData.find(division => division._id === student.division);
+                const divisionName = division ? division.division : '';
+    
+                const batch = batchData.find(batch => batch._id === student.batch);
+                const batchName = batch ? batch.name : '';
+            
+                return {
+                    division: divisionName,
+                    batch: batchName,
+                    fname: student.fname,
+                    lname: student.lname,
+                    regid: student.regid,
+                    mobile: student.mobile,
+                    email : student.email,
+                };
+            });
+            
+            setStudentWithName(studentDataWithNames);
+        }
+    }, [divisionData, batchData, studentData]);       
+
+// ..........................................................................................
+
+
+
     const columnHelper = createColumnHelper();
     // console.log("type : ", USERS)
     const [data, setData] = useState([]);
-    const navigate = useNavigate();
-
     const columns = [ 
 
       ...(type === "CompletedAssignments"
@@ -187,7 +237,7 @@ const TanStackTable = ({ USERS, type }) => {
                     header: "Name of Students",
                 }),
                 columnHelper.accessor("none", {
-                    cell: (info) => <button className=" bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center">Click to Chat</button>,
+                    cell: (info) => <button className=" bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center" >Click to Chat</button>,
                     header: "Chat",
                 }),
             ]
@@ -207,13 +257,27 @@ const TanStackTable = ({ USERS, type }) => {
                     header: "Subject",
                 }),
                 columnHelper.accessor("Show Students", {
-                    cell: (info) => <button className=" bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center">Show Students</button>,
-                    header: "Link",
-                }),
+                    cell: (info) => {
+                      const navigate = useNavigate(); // Initialize navigate function using useNavigate hook
+                      return (
+                        <button
+                          className="bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
+                          onClick={() => navigate('/faculty/listofstudents', {
+                            props: { studentData:"", typefor: "" }
+                          })}
+                        >
+                          Show Students
+                        </button>
+                      );
+                    },
+                    header: "Student List",
+                  }),
             ]
         : []),
+
+
         // mybatches for faculty
-        ...(type === "mydivisions"
+        ...(type === "mybatches"
             ? [
                 columnHelper.accessor("batchID", {
                     cell: (info) => <span>{info.getValue()}</span>,
@@ -224,11 +288,55 @@ const TanStackTable = ({ USERS, type }) => {
                     header: "Subject",
                 }),
                 columnHelper.accessor("Show Students", {
-                    cell: (info) => <button className=" bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center">Show Students</button>,
-                    header: "Link",
+                    cell: (info) => {
+                      const navigate = useNavigate(); // Initialize navigate function using useNavigate hook
+                      return (
+                        <button
+                          className="bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
+                          onClick={() => navigate('/faculty/listofstudents', {
+                            props: { studentData:"", typefor: "" }
+                          })}
+                        >
+                          Show Students
+                        </button>
+                      );
+                    },
+                    header: "Student List",
+                  }),
+            ]
+        : []),
+
+        ...(type === "studentinfaculty"
+            ? [
+                columnHelper.accessor("rollno", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "RollNo",
+                }),
+                columnHelper.accessor("fname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "First Name",
+                }),
+                columnHelper.accessor("lname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Last Name",
+                }),
+                columnHelper.accessor("division", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Division",
+                }),
+                columnHelper.accessor("batch", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Batch",
+                }),
+                columnHelper.accessor("Check", {
+                    cell: (info) => <button className=" bg-green-100 text-black rounded pl-2 pr-2 justify-center items-center">yes/no</button>,
+                    header: "Done/Not Done",
                 }),
             ]
         : []),
+
+    
+
     ];
 
     useEffect(() => {
