@@ -194,6 +194,9 @@ export {
     FetchCurrentStudent,
     FetchCurrentTeacher,
     FetchStudentDataByDivision,
-    FetchStudentDataByBatch
+    FetchStudentDataByBatch,
+    FetchMyLabs,
+    FetchMySubjects
+
 };
 
