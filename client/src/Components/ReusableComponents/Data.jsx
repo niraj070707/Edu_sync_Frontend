@@ -126,6 +126,37 @@ async function FetchCurrentTeacher() {
         toast.error("Not getting data");
     }
 }
+async function FetchStudentDataByDivision(divID) {
+    //yecha route aahe ka nhi mahit nahi backend la 
+    const url = `/students/division/${divID}`;
+    console.log(divID,url)
+    try {
+        const { data } = await axios.get(url);
+        console.log(data);
+        return data
+
+    }
+    catch (error) {
+        console.error('Not getting data', error);
+        toast.error("Not getting data");
+    }
+}
+async function FetchStudentDataByBatch(batchID) {
+    //yecha route aahe ka nhi mahit nahi backend la 
+    const url = `/students/batch/${batchID}`;
+    console.log(batchID,url)
+    try {
+        const { data } = await axios.get(url);
+        console.log(data);
+        return data
+
+    }
+    catch (error) {
+        console.error('Not getting data', error);
+        toast.error("Not getting data");
+    }
+}
+
 
 export {
     FetchPracticalData,
@@ -139,5 +170,7 @@ export {
     FetchCurrentAdmin,
     FetchCurrentStudent,
     FetchCurrentTeacher,
+    FetchStudentDataByDivision,
+    FetchStudentDataByBatch
 };
 

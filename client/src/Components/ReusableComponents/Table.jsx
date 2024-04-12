@@ -6,66 +6,33 @@ import DownloadTableDataInExel from "./DownloadTableDataInExel";
 import DebouncedInput from "./DebounceInput";
 import Search from "../../assets/Search.png"; 
 import { useNavigate } from "react-router";
-import { FetchBatchData, FetchDivisionData, FetchStudentData } from "../ReusableComponents/Data"
+import { FetchBatchData, FetchDivisionData, FetchStudentData, FetchStudentDataByBatch, FetchStudentDataByDivision } from "../ReusableComponents/Data"
+
+
+
 
 const TanStackTable = ({ USERS, type }) => {
-//..... ......................................for the sdent list as per need......................
-    const [studentData, setStudentData] = useState([]);
-    const [divisionData, setDivisionData] = useState([]);
-    const [batchData, setBatchData] = useState([]);
-    const [studentWithName, setStudentWithName] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await FetchStudentData();
-                const data1 = await FetchBatchData();
-                const data2 = await FetchDivisionData();
-                if (data) { setStudentData(data); }
-                if (data1) { setBatchData(data1); }
-                if (data2) { setDivisionData(data2); }
-            } catch (error) {
-                console.error('Error fetching student data:', error);
-            }
-        };
-        fetchData(); 
-    }, []);
     
-    useEffect(() => {
-        // Check if both divisionData and batchData are populated
-        if (divisionData.length > 0 && batchData.length > 0) {
-            const studentDataWithNames = studentData.map(student => {
-                const division = divisionData.find(division => division._id === student.division);
-                const divisionName = division ? division.division : '';
-    
-                const batch = batchData.find(batch => batch._id === student.batch);
-                const batchName = batch ? batch.name : '';
-            
-                return {
-                    division: divisionName,
-                    batch: batchName,
-                    fname: student.fname,
-                    lname: student.lname,
-                    regid: student.regid,
-                    mobile: student.mobile,
-                    email : student.email,
-                };
-            });
-            
-            setStudentWithName(studentDataWithNames);
-        }
-    }, [divisionData, batchData, studentData]);       
-
-// ..........................................................................................
-
-
-
     const columnHelper = createColumnHelper();
     // console.log("type : ", USERS)
     const [data, setData] = useState([]);
+    const [typefor, setTypefor] = useState(type);
+
+
+    const handleDivisionList=async (divID)=>{
+           const data=await FetchStudentDataByDivision(divID);
+           setData(data);
+           setTypefor("studentinfaculty");
+    }
+    const handleBatchList=async (batchID)=>{
+           const data=await FetchStudentDataByBatch(batchID);
+           setData(data);
+           setTypefor("studentinfaculty");
+    }
+
     const columns = [ 
 
-      ...(type === "CompletedAssignments"
+      ...(typefor === "CompletedAssignments"
         ? [
             columnHelper.accessor("subject", {
               cell: (info) => <span>{info.getValue()}</span>,
@@ -82,7 +49,7 @@ const TanStackTable = ({ USERS, type }) => {
           ]
         : []),
 
-      ...(type === "IncompletedAssignments"
+      ...(typefor === "IncompletedAssignments"
         ? [
             columnHelper.accessor("subject", {
               cell: (info) => <span>{info.getValue()}</span>,
@@ -108,7 +75,7 @@ const TanStackTable = ({ USERS, type }) => {
         : []),
     
         // division
-        ...(type === "division"
+        ...(typefor === "division"
             ? [
                 columnHelper.accessor("division", {
                     cell: (info) => <span>{info.getValue()}</span>,
@@ -140,7 +107,7 @@ const TanStackTable = ({ USERS, type }) => {
         
 
         // batches
-        ...(type === "batch"
+        ...(typefor === "batch"
             ? [
                 columnHelper.accessor("name", {
                     cell: (info) => <span>{info.getValue()}</span>,
@@ -153,7 +120,7 @@ const TanStackTable = ({ USERS, type }) => {
             ]
         : []),
 
-        ...(type === "student"
+        ...(typefor === "student"
             ? [
                 columnHelper.accessor("regid", {
                     cell: (info) => <span>{info.getValue()}</span>,
@@ -187,7 +154,7 @@ const TanStackTable = ({ USERS, type }) => {
         : []),
 
         // facultyOrStudent
-        ...(type === "faculty"
+        ...(typefor === "faculty"
             ? [
                 columnHelper.accessor("regid", {
                     cell: (info) => <span>{info.getValue()}</span>,
@@ -213,7 +180,7 @@ const TanStackTable = ({ USERS, type }) => {
         : []),
 
         // mentorshipgrps for falcuty
-        ...(type === "mymentorshipgrps"
+        ...(typefor === "mymentorshipgrps"
             ? [
                 columnHelper.accessor("group_id", {
                     cell: (info) => <span>{info.getValue()}</span>,
@@ -246,25 +213,25 @@ const TanStackTable = ({ USERS, type }) => {
 
 
         // mydivision for faculty
-        ...(type === "mydivisions"
+        ...(typefor === "mydivisions"
             ? [
-                columnHelper.accessor("divID", {
+                columnHelper.accessor("divisionName", {
                     cell: (info) => <span>{info.getValue()}</span>,
-                    header: "Divison Id",
+                    header: "Divison Name",
                 }),
                 columnHelper.accessor("subject", {
                     cell: (info) => <span>{info.getValue()}</span>,
                     header: "Subject",
                 }),
-                columnHelper.accessor("Show Students", {
+                columnHelper.accessor("divID", {
                     cell: (info) => {
                       const navigate = useNavigate(); // Initialize navigate function using useNavigate hook
                       return (
                         <button
                           className="bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
-                          onClick={() => navigate('/faculty/listofstudents', {
-                            props: { studentData:"", typefor: "" }
-                          })}
+                          onClick={()=>{
+                            handleDivisionList(info.getValue());
+                          }}
                         >
                           Show Students
                         </button>
@@ -277,25 +244,25 @@ const TanStackTable = ({ USERS, type }) => {
 
 
         // mybatches for faculty
-        ...(type === "mybatches"
+        ...(typefor === "mybatches"
             ? [
-                columnHelper.accessor("batchID", {
+                columnHelper.accessor("batchName", {
                     cell: (info) => <span>{info.getValue()}</span>,
-                    header: "Batch Id",
+                    header: "Batch Name",
                 }),
                 columnHelper.accessor("subject", {
                     cell: (info) => <span>{info.getValue()}</span>,
                     header: "Subject",
                 }),
-                columnHelper.accessor("Show Students", {
+                columnHelper.accessor("batchID", {
                     cell: (info) => {
                       const navigate = useNavigate(); // Initialize navigate function using useNavigate hook
                       return (
                         <button
                           className="bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
-                          onClick={() => navigate('/faculty/listofstudents', {
-                            props: { studentData:"", typefor: "" }
-                          })}
+                          onClick={()=>{
+                           handleBatchList(info.getValue());
+                          }}
                         >
                           Show Students
                         </button>
@@ -306,7 +273,7 @@ const TanStackTable = ({ USERS, type }) => {
             ]
         : []),
 
-        ...(type === "studentinfaculty"
+        ...(typefor === "studentinfaculty"
             ? [
                 columnHelper.accessor("rollno", {
                     cell: (info) => <span>{info.getValue()}</span>,
@@ -319,14 +286,6 @@ const TanStackTable = ({ USERS, type }) => {
                 columnHelper.accessor("lname", {
                     cell: (info) => <span>{info.getValue()}</span>,
                     header: "Last Name",
-                }),
-                columnHelper.accessor("division", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "Division",
-                }),
-                columnHelper.accessor("batch", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "Batch",
                 }),
                 columnHelper.accessor("Check", {
                     cell: (info) => <button className=" bg-green-100 text-black rounded pl-2 pr-2 justify-center items-center">yes/no</button>,
@@ -356,7 +315,12 @@ const TanStackTable = ({ USERS, type }) => {
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
     });
-
+    const navigate = useNavigate();
+  const data1 = { name: "John", age: 30 };
+    function navigateToList(e){
+        console.log("infunction",e);
+        navigate("/faculty/listofstudents", { state: e });
+    }
     return (
         <div className="p-2 max-w-5xl mx-auto  fill-gray-100">
             <div className="flex justify-between mb-2">
