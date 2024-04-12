@@ -34,7 +34,7 @@ const SideBar = () => {
         "removefaculty" : "Remove Faculty",
         "facultylist" : "Faculty List",
         "adminprofile" : "Profile",
-        "studentlist" : "Student List",
+        "studentlist" : "Student List", 
         "adddivision" : "Add Division",
         "addbatch" : "Add Batch",
         "batchlist" : "Batch List",
@@ -91,6 +91,7 @@ const SideBar = () => {
               { title: "Dashboard", src: Chart_fill },
               { title: "Profile", src: Profile }, // Corrected src reference
               { title: "Subject List", src: List },
+              { title: "Lab List", src: List },
               { title: "Assignment List", src: List },
               { title: "Chats", src: List },
             ]);
