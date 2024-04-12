@@ -13,11 +13,10 @@ function Chats() {
 
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(
-          '/getstudentchats/:660c16c5714eb5bbae48ace4'
-        );
+        const   data   = await axios.get("/student/myChats");
         if (data) {
           setChats(data); 
+          console.log(chats)
         }
       } catch (error) {
         console.error("Error fetching student data:", error);
@@ -25,7 +24,7 @@ function Chats() {
     };
     fetchData();
       
-  }, [teacherId]);
+  }, []);
 
   return (
     <div className="flex">
