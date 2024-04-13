@@ -162,7 +162,11 @@ const TanStackTable = ({ USERS, type }) => {
             header: "problemstatement",
           }),
           columnHelper.accessor("uploaded_doc_link", {
-            cell: (info) => <button>{info.getValue()}</button>,
+            cell: (info) => (
+            
+                <button>{info.getValue()}</button>
+              
+            ),
             header: "Links",
           }),
         ]
