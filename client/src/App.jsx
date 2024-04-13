@@ -11,7 +11,6 @@ import AdminLogin from "./Components/Login/AdminLogin/AdminLogin";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
 import AddFaculty from "./Components/Admin/AddFaculty";
 import RemoveFaculty from "./Components/Admin/RemoveFaculty";
-import AdminProfile from "./Components/Admin/AdminProfile";
 import FacultyList from "./Components/Admin/FacultyList";
 import StudentList from "./Components/Admin/StudentList";
 import AddDivision from "./Components/Admin/AddDivision";
@@ -55,393 +54,383 @@ function App() {
     console.log("App_User", User);
     // console.log(User.user_type);
     return (
-      <>
-        <Routes>
-          {/* Home */}
-          <Route exact path="/" element={<Login />} />
+        <>
+            <Routes>
+                {/* Home */}
+                <Route exact path="/" element={<Login />} />
 
-          {/* Admin */}
-          <Route
-            exact
-            path="/login/adminlogin"
-            element={
-              User && User.user_type == "admin" ? (
-                <Navigate to="/admin/dashboard" />
-              ) : (
-                <AdminLogin />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/dashboard"
-            element={
-              User && User.user_type == "admin" ? (
-                <AdminDashboard />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/registerfaculty"
-            element={
-              User && User.user_type == "admin" ? (
-                <AddFaculty />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/removefaculty"
-            element={
-              User && User.user_type == "admin" ? (
-                <RemoveFaculty />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/adminprofile"
-            element={
-              User && User.user_type == "admin" ? (
-                <AdminProfile />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/facultylist"
-            element={
-              User && User.user_type == "admin" ? (
-                <FacultyList />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/studentlist"
-            element={
-              User && User.user_type == "admin" ? (
-                <StudentList />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/adddivision"
-            element={
-              User && User.user_type == "admin" ? (
-                <AddDivision />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/addbatch"
-            element={
-              User && User.user_type == "admin" ? (
-                <AddBatch />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/batchlist"
-            element={
-              User && User.user_type == "admin" ? (
-                <BatchList />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/divisionlist"
-            element={
-              User && User.user_type == "admin" ? (
-                <DivisionList />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/registerstudent"
-            element={
-              User && User.user_type == "admin" ? (
-                <AddStudent />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/removestudent"
-            element={
-              User && User.user_type == "admin" ? (
-                <RemoveStudent />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/subjectorpractical"
-            element={
-              User && User.user_type == "admin" ? (
-                <SubjectOrPractical />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/subjectclassroomteacherassignment"
-            element={
-              User && User.user_type == "admin" ? (
-                <SubjectClassroomTeacherAssignment />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/admin/practicalbatchteacherassignment"
-            element={
-              User && User.user_type == "admin" ? (
-                <PracticalBatchTeacherAssignment />
-              ) : (
-                <Navigate to="/login/adminlogin" />
-              )
-            }
-          />
+                {/* Admin */}
+                <Route
+                    exact
+                    path="/login/adminlogin"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <Navigate to="/admin/dashboard" />
+                        ) : (
+                            <AdminLogin />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/admin/dashboard"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <AdminDashboard />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/admin/registerfaculty"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <AddFaculty />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/admin/removefaculty"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <RemoveFaculty />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
+                
+                <Route
+                    exact
+                    path="/admin/facultylist"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <FacultyList />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/admin/studentlist"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <StudentList />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/admin/adddivision"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <AddDivision />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/admin/addbatch"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <AddBatch />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/admin/batchlist"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <BatchList />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/admin/divisionlist"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <DivisionList />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/admin/registerstudent"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <AddStudent />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/admin/removestudent"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <RemoveStudent />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/admin/subjectorpractical"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <SubjectOrPractical />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/admin/subjectclassroomteacherassignment"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <SubjectClassroomTeacherAssignment />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/admin/practicalbatchteacherassignment"
+                    element={
+                        User && User.user_type == "admin" ? (
+                            <PracticalBatchTeacherAssignment />
+                        ) : (
+                            <Navigate to="/login/adminlogin" />
+                        )
+                    }
+                />
 
-          {/* Faculty */}
-          <Route
-            path="/login/facultylogin"
-            element={
-              User && User.user_type == "teacher" ? (
-                <Navigate to="/faculty/dashboard" />
-              ) : (
-                <FacultyLogin />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/faculty/dashboard"
-            element={
-              User && User.user_type == "teacher" ? (
-                <FacultyDashboard />
-              ) : (
-                <Navigate to="/login/facultylogin" />
-              )
-            }
-          />
-          <Route
-            path="/login/facultylogin"
-            element={
-              User && User.user_type == "teacher" ? (
-                <Navigate to="/faculty/dashboard" />
-              ) : (
-                <FacultyLogin />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/faculty/dashboard"
-            element={
-              User && User.user_type == "teacher" ? (
-                <FacultyDashboard />
-              ) : (
-                <Navigate to="/login/facultylogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/faculty/facultyprofile"
-            element={
-              User && User.user_type == "teacher" ? (
-                <FacultyProfile />
-              ) : (
-                <Navigate to="/login/facultylogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/faculty/divisions"
-            element={
-              User && User.user_type == "teacher" ? (
-                <MyDivision />
-              ) : (
-                <Navigate to="/login/facultylogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/faculty/batches"
-            element={
-              User && User.user_type == "teacher" ? (
-                <MyBatches />
-              ) : (
-                <Navigate to="/login/facultylogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/faculty/listofstudents"
-            element={
-              User && User.user_type == "teacher" ? (
-                <StudentListForData />
-              ) : (
-                <Navigate to="/login/facultylogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/faculty/uploadMarksAttendence"
-            element={
-              User && User.user_type == "teacher" ? (
-                <UpdateMarksAttendence />
-              ) : (
-                <Navigate to="/login/facultylogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/faculty/mentorshipgrps"
-            element={
-              User && User.user_type == "teacher" ? (
-                <MentorshipGrps />
-              ) : (
-                <Navigate to="/login/facultylogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/faculty/assignmentsforbatch"
-            element={
-              User && User.user_type == "teacher" ? (
-                <CreateForBatch />
-              ) : (
-                <Navigate to="/login/facultylogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/faculty/assignmentsfordivision"
-            element={
-              User && User.user_type == "teacher" ? (
-                <CreateForDivision />
-              ) : (
-                <Navigate to="/login/facultylogin" />
-              )
-            }
-          />
-          {/* <Route exact path="/faculty/facultychats" element={ User && User.user_type == "teacher"?(<FacultyProfile/> ):(<Navigate to="/login/facultylogin"/>)}/> */}
+                {/* Faculty */}
+                <Route
+                    path="/login/facultylogin"
+                    element={
+                        User && User.user_type == "teacher" ? (
+                            <Navigate to="/faculty/dashboard" />
+                        ) : (
+                            <FacultyLogin />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/faculty/dashboard"
+                    element={
+                        User && User.user_type == "teacher" ? (
+                            <FacultyDashboard />
+                        ) : (
+                            <Navigate to="/login/facultylogin" />
+                        )
+                    }
+                />
+                <Route
+                    path="/login/facultylogin"
+                    element={
+                        User && User.user_type == "teacher" ? (
+                            <Navigate to="/faculty/dashboard" />
+                        ) : (
+                            <FacultyLogin />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/faculty/dashboard"
+                    element={
+                        User && User.user_type == "teacher" ? (
+                            <FacultyDashboard />
+                        ) : (
+                            <Navigate to="/login/facultylogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/faculty/facultyprofile"
+                    element={
+                        User && User.user_type == "teacher" ? (
+                            <FacultyProfile />
+                        ) : (
+                            <Navigate to="/login/facultylogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/faculty/divisions"
+                    element={
+                        User && User.user_type == "teacher" ? (
+                            <MyDivision />
+                        ) : (
+                            <Navigate to="/login/facultylogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/faculty/batches"
+                    element={
+                        User && User.user_type == "teacher" ? (
+                            <MyBatches />
+                        ) : (
+                            <Navigate to="/login/facultylogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/faculty/listofstudents"
+                    element={
+                        User && User.user_type == "teacher" ? (
+                            <StudentListForData />
+                        ) : (
+                            <Navigate to="/login/facultylogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/faculty/uploadMarksAttendence"
+                    element={
+                        User && User.user_type == "teacher" ? (
+                            <UpdateMarksAttendence />
+                        ) : (
+                            <Navigate to="/login/facultylogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/faculty/mentorshipgrps"
+                    element={
+                        User && User.user_type == "teacher" ? (
+                            <MentorshipGrps />
+                        ) : (
+                            <Navigate to="/login/facultylogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/faculty/assignmentsforbatch"
+                    element={
+                        User && User.user_type == "teacher" ? (
+                            <CreateForBatch />
+                        ) : (
+                            <Navigate to="/login/facultylogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/faculty/assignmentsfordivision"
+                    element={
+                        User && User.user_type == "teacher" ? (
+                            <CreateForDivision />
+                        ) : (
+                            <Navigate to="/login/facultylogin" />
+                        )
+                    }
+                />
+                {/* <Route exact path="/faculty/facultychats" element={ User && User.user_type == "teacher"?(<FacultyProfile/> ):(<Navigate to="/login/facultylogin"/>)}/> */}
 
-          {/* Student */}
-          <Route
-            path="/login/studentlogin"
-            element={
-              User && User.user_type == "student" ? (
-                <Navigate to="/student/dashboard" />
-              ) : (
-                <StudentLogin />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/student/dashboard"
-            element={
-              User && User.user_type == "student" ? (
-                <StudentDashboard />
-              ) : (
-                <Navigate to="/login/studentlogin" />
-              )
-            }
-          />
-          <Route
-            exact
-            path="/student/studentprofile"
-            element={
-              User && User.user_type == "student" ? (
-                <StudentProfile />
-              ) : (
-                <Navigate to="/login/studentlogin" />
-              )
-            }
-          />
-          <Route
-            path="/student/studentchats"
-            element={
-              User && User.user_type == "student" ? <Chats /> : <StudentLogin />
-            }
-          />
-          <Route
-            path="/student/subjects"
-            element={
-              User && User.user_type == "student" ? (
-                <Subject />
-              ) : (
-                <StudentLogin />
-              )
-            }
-          />
-          <Route
-            path="/student/labs"
-            element={
-              User && User.user_type == "student" ? (
-                < Lab/>
-              ) : (
-                <StudentLogin />
-              )
-            }
-          />
-          <Route
-            path="/student/assignments"
-            element={
-              User && User.user_type == "student" ? (
-                <Assignments />
-              ) : (
-                <StudentLogin />
-              )
-            }
-          />
-        </Routes>
-      </>
+                {/* Student */}
+                <Route
+                    path="/login/studentlogin"
+                    element={
+                        User && User.user_type == "student" ? (
+                            <Navigate to="/student/dashboard" />
+                        ) : (
+                            <StudentLogin />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/student/dashboard"
+                    element={
+                        User && User.user_type == "student" ? (
+                            <StudentDashboard />
+                        ) : (
+                            <Navigate to="/login/studentlogin" />
+                        )
+                    }
+                />
+                <Route
+                    exact
+                    path="/student/studentprofile"
+                    element={
+                        User && User.user_type == "student" ? (
+                            <StudentProfile />
+                        ) : (
+                            <Navigate to="/login/studentlogin" />
+                        )
+                    }
+                />
+                <Route
+                    path="/student/studentchats"
+                    element={
+                        User && User.user_type == "student" ? <Chats /> : <StudentLogin />
+                    }
+                />
+                <Route
+                    path="/student/subjects"
+                    element={
+                        User && User.user_type == "student" ? (
+                            <Subject />
+                        ) : (
+                            <StudentLogin />
+                        )
+                    }
+                />
+                <Route
+                    path="/student/labs"
+                    element={
+                        User && User.user_type == "student" ? (
+                            < Lab />
+                        ) : (
+                            <StudentLogin />
+                        )
+                    }
+                />
+                <Route
+                    path="/student/assignments"
+                    element={
+                        User && User.user_type == "student" ? (
+                            <Assignments />
+                        ) : (
+                            <StudentLogin />
+                        )
+                    }
+                />
+            </Routes>
+        </>
     );
 }
 
