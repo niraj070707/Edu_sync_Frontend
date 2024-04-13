@@ -10,7 +10,7 @@ import ReplyIcon from "@mui/icons-material/Reply";
 import { useCon } from '../../UserContext';
 
 const AdminDashboard = () => {
-    const { User } = useCon();
+    const { User , removeUserFromLS } = useCon();
 
     const [value, onChange] = useState(new Date());
 
@@ -48,7 +48,7 @@ const AdminDashboard = () => {
                                 <div className="mr-6">
                                     <h1 className="text-4xl font-bold text-indigo-800 mb-2"> <HomeIcon className=" space-x-4 " />  Dashboard</h1>
                                 </div>
-                                <button className="mr-6 flex p-1 pr-5 pl-5 hover:bg-indigo-500 bg-indigo-600 rounded-md justify-center items-center gap-2">
+                                <button onClick={removeUserFromLS} className="mr-6 flex p-1 pr-5 pl-5 hover:bg-indigo-500 bg-indigo-600 rounded-md justify-center items-center gap-2">
                                     <h2 className=" text-white font-semibold text-xl ml-0.5 text-decoration-font: italic ">{User.username}</h2>
                                     <LogoutIcon className=" text-white cursor-pointer  hover:scale-100 transition-all " fontSize="large" />
                                 </button>
