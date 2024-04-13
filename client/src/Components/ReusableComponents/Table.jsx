@@ -26,6 +26,10 @@ const TanStackTable = ({ USERS, type }) => {
   const [batchData, setBatchData] = useState([]);
   const [studentWithName, setStudentWithName] = useState([]);
 
+  const redirectToLink = (link) => {
+    window.open(link, "_blank");
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -162,11 +166,17 @@ const TanStackTable = ({ USERS, type }) => {
             header: "problemstatement",
           }),
           columnHelper.accessor("uploaded_doc_link", {
-            cell: (info) => (
-            
-                <button>{info.getValue()}</button>
-              
-            ),
+            cell: (info) =>
+              info.row.original.uploaded_doc_link.length > 0 ? (
+                <button
+                  className="text-blue-500 underline"
+                  onClick={() => redirectToLink(info.getValue())}
+                >
+                  View Document
+                </button>
+              ) : (
+                <span>No Link</span>
+              ),
             header: "Links",
           }),
         ]
@@ -185,11 +195,19 @@ const TanStackTable = ({ USERS, type }) => {
           columnHelper.accessor("uploaded_doc_link", {
             cell: (info) => (
               <>
-                <p>{info.getValue()}</p>
-                <form className="form">
-                  <input type="file" />
-                  <button type="submit">Upload</button>
-                </form>
+                {info.row.original.uploaded_doc_link.length > 0 ? (
+                  <button
+                    className="text-blue-500 underline"
+                    onClick={() => redirectToLink(info.getValue())}
+                  >
+                    View Document
+                  </button>
+                ) : (
+                  <form className="form">
+                    <input type="file" />
+                    <button type="submit">Upload</button>
+                  </form>
+                )}
               </>
             ),
             header: "Upload",

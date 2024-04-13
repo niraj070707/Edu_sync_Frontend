@@ -41,7 +41,11 @@ function Conversation({ teacherId, studentId }) {
               message.sender === "teacher" ? "text-right" : "text-left"
             }`}
           >
-            <p className="p-2 bg-gray-200 rounded-lg inline-block">
+            <p
+              className={`p-2 ${
+                message.sender === "teacher" ? "bg-blue-200" : " bg-gray-200"
+              } rounded-lg inline-block`}
+            >
               {message.message}
             </p>
           </div>
