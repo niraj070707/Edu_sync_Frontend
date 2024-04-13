@@ -1,14 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "../ReusableComponents/SideBar";
 import HomeIcon from "@mui/icons-material/Home";
 import Calendar from "react-calendar";
 import LogoutIcon from "@mui/icons-material/LogoutOutlined";
 import ReplyIcon from "@mui/icons-material/Reply";
 import { useCon } from "../../UserContext";
+import axios from "axios";
 
 const StudentDashboard = () => {
   const { User } = useCon();
   const [value, onChange] = useState(new Date());
+  const [divi, setDivi] = useState([]);
+  const [year, setYear] = useState([]);
+  const [batch ,setBatch] = useState([]);
+  const [mid, setMid] = useState([]);
+  const [fmentor, setfMentor] = useState([]);
+  const [lmentor, setlMentor] = useState([]);
+  // const[cc ,setcc] =useState([])
+
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
+  useEffect(() => {
+  }, [divi,year,batch,mid,fmentor,lmentor]);
+
+  const fetchMessages = async () => {
+    try {
+      const response = await axios.get(`/divisions/${User.division}`);
+      console.log(response.data)
+      const res = await axios.get(`/batches/${User.batch}`);
+      
+      if (response && response.data ) {
+        setDivi(response.data.division);
+        setYear(response.data.year);
+      }
+      if (res && res.data) {
+        setBatch(res.data.name);
+        setMid(res.data.TGID);
+      }
+
+      const r = await axios.get(`teachers/${mid}`);
+      console.log(r.data);
+      if (r && r.data) {
+        setfMentor(r.data.fname);
+        setlMentor(r.data.lname);
+      }
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
+  };
+
+
+
   return (
     <div className=" flex">
       <SideBar />
@@ -52,10 +96,30 @@ const StudentDashboard = () => {
                     </svg>
                   </div>
                   <div>
+                    <span className="block text-gray-500">Year </span>
+                    <span className="block text-2xl font-bold">{year}</span>
+                  </div>
+                </div>
+                <div className="flex items-center p-8 bg-white shadow rounded-lg">
+                  <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-blue-100 rounded-full mr-6">
+                    <svg
+                      aria-hidden="true"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="h-6 w-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
                     <span className="block text-gray-500">Divison </span>
-                    <span className="block text-2xl font-bold">
-                      {User.division}
-                    </span>
+                    <span className="block text-2xl font-bold">{divi}</span>
                   </div>
                 </div>
                 <div className="flex items-center p-8 bg-white shadow rounded-lg">
@@ -81,10 +145,8 @@ const StudentDashboard = () => {
                     </svg>
                   </div>
                   <div>
-                    <span className="block text-gray-500">Batches </span>
-                    <span className="block text-2xl font-bold">
-                      {User.batch}
-                    </span>
+                    <span className="block text-gray-500">Batch </span>
+                    <span className="block text-2xl font-bold">{batch}</span>
                   </div>
                 </div>
                 <div className="flex items-center p-8 bg-white shadow rounded-lg">
@@ -106,7 +168,9 @@ const StudentDashboard = () => {
                   </div>
                   <div>
                     <span className="block text-gray-500">Mentor</span>
-                    <span className="block text-2xl font-bold">{User.mentor}</span>
+                    <span className="block text-2xl font-bold">
+                      {fmentor} {lmentor}
+                    </span>
                   </div>
                 </div>
               </section>

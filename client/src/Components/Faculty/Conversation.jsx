@@ -35,12 +35,13 @@ function Conversation({ teacherId, studentId }) {
       <div className="flex-grow overflow-y-auto">
         {/* Display messages */}
         {messages.map((message, index) => (
-          <div key={index} className="mb-4">
-            <p
-              className={`text-sm ${
-                message.sender === "teacher" ? "text-right" : "text-left"
-              }`}
-            >
+          <div
+            key={index}
+            className={`mb-4 ${
+              message.sender === "teacher" ? "text-right" : "text-left"
+            }`}
+          >
+            <p className="p-2 bg-gray-200 rounded-lg inline-block">
               {message.message}
             </p>
           </div>

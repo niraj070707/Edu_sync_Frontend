@@ -83,7 +83,7 @@ const SideBar = () => {
                 { title: "Create for Division", src: Add,gap:true  },
                 { title: "Create for Batch", src: Add ,gap:true  },
                 { title: "Mentorship Groups", src: Faculty, gap: true},
-                { title: "Chats ", src: Chat, gap: true},
+                { title: "TeacherChats", src: Chat, gap: true},
             ]);
         }else{
             setUsername(User.fname);
@@ -93,7 +93,7 @@ const SideBar = () => {
               { title: "Subject List", src: List },
               { title: "Lab List", src: List },
               { title: "Assignment List", src: List },
-              { title: "Chats", src: List },
+              { title: "Chats", src: Chat },
             ]);
         }
     },[])

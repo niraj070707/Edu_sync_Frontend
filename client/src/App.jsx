@@ -45,6 +45,7 @@ import CreateForBatch from "./Components/Faculty/CreateForBatch";
 import CreateForDivision from "./Components/Faculty/CreateForDivision";
 import StudentListForData from "./Components/Faculty/StudentListForData";
 import Lab from "./Components/Student/Lab";
+import TeacherChats from "./Components/Faculty/Chats";
 
 function App() {
     axios.defaults.baseURL = "http://localhost:8080";
@@ -369,7 +370,7 @@ function App() {
               )
             }
           />
-          {/* <Route exact path="/faculty/facultychats" element={ User && User.user_type == "teacher"?(<FacultyProfile/> ):(<Navigate to="/login/facultylogin"/>)}/> */}
+          <Route exact path="/faculty/facultychats" element={ User && User.user_type == "teacher"?(<TeacherChats/> ):(<Navigate to="/login/facultylogin"/>)}/>
 
           {/* Student */}
           <Route

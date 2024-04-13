@@ -19,7 +19,7 @@ const handlefacultyClick = ({ Menu, navigate }) => {
       navigate("/faculty/assignmentsforbatch");
     } else if (Menu.title === "Mentorship Groups") {
       navigate("/faculty/mentorshipgrps");
-    } else if (Menu.title === "Chats") {
+    } else if (Menu.title === "TeacherChats") {
       navigate("/faculty/facultychats");
     }
   }
