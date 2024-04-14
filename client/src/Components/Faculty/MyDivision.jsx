@@ -17,6 +17,7 @@ const MyDivision = () => {
     const fetchData = async () => {
       try {
         const data2 = await FetchDivisionData();
+        console.log(data2)
         if (data2) { setDivisionData(data2); }
       } catch (error) {
         console.error('Error fetching student data:', error);

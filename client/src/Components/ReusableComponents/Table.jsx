@@ -99,7 +99,17 @@ const TanStackTable = ({ USERS, type }) => {
               header: "Attendance",
             }),
             columnHelper.accessor("sub_ticket_approval", {
-              cell: (info) => <span>{info.getValue()}</span>,
+              cell: (info) => (
+                <span
+                  className={`inline-block rounded-full px-1 py-0.5 text-xs ${
+                    info.getValue()
+                      ? "bg-green-500 text-white"
+                      : "bg-red-500 text-white"
+                  }`}
+                >
+                  {info.getValue() ? "Approved" : "Not Approved"}
+                </span>
+              ),
               header: "Ticket Approval",
             }),
           ]
@@ -134,7 +144,17 @@ const TanStackTable = ({ USERS, type }) => {
               header: "Attendance",
             }),
             columnHelper.accessor("sub_ticket_approval", {
-              cell: (info) => <span>{info.getValue()}</span>,
+              cell: (info) => (
+                <span
+                  className={`inline-block rounded-full px-1 py-0.5 text-xs ${
+                    info.getValue()
+                      ? "bg-green-500 text-white"
+                      : "bg-red-500 text-white"
+                  }`}
+                >
+                  {info.getValue() ? "Approved" : "Not Approved"}
+                </span>
+              ),
               header: "Ticket Approval",
             }),
           ]
