@@ -81,6 +81,7 @@ const SideBar = () => {
                 { title: "Assingments", src: Folder ,gap:true ,readOnly:true },
                 { title: "Create for Division", src: Add,gap:true  },
                 { title: "Create for Batch", src: Add ,gap:true  },
+                { title: "Assignment List", src: List, gap: true},
                 { title: "Mentorship Groups", src: Faculty, gap: true},
                 { title: "TeacherChats", src: Chat, gap: true},
             ]);
