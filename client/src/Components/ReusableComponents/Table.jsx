@@ -25,35 +25,11 @@ const TanStackTable = ({ USERS, type }) => {
     const [data, setData] = useState([]);
     const [typefor, setTypefor] = useState(type);
 
-<<<<<<< HEAD
   const redirectToLink = (link) => {
     window.open(link, "_blank");
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await FetchStudentData();
-        const data1 = await FetchBatchData();
-        const data2 = await FetchDivisionData();
-        if (data) {
-          setStudentData(data);
-        }
-        if (data1) {
-          setBatchData(data1);
-        }
-        if (data2) {
-          setDivisionData(data2);
-        }
-      } catch (error) {
-        console.error("Error fetching student data:", error);
-      }
-    };
-    fetchData();
-  }, []);
-=======
->>>>>>> 84f8bcb7196d2c41396a6f1a4b93076877dd865f
-
+ 
     const handleDivisionList=async (divID)=>{
            const data=await FetchStudentDataByDivision(divID);
            setData(data);
@@ -67,47 +43,7 @@ const TanStackTable = ({ USERS, type }) => {
 
     const columns = [ 
 
-      ...(typefor === "CompletedAssignments"
-        ? [
-            columnHelper.accessor("subject", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Subject",
-            }),
-            columnHelper.accessor("problemstatement", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "problemstatement",
-            }),
-            columnHelper.accessor("uploaded_doc_link", {
-              cell: (info) => <button>{info.getValue()}</button>,
-              header: "Links",
-            }),
-          ]
-        : []),
-
-      ...(typefor === "IncompletedAssignments"
-        ? [
-            columnHelper.accessor("subject", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Subject",
-            }),
-            columnHelper.accessor("problemstatement", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "problemstatement",
-            }),
-            columnHelper.accessor("uploaded_doc_link", {
-              cell: (info) => (
-                <>
-                  <p>{info.getValue()}</p>
-                  <form className="form">
-                    <input type="file" />
-                    <button type="submit">Upload</button>
-                  </form>
-                </>
-              ),
-              header: "Upload",
-            }),
-          ]
-        : []),
+       
     
         // division
         ...(typefor === "division"
