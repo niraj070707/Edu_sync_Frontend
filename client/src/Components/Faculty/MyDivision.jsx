@@ -25,7 +25,7 @@ const MyDivision = () => {
     fetchData();
   }, []);
 
-  console.log("brofre",divIdsAndSubjects);
+  // console.log("brofre",divIdsAndSubjects);
   useEffect(() => {
     const divisionsWithName = divIdsAndSubjects.map(divisionID => {
       const division = divisionData.find(division => division._id === divisionID.divID);
@@ -41,7 +41,7 @@ const MyDivision = () => {
   setDivisionsWithName(divisionsWithName);
 
   }, [divisionData]);
-  console.log("divison data filtered", divisionsWithName);
+  // console.log("divison data filtered", divisionsWithName);
 
   return (
     <div className="flex h-screen">

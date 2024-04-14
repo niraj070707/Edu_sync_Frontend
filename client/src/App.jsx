@@ -361,7 +361,7 @@ function App() {
                         )
                     }
                 />
-                <Route exact path="/faculty/facultychats" element={ User && User.user_type == "teacher"?(<FacultyProfile/> ):(<Navigate to="/login/facultylogin"/>)}/>
+                <Route exact path="/faculty/facultychats" element={ User && User.user_type == "teacher"?(<TeacherChats/> ):(<Navigate to="/login/facultylogin"/>)}/>
           {/* Faculty */}
           <Route
             path="/login/facultylogin"

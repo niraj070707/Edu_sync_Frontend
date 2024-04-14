@@ -25,7 +25,7 @@ const MyBatches = () => {
     fetchData();
   }, []);
 
-  console.log("brofre",batchData);
+  // console.log("brofre",batchData);
   useEffect(() => {
     const batchWithName = batchIdsAndSubjects.map(batchID => {
       const batch = batchData.find(batch => batch._id === batchID.batchID);
@@ -40,7 +40,7 @@ const MyBatches = () => {
   setBatchWithName(batchWithName);
 
   }, [batchData]);
-  console.log("divison data filtered", batchWithName);
+  // console.log("divison data filtered", batchWithName);
 
   return (
     <div className="flex h-screen">

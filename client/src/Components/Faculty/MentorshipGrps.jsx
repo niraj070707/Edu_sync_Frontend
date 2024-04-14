@@ -2,11 +2,26 @@ import React, { useEffect, useState } from 'react'
 import SideBar from '../ReusableComponents/SideBar'
 import LogoutIcon from "@mui/icons-material/LogoutOutlined";
 import TanStackTable from '../ReusableComponents/Table'
-import { FetchBatchData, FetchDivisionData, FetchTeacherData } from "../ReusableComponents/Data"
+import { FetchBatchData, FetchDivisionData, FetchMentorGroupByTeacher, FetchTeacherData } from "../ReusableComponents/Data"
 import { useCon } from '../../UserContext';
 
 const MentorshipGrps = () => {
   const { User } = useCon();
+  const [groupData, setGroupData] = useState([]);
+  useEffect(() => {
+    // setDivIdsAndSubjects(User.divsion);
+    const fetchData = async () => {
+      try {
+        const data2 = await FetchMentorGroupByTeacher();
+        if (data2) { setGroupData(data2); }
+      } catch (error) {
+        console.error('Error fetching student data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+
   return (
     <div className="flex h-screen">
       <SideBar />
@@ -27,7 +42,7 @@ const MentorshipGrps = () => {
           <section className="flex-grow flex justify-center items-center flex-col h-4/5  bg-gray-100 rounded-md ">
             <div className="flex-grow relative mt-2 max-w-full w-full">
               <div className='overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-2 absolute p-5 bg-white border mb-5 w-full'>
-                <TanStackTable USERS={""} type={"mymentorshipgrps"} />
+                <TanStackTable USERS={groupData} type={"mymentorshipgrps"} />
                 {/* data to be fetched before like divisions and then passed the grps with the teacher id */}
               </div>
             </div>

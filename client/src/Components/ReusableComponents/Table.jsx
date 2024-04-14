@@ -198,20 +198,26 @@ const TanStackTable = ({ USERS, type }) => {
                     header: "Course Type",
                 }),
                 // Add a column for displaying batches
-                columnHelper.accessor("std_ids", {
+                columnHelper.accessor("student_names", {
                     cell: (info) => (
-                        <span className="flex gap-2">
-                            {info.row.original.std-ids.map((stdid) => (
-                                <div key={stdid}>
-                                    {stdid}
+                        <span className="flex flex-col gap-2">
+                            {info.row.original.student_names.map((student_name) => (
+                                <div key={student_name}>
+                                    {student_name}
                                 </div>
                             ))}
                         </span>
                     ),
                     header: "Name of Students",
                 }),
-                columnHelper.accessor("none", {
-                    cell: (info) => <button className=" bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center" >Click to Chat</button>,
+                columnHelper.accessor("teacher_id", {
+                    cell: (info) => <button className=" bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center" 
+                      onClick={()=>{
+                        handleChatClick(info.getValue());
+                      }} 
+                      
+                    >                  
+                      Click to Chat</button>,
                     header: "Chat",
                 }),
             ]
@@ -232,7 +238,6 @@ const TanStackTable = ({ USERS, type }) => {
                 }),
                 columnHelper.accessor("divID", {
                     cell: (info) => {
-                      const navigate = useNavigate(); // Initialize navigate function using useNavigate hook
                       return (
                         <button
                           className="bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
@@ -293,11 +298,11 @@ const TanStackTable = ({ USERS, type }) => {
                 columnHelper.accessor("lname", {
                     cell: (info) => <span>{info.getValue()}</span>,
                     header: "Last Name",
-                }),
-                columnHelper.accessor("Check", {
-                    cell: (info) => <button className=" bg-green-100 text-black rounded pl-2 pr-2 justify-center items-center">yes/no</button>,
-                    header: "Done/Not Done",
-                }),
+                })
+                // columnHelper.accessor("Check", {
+                //     cell: (info) => <button className=" bg-green-100 text-black rounded pl-2 pr-2 justify-center items-center">yes/no</button>,
+                //     header: "Done/Not Done",
+                // }),
             ]
         : []),
 
@@ -328,6 +333,13 @@ const TanStackTable = ({ USERS, type }) => {
         console.log("infunction",e);
         navigate("/faculty/listofstudents", { state: e });
     }
+   
+    function handleChatClick(data){
+       console.log("in chat click");
+       navigate("/faculty/facultychats",{state:data});
+    }
+
+
     return (
         <div className="p-2 max-w-5xl mx-auto  fill-gray-100">
             <div className="flex justify-between mb-2">
