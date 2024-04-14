@@ -137,6 +137,35 @@ async function FetchCurrentStudent() {
         toast.error("Not getting data");
     }
 }
+
+
+
+async function FetchMyDivisions() {
+    //yecha route aahe ka nhi mahit nahi backend la 
+    const url = "/myDivisions";
+    try {
+        const  {data}  = await axios.get(url);
+        // console.log(data);
+        return data
+    }
+    catch (error) {
+        console.error('Not getting data', error);
+        toast.error("Not getting data");
+    }
+}
+
+async function FetchMyBatches() {
+  //yecha route aahe ka nhi mahit nahi backend la
+  const url = "/myBatches";
+  try {
+    const { data } = await axios.get(url);
+    // console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Not getting data", error);
+    toast.error("Not getting data");
+  }
+}
 async function FetchCurrentTeacher() {
     //yecha route aahe ka nhi mahit nahi backend la 
     const url = "/getcurrentteacher";
@@ -197,21 +226,23 @@ async function FetchMentorGroupByTeacher() {
 
 
 export {
-    FetchPracticalData,
-    FetchSubjectData,
-    FetchTeacherData,
-    FetchStudentData,
-    FetchBatchData,
-    FetchDivisionData,
-    FetchCompletedAssignments,
-    FetchIncompletedAssignments,
-    FetchCurrentAdmin,
-    FetchCurrentStudent,
-    FetchCurrentTeacher,
-    FetchStudentDataByDivision,
-    FetchStudentDataByBatch,
-    FetchMyLabs,
-    FetchMySubjects,
-    FetchMentorGroupByTeacher
+  FetchPracticalData,
+  FetchSubjectData,
+  FetchTeacherData,
+  FetchStudentData,
+  FetchBatchData,
+  FetchDivisionData,
+  FetchCompletedAssignments,
+  FetchIncompletedAssignments,
+  FetchCurrentAdmin,
+  FetchCurrentStudent,
+  FetchCurrentTeacher,
+  FetchStudentDataByDivision,
+  FetchStudentDataByBatch,
+  FetchMyLabs,
+  FetchMySubjects,
+  FetchMentorGroupByTeacher,
+  FetchMyDivisions,
+  FetchMyBatches,
 };
 
