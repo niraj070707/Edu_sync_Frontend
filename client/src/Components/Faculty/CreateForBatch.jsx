@@ -171,7 +171,7 @@ const CreateForBatch = () => {
           cursor-pointer select-none relative py-2 pl-3 pr-9`
                                 }
                               >
-                                {batchItem.batchID}
+                                {batchItem.batchName}
                               </Combobox.Option>
                             ))
                           ) : (
