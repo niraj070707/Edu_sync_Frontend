@@ -7,6 +7,41 @@ import { useCon } from '../../UserContext';
 
 const MyBatches = () => {
   const { User } = useCon();
+  const [batchData, setBatchData] = useState([]);
+  const [batchIdsAndSubjects, setDivIdsAndSubjects] = useState(User.batch);
+  const [batchWithName, setBatchWithName] = useState([]);
+
+
+  useEffect(() => {
+    // setDivIdsAndSubjects(User.divsion);
+    const fetchData = async () => {
+      try {
+        const data2 = await FetchBatchData();
+        if (data2) { setBatchData(data2); }
+      } catch (error) {
+        console.error('Error fetching student data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // console.log("brofre",batchData);
+  useEffect(() => {
+    const batchWithName = batchIdsAndSubjects.map(batchID => {
+      const batch = batchData.find(batch => batch._id === batchID.batchID);
+      return {
+          batchName: batch?.name,
+          batchID:batch?._id,
+          TGID:batch?.TGID,
+          subject:batchID?.subject
+      };
+  });
+  
+  setBatchWithName(batchWithName);
+
+  }, [batchData]);
+  // console.log("divison data filtered", batchWithName);
+
   return (
     <div className="flex h-screen">
       <SideBar />
@@ -27,7 +62,7 @@ const MyBatches = () => {
           <section className="flex-grow flex justify-center items-center flex-col h-4/5 bg-gray-100 rounded-md ">
             <div className="flex-grow relative mt-2 max-w-full w-full">
               <div className='overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-2 absolute p-5 bg-white border mb-5 w-full'>
-                <TanStackTable USERS={User.batch} type={"mybatches"} /> 
+                <TanStackTable USERS={batchWithName} type={"mybatches"} /> 
                 {/* here proper data should be passed directly the user.divisions ok  */}
               </div>
             </div>

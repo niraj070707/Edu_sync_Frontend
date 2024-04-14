@@ -4,8 +4,12 @@ import LogoutIcon from "@mui/icons-material/LogoutOutlined";
 import TanStackTable from '../ReusableComponents/Table'
 import { FetchBatchData, FetchDivisionData, FetchTeacherData } from "../ReusableComponents/Data"
 import { useCon } from '../../UserContext';
-
-const StudentListForData = ({studentData,typefor}) => {
+import { useLocation } from "react-router-dom";
+const StudentListForData = () => {
+    const location = useLocation();
+  const data = location.state;
+  console.log(data)
+  const {studentData,typefor}=data;
    const {User}=useCon();
     if (!studentData) {
         console.log("No array got....");
@@ -30,7 +34,7 @@ const StudentListForData = ({studentData,typefor}) => {
                     <section className="flex-grow flex justify-center items-center flex-col h-4/5  bg-gray-100 rounded-md ">
                         <div className="flex-grow relative mt-2 max-w-full w-full">
                             <div className='overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-2 absolute p-5 bg-white border mb-5 w-full'>
-                                <TanStackTable USERS={""} type={"studentinfaculty"} />
+                                <TanStackTable USERS={studentData} type={typefor} />
                                 {/* data by props or any ther logic ..*/}
                             </div>
                         </div>

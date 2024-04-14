@@ -13,19 +13,19 @@ import DownloadTableDataInExel from "./DownloadTableDataInExel";
 import DebouncedInput from "./DebounceInput";
 import Search from "../../assets/Search.png";
 import { useNavigate } from "react-router";
-import {
-  FetchBatchData,
-  FetchDivisionData,
-  FetchStudentData,
-} from "../ReusableComponents/Data";
+import { FetchBatchData, FetchDivisionData, FetchStudentData, FetchStudentDataByBatch, FetchStudentDataByDivision } from "../ReusableComponents/Data"
+
+
+
 
 const TanStackTable = ({ USERS, type }) => {
-  //..... ......................................for the sdent list as per need......................
-  const [studentData, setStudentData] = useState([]);
-  const [divisionData, setDivisionData] = useState([]);
-  const [batchData, setBatchData] = useState([]);
-  const [studentWithName, setStudentWithName] = useState([]);
+    
+    const columnHelper = createColumnHelper();
+    // console.log("type : ", USERS)
+    const [data, setData] = useState([]);
+    const [typefor, setTypefor] = useState(type);
 
+<<<<<<< HEAD
   const redirectToLink = (link) => {
     window.open(link, "_blank");
   };
@@ -51,109 +51,95 @@ const TanStackTable = ({ USERS, type }) => {
     };
     fetchData();
   }, []);
+=======
+>>>>>>> 84f8bcb7196d2c41396a6f1a4b93076877dd865f
 
-  useEffect(() => {
-    // Check if both divisionData and batchData are populated
-    if (divisionData.length > 0 && batchData.length > 0) {
-      const studentDataWithNames = studentData.map((student) => {
-        const division = divisionData.find(
-          (division) => division._id === student.division
-        );
-        const divisionName = division ? division.division : "";
-
-        const batch = batchData.find((batch) => batch._id === student.batch);
-        const batchName = batch ? batch.name : "";
-
-        return {
-          division: divisionName,
-          batch: batchName,
-          fname: student.fname,
-          lname: student.lname,
-          regid: student.regid,
-          mobile: student.mobile,
-          email: student.email,
-        };
-      });
-
-      setStudentWithName(studentDataWithNames);
+    const handleDivisionList=async (divID)=>{
+           const data=await FetchStudentDataByDivision(divID);
+           setData(data);
+           setTypefor("studentinfaculty");
     }
-  }, [divisionData, batchData, studentData]);
+    const handleBatchList=async (batchID)=>{
+           const data=await FetchStudentDataByBatch(batchID);
+           setData(data);
+           setTypefor("studentinfaculty");
+    }
 
-  // ..........................................................................................
+    const columns = [ 
 
-  const columnHelper = createColumnHelper();
-  // console.log("type : ", USERS)
-  const [data, setData] = useState([]);
-  const columns = [
-    ...(type === "MySubjects"
-      ? [
-          columnHelper.accessor("subname", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Subject",
-          }),
-          columnHelper.accessor("teacher_id", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Teacher Name",
-          }),
-          columnHelper.accessor("marks", {
-            cell: (info) => (
-              <span className="flex gap-2">
-                {info.row.original.marks.map((value, index) => (
-                  <React.Fragment key={index}>
-                    <div>{value.test_type}</div>
-                    <p>:</p>
-                    <div>{value.marks}</div>
-                  </React.Fragment>
-                ))}
-              </span>
-            ),
-            header: "Marks",
-          }),
-          columnHelper.accessor("attendance", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Attendance",
-          }),
-          columnHelper.accessor("sub_ticket_approval", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Ticket Approval",
-          }),
-        ]
-      : []),
+      ...(typefor === "CompletedAssignments"
+        ? [
+            columnHelper.accessor("subject", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "Subject",
+            }),
+            columnHelper.accessor("problemstatement", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "problemstatement",
+            }),
+            columnHelper.accessor("uploaded_doc_link", {
+              cell: (info) => <button>{info.getValue()}</button>,
+              header: "Links",
+            }),
+          ]
+        : []),
 
-    ...(type === "MyLabs"
-      ? [
-          columnHelper.accessor("pracsubname", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Lab",
-          }),
-          columnHelper.accessor("teacher_id", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Teacher Name",
-          }),
-          columnHelper.accessor("marks", {
-            cell: (info) => (
-              <span className="flex gap-2">
-                {info.row.original.marks.map((value, index) => (
-                  <React.Fragment key={index}>
-                    <div>{value.test_type}</div>
-                    <p>:</p>
-                    <div>{value.marks}</div>
-                  </React.Fragment>
-                ))}
-              </span>
-            ),
-            header: "Marks",
-          }),
-          columnHelper.accessor("attendance", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Attendance",
-          }),
-          columnHelper.accessor("sub_ticket_approval", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Ticket Approval",
-          }),
-        ]
-      : []),
+      ...(typefor === "IncompletedAssignments"
+        ? [
+            columnHelper.accessor("subject", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "Subject",
+            }),
+            columnHelper.accessor("problemstatement", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "problemstatement",
+            }),
+            columnHelper.accessor("uploaded_doc_link", {
+              cell: (info) => (
+                <>
+                  <p>{info.getValue()}</p>
+                  <form className="form">
+                    <input type="file" />
+                    <button type="submit">Upload</button>
+                  </form>
+                </>
+              ),
+              header: "Upload",
+            }),
+          ]
+        : []),
+    
+        // division
+        ...(typefor === "division"
+            ? [
+                columnHelper.accessor("division", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Division",
+                }),
+                columnHelper.accessor("year", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Year",
+                }),
+                columnHelper.accessor("CCID", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Name Of CC",
+                }),
+                // Add a column for displaying batches
+                columnHelper.accessor("batches", {
+                    cell: (info) => (
+                        <span className="flex gap-2">
+                            {info.row.original.batches.map((batch) => (
+                                <div key={batch}>
+                                    {batch}
+                                </div>
+                            ))}
+                        </span>
+                    ),
+                    header: "Name of Batches",
+                }),
+            ]
+        : []),
+        
 
     ...(type === "CompletedAssignments"
       ? [
@@ -214,238 +200,202 @@ const TanStackTable = ({ USERS, type }) => {
           }),
         ]
       : []),
+        // batches
+        ...(typefor === "batch"
+            ? [
+                columnHelper.accessor("name", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "name Of Batch",
+                }),
+                columnHelper.accessor("tgname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Name of Teacher Gaurdian",
+                }),
+            ]
+        : []),
 
-    // division
-    ...(type === "division"
-      ? [
-          columnHelper.accessor("division", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Division",
-          }),
-          columnHelper.accessor("year", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Year",
-          }),
-          columnHelper.accessor("CCID", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Name Of CC",
-          }),
-          // Add a column for displaying batches
-          columnHelper.accessor("batches", {
-            cell: (info) => (
-              <span className="flex gap-2">
-                {info.row.original.batches.map((batch) => (
-                  <div key={batch}>{batch}</div>
-                ))}
-              </span>
-            ),
-            header: "Name of Batches",
-          }),
-        ]
-      : []),
+        ...(typefor === "student"
+            ? [
+                columnHelper.accessor("regid", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "regId",
+                }),
+                columnHelper.accessor("fname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "First Name",
+                }),
+                columnHelper.accessor("lname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Last Name",
+                }),
+                columnHelper.accessor("email", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "email",
+                }),
+                columnHelper.accessor("mobile", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Mobile",
+                }),
+                columnHelper.accessor("division", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Division",
+                }),
+                columnHelper.accessor("batch", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Batch",
+                }),
+            ]
+        : []),
 
-    // batches
-    ...(type === "batch"
-      ? [
-          columnHelper.accessor("name", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "name Of Batch",
-          }),
-          columnHelper.accessor("tgname", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Name of Teacher Gaurdian",
-          }),
-        ]
-      : []),
+        // facultyOrStudent
+        ...(typefor === "faculty"
+            ? [
+                columnHelper.accessor("regid", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "regId",
+                }),
+                columnHelper.accessor("fname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "First Name",
+                }),
+                columnHelper.accessor("lname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Last Name",
+                }),
+                columnHelper.accessor("email", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "email",
+                }),
+                columnHelper.accessor("mobile", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Mobile",
+                }),
+            ]
+        : []),
 
-    ...(type === "student"
-      ? [
-          columnHelper.accessor("regid", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "regId",
-          }),
-          columnHelper.accessor("fname", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "First Name",
-          }),
-          columnHelper.accessor("lname", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Last Name",
-          }),
-          columnHelper.accessor("email", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "email",
-          }),
-          columnHelper.accessor("mobile", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Mobile",
-          }),
-          columnHelper.accessor("division", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Division",
-          }),
-          columnHelper.accessor("batch", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Batch",
-          }),
-        ]
-      : []),
+        // mentorshipgrps for falcuty
+        ...(typefor === "mymentorshipgrps"
+            ? [
+                columnHelper.accessor("group_id", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Group ID NO.",
+                }),
+                columnHelper.accessor("type", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Course Type",
+                }),
+                // Add a column for displaying batches
+                columnHelper.accessor("student_names", {
+                    cell: (info) => (
+                        <span className="flex flex-col gap-2">
+                            {info.row.original.student_names.map((student_name) => (
+                                <div key={student_name}>
+                                    {student_name}
+                                </div>
+                            ))}
+                        </span>
+                    ),
+                    header: "Name of Students",
+                }),
+                columnHelper.accessor("teacher_id", {
+                    cell: (info) => <button className=" bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center" 
+                      onClick={()=>{
+                        handleChatClick(info.getValue());
+                      }} 
+                      
+                    >                  
+                      Click to Chat</button>,
+                    header: "Chat",
+                }),
+            ]
+        : []),
 
-    // facultyOrStudent
-    ...(type === "faculty"
-      ? [
-          columnHelper.accessor("regid", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "regId",
-          }),
-          columnHelper.accessor("fname", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "First Name",
-          }),
-          columnHelper.accessor("lname", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Last Name",
-          }),
-          columnHelper.accessor("email", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "email",
-          }),
-          columnHelper.accessor("mobile", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Mobile",
-          }),
-        ]
-      : []),
 
-    // mentorshipgrps for falcuty
-    ...(type === "mymentorshipgrps"
-      ? [
-          columnHelper.accessor("group_id", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Group ID NO.",
-          }),
-          columnHelper.accessor("type", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Course Type",
-          }),
-          // Add a column for displaying batches
-          columnHelper.accessor("std_ids", {
-            cell: (info) => (
-              <span className="flex gap-2">
-                {info.row.original.std -
-                  ids.map((stdid) => <div key={stdid}>{stdid}</div>)}
-              </span>
-            ),
-            header: "Name of Students",
-          }),
-          columnHelper.accessor("none", {
-            cell: (info) => (
-              <button className=" bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center">
-                Click to Chat
-              </button>
-            ),
-            header: "Chat",
-          }),
-        ]
-      : []),
 
-    // mydivision for faculty
-    ...(type === "mydivisions"
-      ? [
-          columnHelper.accessor("divID", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Divison Id",
-          }),
-          columnHelper.accessor("subject", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Subject",
-          }),
-          columnHelper.accessor("Show Students", {
-            cell: (info) => {
-              const navigate = useNavigate(); // Initialize navigate function using useNavigate hook
-              return (
-                <button
-                  className="bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
-                  onClick={() =>
-                    navigate("/faculty/listofstudents", {
-                      props: { studentData: "", typefor: "" },
-                    })
-                  }
-                >
-                  Show Students
-                </button>
-              );
-            },
-            header: "Student List",
-          }),
-        ]
-      : []),
+        // mydivision for faculty
+        ...(typefor === "mydivisions"
+            ? [
+                columnHelper.accessor("divisionName", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Divison Name",
+                }),
+                columnHelper.accessor("subject", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Subject",
+                }),
+                columnHelper.accessor("divID", {
+                    cell: (info) => {
+                      return (
+                        <button
+                          className="bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
+                          onClick={()=>{
+                            handleDivisionList(info.getValue());
+                          }}
+                        >
+                          Show Students
+                        </button>
+                      );
+                    },
+                    header: "Student List",
+                  }),
+            ]
+        : []),
 
-    // mybatches for faculty
-    ...(type === "mybatches"
-      ? [
-          columnHelper.accessor("batchID", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Batch Id",
-          }),
-          columnHelper.accessor("subject", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Subject",
-          }),
-          columnHelper.accessor("Show Students", {
-            cell: (info) => {
-              const navigate = useNavigate(); // Initialize navigate function using useNavigate hook
-              return (
-                <button
-                  className="bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
-                  onClick={() =>
-                    navigate("/faculty/listofstudents", {
-                      props: { studentData: "", typefor: "" },
-                    })
-                  }
-                >
-                  Show Students
-                </button>
-              );
-            },
-            header: "Student List",
-          }),
-        ]
-      : []),
 
-    ...(type === "studentinfaculty"
-      ? [
-          columnHelper.accessor("rollno", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "RollNo",
-          }),
-          columnHelper.accessor("fname", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "First Name",
-          }),
-          columnHelper.accessor("lname", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Last Name",
-          }),
-          columnHelper.accessor("division", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Division",
-          }),
-          columnHelper.accessor("batch", {
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: "Batch",
-          }),
-          columnHelper.accessor("Check", {
-            cell: (info) => (
-              <button className=" bg-green-100 text-black rounded pl-2 pr-2 justify-center items-center">
-                yes/no
-              </button>
-            ),
-            header: "Done/Not Done",
-          }),
-        ]
-      : []),
-  ];
+        // mybatches for faculty
+        ...(typefor === "mybatches"
+            ? [
+                columnHelper.accessor("batchName", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Batch Name",
+                }),
+                columnHelper.accessor("subject", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Subject",
+                }),
+                columnHelper.accessor("batchID", {
+                    cell: (info) => {
+                      const navigate = useNavigate(); // Initialize navigate function using useNavigate hook
+                      return (
+                        <button
+                          className="bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
+                          onClick={()=>{
+                           handleBatchList(info.getValue());
+                          }}
+                        >
+                          Show Students
+                        </button>
+                      );
+                    },
+                    header: "Student List",
+                  }),
+            ]
+        : []),
+
+        ...(typefor === "studentinfaculty"
+            ? [
+                columnHelper.accessor("rollno", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "RollNo",
+                }),
+                columnHelper.accessor("fname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "First Name",
+                }),
+                columnHelper.accessor("lname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Last Name",
+                })
+                // columnHelper.accessor("Check", {
+                //     cell: (info) => <button className=" bg-green-100 text-black rounded pl-2 pr-2 justify-center items-center">yes/no</button>,
+                //     header: "Done/Not Done",
+                // }),
+            ]
+        : []),
+
+    
+
+    ];
 
   useEffect(() => {
     setData([...USERS]); // Update data whenever USERS changes
@@ -454,31 +404,43 @@ const TanStackTable = ({ USERS, type }) => {
   // console.log("Data : ", data , USERS);
   const [globalFilter, setGlobalFilter] = useState("");
 
-  const table = useReactTable({
-    data,
-    columns,
-    state: {
-      globalFilter,
-    },
-    getFilteredRowModel: getFilteredRowModel(),
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-  });
+    const table = useReactTable({
+        data,
+        columns,
+        state: {
+            globalFilter,
+        },
+        getFilteredRowModel: getFilteredRowModel(),
+        getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+    });
+    const navigate = useNavigate();
+  const data1 = { name: "John", age: 30 };
+    function navigateToList(e){
+        console.log("infunction",e);
+        navigate("/faculty/listofstudents", { state: e });
+    }
+   
+    function handleChatClick(data){
+       console.log("in chat click");
+       navigate("/faculty/facultychats",{state:data});
+    }
 
-  return (
-    <div className="p-2 max-w-5xl mx-auto  fill-gray-100">
-      <div className="flex justify-between mb-2">
-        <div className="w-full flex items-center gap-1">
-          <img src={Search} alt="Search" />
-          <DebouncedInput
-            value={globalFilter ?? ""}
-            onChange={(value) => setGlobalFilter(String(value))}
-            className="p-2 bg-transparent outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-indigo-500"
-            placeholder="Search all columns..."
-          />
-        </div>
-        <DownloadTableDataInExel data={data} fileName={"peoples"} />
-      </div>
+
+    return (
+        <div className="p-2 max-w-5xl mx-auto  fill-gray-100">
+            <div className="flex justify-between mb-2">
+                <div className="w-full flex items-center gap-1">
+                    <img src={Search} alt="Search" />
+                    <DebouncedInput
+                        value={globalFilter ?? ""}
+                        onChange={(value) => setGlobalFilter(String(value))}
+                        className="p-2 bg-transparent outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-indigo-500"
+                        placeholder="Search all columns..."
+                    />
+                </div>
+                <DownloadTableDataInExel data={data} fileName={"peoples"} />
+            </div>
 
       <table className="border shadow-sm border-gray-100 w-full text-left">
         <thead className="text-white bg-indigo-600">

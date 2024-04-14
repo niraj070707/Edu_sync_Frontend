@@ -28,37 +28,37 @@ const FacultyProfile = () => {
                             <div className="flex-grow relative mt-20 ">
                                 <div className='top-0 left-0 right-0 bottom-2 p-5 bg-white border '>
 
-                                    <div class="border-t border-gray-200">
+                                    <div className="border-t border-gray-200">
                                         <dl>
-                                            <div class="bg-blue-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                <dt class="font-medium text-blue-700 ">
+                                            <div className="bg-blue-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                <dt className="font-medium text-blue-700 ">
                                                     Name
                                                 </dt>
-                                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                                     {User.fname} {User.lname}
                                                 </dd>
                                             </div>
-                                            <div class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                <dt class="font-medium text-blue-700">
+                                            <div className="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                <dt className="font-medium text-blue-700">
                                                     Email address
                                                 </dt>
-                                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                                     {User.email}
                                                 </dd>
                                             </div>
-                                            <div class="bg-blue-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                <dt class="font-medium text-blue-700">
+                                            <div className="bg-blue-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                <dt className="font-medium text-blue-700">
                                                     Reg_id:
                                                 </dt>
-                                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                                     {User.regid}
                                                 </dd>
                                             </div>
-                                            <div class="bg-blue-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                <dt class="font-medium text-blue-700">
+                                            <div className="bg-blue-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                <dt className="font-medium text-blue-700">
                                                     Mobile:
                                                 </dt>
-                                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                                     {User.mobile}
                                                 </dd>
                                             </div>

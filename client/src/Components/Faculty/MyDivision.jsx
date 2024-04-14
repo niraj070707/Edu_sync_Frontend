@@ -6,8 +6,43 @@ import { FetchBatchData, FetchDivisionData, FetchTeacherData } from "../Reusable
 import { useCon } from '../../UserContext';
 
 const MyDivision = () => {
-
   const { User } = useCon();
+  const [divisionData, setDivisionData] = useState([]);
+  const [divIdsAndSubjects, setDivIdsAndSubjects] = useState(User.division);
+  const [divisionsWithName, setDivisionsWithName] = useState([]);
+
+
+  useEffect(() => {
+    // setDivIdsAndSubjects(User.divsion);
+    const fetchData = async () => {
+      try {
+        const data2 = await FetchDivisionData();
+        if (data2) { setDivisionData(data2); }
+      } catch (error) {
+        console.error('Error fetching student data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // console.log("brofre",divIdsAndSubjects);
+  useEffect(() => {
+    const divisionsWithName = divIdsAndSubjects.map(divisionID => {
+      const division = divisionData.find(division => division._id === divisionID.divID);
+      return {
+          divisionName: division?.division,
+          divID:division?._id,
+          CCID:division?.CCID,
+          year:division?.year,
+          subject:divisionID?.subject
+      };
+  });
+  
+  setDivisionsWithName(divisionsWithName);
+
+  }, [divisionData]);
+  // console.log("divison data filtered", divisionsWithName);
+
   return (
     <div className="flex h-screen">
       <SideBar />
@@ -28,7 +63,7 @@ const MyDivision = () => {
           <section className="flex-grow flex justify-center items-center flex-col h-4/5  bg-gray-100 rounded-md ">
             <div className="flex-grow relative mt-2 max-w-full w-full">
               <div className='overflow-y-scroll no-scrollbar top-0 left-0 right-0 bottom-2 absolute p-5 bg-white border mb-5 w-full'>
-                <TanStackTable USERS={User.division} type={"mydivisions"} /> 
+                <TanStackTable USERS={divisionsWithName} type={"mydivisions"} /> 
                 {/* here proper data should be passed directly the user.divisions ok  */}
               </div>
             </div>

@@ -20,9 +20,15 @@ const FacultyLogin = () => {
             const { data } = await axios.post(url, { email, password });
             storeUserInLS(data);
             // Redirect to admin dashboard on successful login
+            if(data){
+                toast.success("Login Successfull");
+            }else{
+                toast.error("Login Failed")
+            }
             navigate('/faculty/dashboard');
         } catch (error) {
             console.error('Login failed', error);
+            toast.error("login failed")
             // Handle login failure, show error message to user, etc.
         }
     }
