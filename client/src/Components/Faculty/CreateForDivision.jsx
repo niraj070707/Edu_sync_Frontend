@@ -9,6 +9,7 @@ import {
   FetchStudentDataByDivision,
 } from "../ReusableComponents/Data";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const CreateForDivision = () => {
   const { User } = useCon();
@@ -60,10 +61,12 @@ const createAssignment = async () => {
      
     if (!students || students.length === 0) {
       console.error("No students selected.");
+      toast.error("No students selected")
       return;
     }
     if (problemStatement === "") {
       console.error("Write problem statement");
+      toast.error("Write problem statement")
       return;
     }
 
@@ -80,6 +83,7 @@ const createAssignment = async () => {
 
     if (response.status === 200) {
       console.log("Assignment created successfully:", response.data);
+      toast.success("Assignment Added");
 
       
       setSelectedDivision(null);
@@ -92,6 +96,7 @@ const createAssignment = async () => {
     }
   } catch (error) {
     console.error("Error creating assignment:", error);
+    toast.error("not uploaded server error")
   }
 };
 
@@ -181,7 +186,7 @@ const createAssignment = async () => {
           cursor-pointer select-none relative py-2 pl-3 pr-9`
                                 }
                               >
-                                {div.divID}
+                                {div.divName}
                               </Combobox.Option>
                             ))
                           ) : (

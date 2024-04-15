@@ -56,10 +56,12 @@ const CreateForBatch = () => {
     try {
       if (!students || students.length === 0) {
         console.error("No students selected.");
+        toast.error("No students selected")
         return;
       }
       if (problemStatement === "") {
         console.error("Write problem statement");
+        toast.error("Write problem statement")
         return;
       }
 
@@ -76,6 +78,7 @@ const CreateForBatch = () => {
 
       if (response.status === 200) {
         console.log("Assignment created successfully:", response.data);
+        toast.success("Assignment Added");
 
         setSelectedBatch(null);
         setProblemStatement("");
@@ -83,7 +86,9 @@ const CreateForBatch = () => {
         console.error(
           "Error creating assignment:",
           response.data && response.data.message
+         
         );
+        toast.error("not uploaded server error")
       }
     } catch (error) {
       console.error("Error creating assignment:", error);

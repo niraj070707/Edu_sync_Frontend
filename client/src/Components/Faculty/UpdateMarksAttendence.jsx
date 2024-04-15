@@ -68,7 +68,8 @@ const UpdateMarksAttendence = () => {
                                 <div className="mr-6">
                                     <h1 className="text-4xl font-bold text-indigo-800 mb-2"> Upload Marks And Attendence</h1>
                                 </div>
-                                <button className="mr-6 flex p-1 pr-5 pl-5 hover:bg-indigo-500 bg-indigo-600 rounded-md justify-center items-center gap-2">
+                                    <em className='test-sm font-sm text-gray-500 flex '>Hearders of Excel sheet:- rollno | subname1 | subname2 | subname3  (subname in uppercase).SheetName should match with test_type Name eg.UT1, UT2, INSEM</em>
+                                <button className="h-2/3 mr-6 flex p-1 pr-5 pl-5 hover:bg-indigo-500 bg-indigo-600 rounded-md justify-center items-center gap-2">
                                     <h2 className=" text-white font-semibold text-xl ml-0.5 text-decoration-font: italic ">{User.fname}</h2>
                                     <LogoutIcon className=" text-white cursor-pointer  hover:scale-100 transition-all " fontSize="large" />
                                 </button>
@@ -81,7 +82,6 @@ const UpdateMarksAttendence = () => {
                                         <div className=' w-full h-2/3'>
                                             <label htmlFor="subjectfile" className="block text-2xl font-medium leading-6 text-indigo-900">
                                                 <h1>Upload Marks for Theory Subject </h1>
-                                                <em className='text-sm text-gray-400'>(Sheetname should match with test_type)</em>
                                             </label>
                                             <div className="mt-2">
                                                 <input
@@ -108,7 +108,6 @@ const UpdateMarksAttendence = () => {
                                         <div className=' w-full h-2/3'>
                                             <label htmlFor="subjectfile" className="block text-2xl font-medium leading-6 text-indigo-900">
                                                 <h1>Upload Marks for Practical</h1>
-                                                <em className='text-sm text-gray-400'>(Sheetname should match with test_type)</em>
                                             </label>
                                             <div className="mt-2">
                                                 <input
@@ -135,7 +134,6 @@ const UpdateMarksAttendence = () => {
                                         <div className=' w-full h-2/3'>
                                             <label htmlFor="subjectfile" className="block text-2xl font-medium leading-6 text-indigo-900">
                                                 <h1>Upload Attendence for Theory Subject </h1>
-                                                <em className='text-sm text-gray-400'>(Header should be subject name)</em>
                                             </label>
                                             <div className="mt-2">
                                                 <input
@@ -162,7 +160,6 @@ const UpdateMarksAttendence = () => {
                                         <div className=' w-full h-2/3'>
                                             <label htmlFor="subjectfile" className="block text-2xl font-medium leading-6 text-indigo-900">
                                                 <h1>Upload Attendence for Practical</h1>
-                                                <em className='text-sm text-gray-400'>(Header should be practical name)</em>
                                             </label>
                                             <div className="mt-2">
                                                 <input
