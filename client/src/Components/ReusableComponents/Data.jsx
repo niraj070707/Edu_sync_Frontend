@@ -223,6 +223,21 @@ async function FetchMentorGroupByTeacher() {
         toast.error("Not getting data");
     }
 }
+async function FetchAssignmentsByTeacher() {
+    //yecha route aahe ka nhi mahit nahi backend la 
+    const url = `/getAssignmentsforteacher`;
+    // console.log(batchID,url)
+    try {
+        const { data } = await axios.get(url);
+        console.log(data);
+        return data
+
+    }
+    catch (error) {
+        console.error('Not getting data', error);
+        toast.error("Not getting data");
+    }
+}
 
 
 export {
@@ -244,5 +259,6 @@ export {
   FetchMentorGroupByTeacher,
   FetchMyDivisions,
   FetchMyBatches,
+  FetchAssignmentsByTeacher
 };
 

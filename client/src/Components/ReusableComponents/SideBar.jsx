@@ -81,6 +81,7 @@ const SideBar = () => {
                 { title: "Assingments", src: Folder ,gap:true ,readOnly:true },
                 { title: "Create for Division", src: Add,gap:true  },
                 { title: "Create for Batch", src: Add ,gap:true  },
+                { title: "Assignment List", src: List, gap: true},
                 { title: "Mentorship Groups", src: Faculty, gap: true},
                 { title: "TeacherChats", src: Chat, gap: true},
             ]);
@@ -89,9 +90,17 @@ const SideBar = () => {
             setMenus([
               { title: "Dashboard", src: Chart_fill },
               { title: "Profile", src: Profile }, // Corrected src reference
+              {
+                title: "Academic Details",
+                src: Folder,
+                gap: true,
+                readOnly: true,
+              },
               { title: "Subject List", src: List },
               { title: "Lab List", src: List },
+              { title: "Assingments", src: Folder, gap: true, readOnly: true },
               { title: "Assignment List", src: List },
+              { title: "",   gap: true, readOnly: true },
               { title: "Chats", src: Chat },
             ]);
         }

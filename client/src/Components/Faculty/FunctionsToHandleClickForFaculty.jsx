@@ -21,6 +21,8 @@ const handlefacultyClick = ({ Menu, navigate }) => {
       navigate("/faculty/mentorshipgrps");
     } else if (Menu.title === "TeacherChats") {
       navigate("/faculty/facultychats");
+    } else if (Menu.title === "Assignment List") {
+      navigate("/faculty/facultyassignments");
     }
   }
 };

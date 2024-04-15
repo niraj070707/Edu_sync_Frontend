@@ -185,51 +185,87 @@ const TanStackTable = ({ USERS, type }) => {
             ]
             : []),
 
-        ...(type === "IncompletedAssignments"
-            ? [
-                columnHelper.accessor("subject", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "Subject",
-                }),
-                columnHelper.accessor("problemstatement", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "problemstatement",
-                }),
-                columnHelper.accessor("uploaded_doc_link", {
-                    cell: (info) => (
-                        <>
-                            {info.row.original.uploaded_doc_link.length > 0 ? (
-                                <button
-                                    className="text-blue-500 underline"
-                                    onClick={() => redirectToLink(info.getValue())}
-                                >
-                                    View Document
-                                </button>
-                            ) : (
-                                <form className="form">
-                                    <input type="file" />
-                                    <button type="submit">Upload</button>
-                                </form>
-                            )}
-                        </>
-                    ),
-                    header: "Upload",
-                }),
-            ]
-            : []),
-        // batches
-        ...(typefor === "batch"
-            ? [
-                columnHelper.accessor("name", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "name Of Batch",
-                }),
-                columnHelper.accessor("tgname", {
-                    cell: (info) => <span>{info.getValue()}</span>,
-                    header: "Name of Teacher Gaurdian",
-                }),
-            ]
-            : []),
+      ...(type === "IncompletedAssignments"
+        ? [
+            columnHelper.accessor("subject", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "Subject",
+            }),
+            columnHelper.accessor("problemstatement", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "problemstatement",
+            }),
+            columnHelper.accessor("uploaded_doc_link", {
+              cell: (info) => (
+                <>
+                  {info.row.original.uploaded_doc_link.length > 0 ? (
+                    <button
+                      className="text-blue-500 underline"
+                      onClick={() => redirectToLink(info.getValue())}
+                    >
+                      View Document
+                    </button>
+                  ) : (
+                    <form className="form">
+                      <input type="file" />
+                      <button type="submit">Upload</button>
+                    </form>
+                  )}
+                </>
+              ),
+              header: "Upload",
+            }),
+          ]
+        : []),
+      ...(type === "FacultyAssignments"
+        ? [
+            columnHelper.accessor("student_id", {
+              cell: (info) => <span>{info.getValue().fname}</span>,
+              header: "Student Name",
+            }),
+            columnHelper.accessor("problemstatement", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "problemstatement",
+            }),
+            columnHelper.accessor("uploaded_doc_link", {
+              cell: (info) => (
+                <>
+                  {info.row.original.uploaded_doc_link.length > 0 ? (
+                    <button
+                      className="text-blue-500 underline"
+                      onClick={() => redirectToLink(info.getValue())}
+                    >
+                      View Document
+                    </button>
+                  ) : (
+                    <span>
+                      Incomplete
+                    </span>
+                  )}
+                </>
+              ),
+              header: "Review",
+            }),
+          ]
+        : []),
+
+
+
+
+
+      // batches
+      ...(typefor === "batch"
+        ? [
+            columnHelper.accessor("name", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "name Of Batch",
+            }),
+            columnHelper.accessor("tgname", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "Name of Teacher Gaurdian",
+            }),
+          ]
+        : []),
 
         ...(typefor === "student"
             ? [
