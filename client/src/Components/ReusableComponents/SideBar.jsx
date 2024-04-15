@@ -89,9 +89,17 @@ const SideBar = () => {
             setMenus([
               { title: "Dashboard", src: Chart_fill },
               { title: "Profile", src: Profile }, // Corrected src reference
+              {
+                title: "Academic Details",
+                src: Folder,
+                gap: true,
+                readOnly: true,
+              },
               { title: "Subject List", src: List },
               { title: "Lab List", src: List },
+              { title: "Assingments", src: Folder, gap: true, readOnly: true },
               { title: "Assignment List", src: List },
+              { title: "",   gap: true, readOnly: true },
               { title: "Chats", src: Chat },
             ]);
         }
