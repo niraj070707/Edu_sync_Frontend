@@ -219,6 +219,42 @@ const TanStackTable = ({ USERS, type }) => {
             }),
           ]
         : []),
+      ...(type === "FacultyAssignments"
+        ? [
+            columnHelper.accessor("student_id", {
+              cell: (info) => <span>{info.getValue().fname}</span>,
+              header: "Student Name",
+            }),
+            columnHelper.accessor("problemstatement", {
+              cell: (info) => <span>{info.getValue()}</span>,
+              header: "problemstatement",
+            }),
+            columnHelper.accessor("uploaded_doc_link", {
+              cell: (info) => (
+                <>
+                  {info.row.original.uploaded_doc_link.length > 0 ? (
+                    <button
+                      className="text-blue-500 underline"
+                      onClick={() => redirectToLink(info.getValue())}
+                    >
+                      View Document
+                    </button>
+                  ) : (
+                    <span>
+                      Incomplete
+                    </span>
+                  )}
+                </>
+              ),
+              header: "Review",
+            }),
+          ]
+        : []),
+
+
+
+
+
       // batches
       ...(typefor === "batch"
         ? [
