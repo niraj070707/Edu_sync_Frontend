@@ -1,14 +1,73 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SideBar from '../ReusableComponents/SideBar'
 import HomeIcon from "@mui/icons-material/Home";
 import Calendar from "react-calendar";
 import LogoutIcon from "@mui/icons-material/LogoutOutlined";
 import ReplyIcon from "@mui/icons-material/Reply";
 import { useCon } from '../../UserContext';
+import { FetchBatchData, FetchDivisionData, FetchMentorGroupByTeacher } from '../ReusableComponents/Data';
 
 const FacultyDashboard = () => {
     const { User } = useCon();
     const [value, onChange] = useState(new Date());
+    const [groupData, setGroupData] = useState([]);
+    const [batchData, setBatchData] = useState([]);
+    const [batchIdsAndSubjects, setDivIdsAndSubjects] = useState(User.batch);
+    const [batchWithName, setBatchWithName] = useState([]);
+    const [divisionData, setDivisionData] = useState([]);
+    const [divIdsAndSubjects, setDivIdsAndSubjects2] = useState(User.division);
+    const [divisionsWithName, setDivisionsWithName] = useState([]);
+
+
+    useEffect(() => {
+      // setDivIdsAndSubjects(User.divsion);
+      const fetchData = async () => {
+        try {
+          const data = await FetchMentorGroupByTeacher();
+          const data2 = await FetchBatchData();
+          const data3 = await FetchDivisionData();
+        if (data3) { setDivisionData(data3); }
+          if (data2) { setBatchData(data2); }
+          if (data) { setGroupData(data); }
+        } catch (error) {
+          console.error('Error fetching student data:', error);
+        }
+      };
+      fetchData();
+    }, []);
+   
+    useEffect(() => {
+        const divisionsWithName = divIdsAndSubjects.map(divisionID => {
+          const division = divisionData.find(division => division._id === divisionID.divID);
+          return {
+              divisionName: division?.division,
+              divID:division?._id,
+              CCID:division?.CCID,
+              year:division?.year,
+              subject:divisionID?.subject
+          };
+      });
+      
+      setDivisionsWithName(divisionsWithName);
+    
+      }, [divisionData]);
+
+
+    // console.log("brofre",batchData);
+    useEffect(() => {
+      const batchWithName = batchIdsAndSubjects.map(batchID => {
+        const batch = batchData.find(batch => batch._id === batchID.batchID);
+        return {
+            batchName: batch?.name,
+            batchID:batch?._id,
+            TGID:batch?.TGID,
+            subject:batchID?.subject
+        };
+    });
+    
+    setBatchWithName(batchWithName);
+  
+    }, [batchData]);
     return (
         <div className=' flex'>
             <SideBar />
@@ -34,7 +93,7 @@ const FacultyDashboard = () => {
                                         </svg>
                                     </div>
                                     <div>
-                                        <span className="block text-2xl font-bold">xxx</span>
+                                        <span className="block text-2xl font-bold">{divisionsWithName.length}</span>
                                         <span className="block text-gray-500">Divisons </span>
                                     </div>
                                 </div>
@@ -47,7 +106,7 @@ const FacultyDashboard = () => {
                                         </svg>
                                     </div>
                                     <div>
-                                        <span className="block text-2xl font-bold">xxx</span>
+                                        <span className="block text-2xl font-bold">{batchWithName.length}</span>
                                         <span className="block text-gray-500">Batches </span>
                                     </div>
                                 </div>
@@ -58,7 +117,7 @@ const FacultyDashboard = () => {
                                         </svg>
                                     </div>
                                     <div>
-                                        <span className="block text-2xl font-bold">xxx</span>
+                                        <span className="block text-2xl font-bold">{groupData.length}</span>
                                         <span className="block text-gray-500">Mentorshipgrpss</span>
                                     </div>
                                 </div>
