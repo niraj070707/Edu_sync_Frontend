@@ -13,17 +13,13 @@ const StudentLogin = () => {
     async function handleSubmit(ev) {
         ev.preventDefault();
         const url = "/loginStudent";
-        console.log(url);
 
-        // Perform login operation using axios
         try {
             const { data } = await axios.post(url, { email, password });
             storeUserInLS(data);
-            // Redirect to admin dashboard on successful login
             navigate('/student/dashboard');
         } catch (error) {
             console.error('Login failed', error);
-            // Handle login failure, show error message to user, etc.
         }
     }
 

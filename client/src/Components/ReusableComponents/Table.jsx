@@ -1,11 +1,11 @@
 // TanStack Table
 import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  useReactTable,
+    createColumnHelper,
+    flexRender,
+    getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    useReactTable,
 } from "@tanstack/react-table";
 // import { USERS } from "../data";
 import React, { useEffect, useState } from "react";
@@ -19,173 +19,171 @@ import { FetchStudentDataByBatch, FetchStudentDataByDivision } from "../Reusable
 
 
 const TanStackTable = ({ USERS, type }) => {
-    
+
     const columnHelper = createColumnHelper();
     // console.log("type : ", USERS)
     const [data, setData] = useState([]);
-    const [typefor, setTypefor] = useState(type); 
+    const [typefor, setTypefor] = useState(type);
 
-  const redirectToLink = (link) => {
-    window.open(link, "_blank");
-  };
+    const redirectToLink = (link) => {
+        window.open(link, "_blank");
+    };
 
-    const handleDivisionList=async (divID)=>{
-           const data=await FetchStudentDataByDivision(divID);
-           setData(data);
-           setTypefor("studentinfaculty");
+    const handleDivisionList = async (divID) => {
+        const data = await FetchStudentDataByDivision(divID);
+        setData(data);
+        setTypefor("studentinfaculty");
     }
-    const handleBatchList=async (batchID)=>{
-           const data=await FetchStudentDataByBatch(batchID);
-           setData(data);
-           setTypefor("studentinfaculty");
+    const handleBatchList = async (batchID) => {
+        const data = await FetchStudentDataByBatch(batchID);
+        setData(data);
+        setTypefor("studentinfaculty");
     }
 
     const columns = [
-      // division
-      ...(typefor === "division"
-        ? [
-            columnHelper.accessor("division", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Division",
-            }),
-            columnHelper.accessor("year", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Year",
-            }),
-            columnHelper.accessor("CCID", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Name Of CC",
-            }),
-            // Add a column for displaying batches
-            columnHelper.accessor("batches", {
-              cell: (info) => (
-                <span className="flex gap-2">
-                  {info.row.original.batches.map((batch) => (
-                    <div key={batch}>{batch}</div>
-                  ))}
-                </span>
-              ),
-              header: "Name of Batches",
-            }),
-          ]
-        : []),
+        // division
+        ...(typefor === "division"
+            ? [
+                columnHelper.accessor("division", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Division",
+                }),
+                columnHelper.accessor("year", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Year",
+                }),
+                columnHelper.accessor("CCID", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Name Of CC",
+                }),
+                // Add a column for displaying batches
+                columnHelper.accessor("batches", {
+                    cell: (info) => (
+                        <span className="flex gap-2">
+                            {info.row.original.batches.map((batch) => (
+                                <div key={batch}>{batch}</div>
+                            ))}
+                        </span>
+                    ),
+                    header: "Name of Batches",
+                }),
+            ]
+            : []),
 
-      ...(type === "MySubjects"
-        ? [
-            columnHelper.accessor("subname", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Subject",
-            }),
-            columnHelper.accessor("teacher_id", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Teacher Name",
-            }),
-            columnHelper.accessor("marks", {
-              cell: (info) => (
-                <span className="flex gap-2">
-                  {info.row.original.marks.map((value, index) => (
-                    <React.Fragment key={index}>
-                      <div>{value.test_type}</div>
-                      <p>:</p>
-                      <div>{value.marks}</div>
-                    </React.Fragment>
-                  ))}
-                </span>
-              ),
-              header: "Marks",
-            }),
-            columnHelper.accessor("attendance", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Attendance",
-            }),
-            columnHelper.accessor("sub_ticket_approval", {
-              cell: (info) => (
-                <span
-                  className={`inline-block rounded-full px-1 py-0.5 text-xs ${
-                    info.getValue()
-                      ? "bg-green-500 text-white"
-                      : "bg-red-500 text-white"
-                  }`}
-                >
-                  {info.getValue() ? "Approved" : "Not Approved"}
-                </span>
-              ),
-              header: "Ticket Approval",
-            }),
-          ]
-        : []),
+        ...(type === "MySubjects"
+            ? [
+                columnHelper.accessor("subname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Subject",
+                }),
+                columnHelper.accessor("teacher_id", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Teacher Name",
+                }),
+                columnHelper.accessor("marks", {
+                    cell: (info) => (
+                        <span className="flex gap-2">
+                            {info.row.original.marks.map((value, index) => (
+                                <React.Fragment key={index}>
+                                    <div>{value.test_type}</div>
+                                    <p>:</p>
+                                    <div>{value.marks}</div>
+                                </React.Fragment>
+                            ))}
+                        </span>
+                    ),
+                    header: "Marks",
+                }),
+                columnHelper.accessor("attendance", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Attendance",
+                }),
+                columnHelper.accessor("sub_ticket_approval", {
+                    cell: (info) => (
+                        <span
+                            className={`inline-block rounded-full px-1 py-0.5 text-xs ${info.getValue()
+                                ? "bg-green-500 text-white"
+                                : "bg-red-500 text-white"
+                                }`}
+                        >
+                            {info.getValue() ? "Approved" : "Not Approved"}
+                        </span>
+                    ),
+                    header: "Ticket Approval",
+                }),
+            ]
+            : []),
 
-      ...(type === "MyLabs"
-        ? [
-            columnHelper.accessor("pracsubname", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Lab",
-            }),
-            columnHelper.accessor("teacher_id", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Teacher Name",
-            }),
-            columnHelper.accessor("marks", {
-              cell: (info) => (
-                <span className="flex gap-2">
-                  {info.row.original.marks.map((value, index) => (
-                    <React.Fragment key={index}>
-                      <div>{value.test_type}</div>
-                      <p>:</p>
-                      <div>{value.marks}</div>
-                    </React.Fragment>
-                  ))}
-                </span>
-              ),
-              header: "Marks",
-            }),
-            columnHelper.accessor("attendance", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Attendance",
-            }),
-            columnHelper.accessor("sub_ticket_approval", {
-              cell: (info) => (
-                <span
-                  className={`inline-block rounded-full px-1 py-0.5 text-xs ${
-                    info.getValue()
-                      ? "bg-green-500 text-white"
-                      : "bg-red-500 text-white"
-                  }`}
-                >
-                  {info.getValue() ? "Approved" : "Not Approved"}
-                </span>
-              ),
-              header: "Ticket Approval",
-            }),
-          ]
-        : []),
+        ...(type === "MyLabs"
+            ? [
+                columnHelper.accessor("pracsubname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Lab",
+                }),
+                columnHelper.accessor("teacher_id", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Teacher Name",
+                }),
+                columnHelper.accessor("marks", {
+                    cell: (info) => (
+                        <span className="flex gap-2">
+                            {info.row.original.marks.map((value, index) => (
+                                <React.Fragment key={index}>
+                                    <div>{value.test_type}</div>
+                                    <p>:</p>
+                                    <div>{value.marks}</div>
+                                </React.Fragment>
+                            ))}
+                        </span>
+                    ),
+                    header: "Marks",
+                }),
+                columnHelper.accessor("attendance", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Attendance",
+                }),
+                columnHelper.accessor("sub_ticket_approval", {
+                    cell: (info) => (
+                        <span
+                            className={`inline-block rounded-full px-1 py-0.5 text-xs ${info.getValue()
+                                ? "bg-green-500 text-white"
+                                : "bg-red-500 text-white"
+                                }`}
+                        >
+                            {info.getValue() ? "Approved" : "Not Approved"}
+                        </span>
+                    ),
+                    header: "Ticket Approval",
+                }),
+            ]
+            : []),
 
-      ...(type === "CompletedAssignments"
-        ? [
-            columnHelper.accessor("subject", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Subject",
-            }),
-            columnHelper.accessor("problemstatement", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "problemstatement",
-            }),
-            columnHelper.accessor("uploaded_doc_link", {
-              cell: (info) =>
-                info.row.original.uploaded_doc_link.length > 0 ? (
-                  <button
-                    className="text-blue-500 underline"
-                    onClick={() => redirectToLink(info.getValue())}
-                  >
-                    View Document
-                  </button>
-                ) : (
-                  <span>No Link</span>
-                ),
-              header: "Links",
-            }),
-          ]
-        : []),
+        ...(type === "CompletedAssignments"
+            ? [
+                columnHelper.accessor("subject", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Subject",
+                }),
+                columnHelper.accessor("problemstatement", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "problemstatement",
+                }),
+                columnHelper.accessor("uploaded_doc_link", {
+                    cell: (info) =>
+                        info.row.original.uploaded_doc_link.length > 0 ? (
+                            <button
+                                className="text-blue-500 underline"
+                                onClick={() => redirectToLink(info.getValue())}
+                            >
+                                View Document
+                            </button>
+                        ) : (
+                            <span>No Link</span>
+                        ),
+                    header: "Links",
+                }),
+            ]
+            : []),
 
       ...(type === "IncompletedAssignments"
         ? [
@@ -269,190 +267,190 @@ const TanStackTable = ({ USERS, type }) => {
           ]
         : []),
 
-      ...(typefor === "student"
-        ? [
-            columnHelper.accessor("regid", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "regId",
-            }),
-            columnHelper.accessor("fname", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "First Name",
-            }),
-            columnHelper.accessor("lname", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Last Name",
-            }),
-            columnHelper.accessor("email", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "email",
-            }),
-            columnHelper.accessor("mobile", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Mobile",
-            }),
-            columnHelper.accessor("division", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Division",
-            }),
-            columnHelper.accessor("batch", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Batch",
-            }),
-          ]
-        : []),
+        ...(typefor === "student"
+            ? [
+                columnHelper.accessor("regid", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "regId",
+                }),
+                columnHelper.accessor("fname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "First Name",
+                }),
+                columnHelper.accessor("lname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Last Name",
+                }),
+                columnHelper.accessor("email", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "email",
+                }),
+                columnHelper.accessor("mobile", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Mobile",
+                }),
+                columnHelper.accessor("division", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Division",
+                }),
+                columnHelper.accessor("batch", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Batch",
+                }),
+            ]
+            : []),
 
-      // facultyOrStudent
-      ...(typefor === "faculty"
-        ? [
-            columnHelper.accessor("regid", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "regId",
-            }),
-            columnHelper.accessor("fname", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "First Name",
-            }),
-            columnHelper.accessor("lname", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Last Name",
-            }),
-            columnHelper.accessor("email", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "email",
-            }),
-            columnHelper.accessor("mobile", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Mobile",
-            }),
-          ]
-        : []),
+        // facultyOrStudent
+        ...(typefor === "faculty"
+            ? [
+                columnHelper.accessor("regid", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "regId",
+                }),
+                columnHelper.accessor("fname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "First Name",
+                }),
+                columnHelper.accessor("lname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Last Name",
+                }),
+                columnHelper.accessor("email", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "email",
+                }),
+                columnHelper.accessor("mobile", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Mobile",
+                }),
+            ]
+            : []),
 
-      // mentorshipgrps for falcuty
-      ...(typefor === "mymentorshipgrps"
-        ? [
-            columnHelper.accessor("group_id", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Group ID NO.",
-            }),
-            columnHelper.accessor("type", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Course Type",
-            }),
-            // Add a column for displaying batches
-            columnHelper.accessor("student_names", {
-              cell: (info) => (
-                <span className="flex flex-col gap-2">
-                  {info.row.original.student_names.map((student_name) => (
-                    <div key={student_name}>{student_name}</div>
-                  ))}
-                </span>
-              ),
-              header: "Name of Students",
-            }),
-            columnHelper.accessor("teacher_id", {
-              cell: (info) => (
-                <button
-                  className=" bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
-                  onClick={() => {
-                    handleChatClick(info.getValue());
-                  }}
-                >
-                  Click to Chat
-                </button>
-              ),
-              header: "Chat",
-            }),
-          ]
-        : []),
+        // mentorshipgrps for falcuty
+        ...(typefor === "mymentorshipgrps"
+            ? [
+                columnHelper.accessor("group_id", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Group ID NO.",
+                }),
+                columnHelper.accessor("type", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Course Type",
+                }),
+                // Add a column for displaying batches
+                columnHelper.accessor("student_names", {
+                    cell: (info) => (
+                        <span className="flex flex-col gap-2">
+                            {info.row.original.student_names.map((student_name) => (
+                                <div key={student_name}>{student_name}</div>
+                            ))}
+                        </span>
+                    ),
+                    header: "Name of Students",
+                }),
+                columnHelper.accessor("teacher_id", {
+                    cell: (info) => (
+                        <button
+                            className=" bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
+                            onClick={() => {
+                                handleChatClick(info.getValue());
+                            }}
+                        >
+                            Click to Chat
+                        </button>
+                    ),
+                    header: "Chat",
+                }),
+            ]
+            : []),
 
-      // mydivision for faculty
-      ...(typefor === "mydivisions"
-        ? [
-            columnHelper.accessor("divisionName", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Divison Name",
-            }),
-            columnHelper.accessor("subject", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Subject",
-            }),
-            columnHelper.accessor("divID", {
-              cell: (info) => {
-                return (
-                  <button
-                    className="bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
-                    onClick={() => {
-                      handleDivisionList(info.getValue());
-                    }}
-                  >
-                    Show Students
-                  </button>
-                );
-              },
-              header: "Student List",
-            }),
-          ]
-        : []),
+        // mydivision for faculty
+        ...(typefor === "mydivisions"
+            ? [
+                columnHelper.accessor("divisionName", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Divison Name",
+                }),
+                columnHelper.accessor("subject", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Subject",
+                }),
+                columnHelper.accessor("divID", {
+                    cell: (info) => {
+                        return (
+                            <button
+                                className="bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
+                                onClick={() => {
+                                    handleDivisionList(info.getValue());
+                                }}
+                            >
+                                Show Students
+                            </button>
+                        );
+                    },
+                    header: "Student List",
+                }),
+            ]
+            : []),
 
-      // mybatches for faculty
-      ...(typefor === "mybatches"
-        ? [
-            columnHelper.accessor("batchName", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Batch Name",
-            }),
-            columnHelper.accessor("subject", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Subject",
-            }),
-            columnHelper.accessor("batchID", {
-              cell: (info) => {
-                const navigate = useNavigate(); // Initialize navigate function using useNavigate hook
-                return (
-                  <button
-                    className="bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
-                    onClick={() => {
-                      handleBatchList(info.getValue());
-                    }}
-                  >
-                    Show Students
-                  </button>
-                );
-              },
-              header: "Student List",
-            }),
-          ]
-        : []),
+        // mybatches for faculty
+        ...(typefor === "mybatches"
+            ? [
+                columnHelper.accessor("batchName", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Batch Name",
+                }),
+                columnHelper.accessor("subject", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Subject",
+                }),
+                columnHelper.accessor("batchID", {
+                    cell: (info) => {
+                        const navigate = useNavigate(); // Initialize navigate function using useNavigate hook
+                        return (
+                            <button
+                                className="bg-indigo-100 text-black rounded pl-2 pr-2 justify-center items-center"
+                                onClick={() => {
+                                    handleBatchList(info.getValue());
+                                }}
+                            >
+                                Show Students
+                            </button>
+                        );
+                    },
+                    header: "Student List",
+                }),
+            ]
+            : []),
 
-      ...(typefor === "studentinfaculty"
-        ? [
-            columnHelper.accessor("rollno", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "RollNo",
-            }),
-            columnHelper.accessor("fname", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "First Name",
-            }),
-            columnHelper.accessor("lname", {
-              cell: (info) => <span>{info.getValue()}</span>,
-              header: "Last Name",
-            }),
-            // columnHelper.accessor("Check", {
-            //     cell: (info) => <button className=" bg-green-100 text-black rounded pl-2 pr-2 justify-center items-center">yes/no</button>,
-            //     header: "Done/Not Done",
-            // }),
-          ]
-        : []),
+        ...(typefor === "studentinfaculty"
+            ? [
+                columnHelper.accessor("rollno", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "RollNo",
+                }),
+                columnHelper.accessor("fname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "First Name",
+                }),
+                columnHelper.accessor("lname", {
+                    cell: (info) => <span>{info.getValue()}</span>,
+                    header: "Last Name",
+                }),
+                // columnHelper.accessor("Check", {
+                //     cell: (info) => <button className=" bg-green-100 text-black rounded pl-2 pr-2 justify-center items-center">yes/no</button>,
+                //     header: "Done/Not Done",
+                // }),
+            ]
+            : []),
     ];
 
-  useEffect(() => {
-    setData([...USERS]); // Update data whenever USERS changes
-  }, [USERS]);
+    useEffect(() => {
+        setData([...USERS]); // Update data whenever USERS changes
+    }, [USERS]);
 
-  // console.log("Data : ", data , USERS);
-  const [globalFilter, setGlobalFilter] = useState("");
+    // console.log("Data : ", data , USERS);
+    const [globalFilter, setGlobalFilter] = useState("");
 
     const table = useReactTable({
         data,
@@ -465,15 +463,15 @@ const TanStackTable = ({ USERS, type }) => {
         getPaginationRowModel: getPaginationRowModel(),
     });
     const navigate = useNavigate();
-  const data1 = { name: "John", age: 30 };
-    function navigateToList(e){
-        console.log("infunction",e);
+    const data1 = { name: "John", age: 30 };
+    function navigateToList(e) {
+        console.log("infunction", e);
         navigate("/faculty/listofstudents", { state: e });
     }
-   
-    function handleChatClick(data){
-       console.log("in chat click");
-       navigate("/faculty/facultychats",{state:data});
+
+    function handleChatClick(data) {
+        console.log("in chat click");
+        navigate("/faculty/facultychats", { state: data });
     }
 
 
@@ -492,109 +490,106 @@ const TanStackTable = ({ USERS, type }) => {
                 <DownloadTableDataInExel data={data} fileName={"peoples"} />
             </div>
 
-      <table className="border shadow-sm border-gray-100 w-full text-left">
-        <thead className="text-white bg-indigo-600">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id} className="capitalize p-3">
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
+            <table className="border shadow-sm border-gray-100 w-full text-left">
+                <thead className="text-white bg-indigo-600">
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <tr key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => (
+                                <th key={header.id} className="capitalize p-3">
+                                    {flexRender(
+                                        header.column.columnDef.header,
+                                        header.getContext()
+                                    )}
+                                </th>
+                            ))}
+                        </tr>
+                    ))}
+                </thead>
 
-        <tbody>
-          {table.getRowModel().rows.length ? (
-            table.getRowModel().rows.map((row, i) => (
-              <tr
-                key={row.id}
-                className={` ${
-                  i % 2 === 0 ? "bg-gray-900" : "bg-gray-800"
-                } text-white`}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="px-3.5 py-2">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))
-          ) : (
-            <tr className="text-center text-black h-32">
-              <td colSpan={12}>No Recoard Found!</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+                <tbody>
+                    {table.getRowModel().rows.length ? (
+                        table.getRowModel().rows.map((row, i) => (
+                            <tr
+                                key={row.id}
+                                className={` ${i % 2 === 0 ? "bg-gray-900" : "bg-gray-800"
+                                    } text-white`}
+                            >
+                                {row.getVisibleCells().map((cell) => (
+                                    <td key={cell.id} className="px-3.5 py-2">
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))
+                    ) : (
+                        <tr className="text-center text-black h-32">
+                            <td colSpan={12}>No Recoard Found!</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
 
-      {/* pagination */}
-      <div className="flex items-center justify-end mt-2 gap-3">
-        <button
-          onClick={() => {
-            table.previousPage();
-          }}
-          disabled={!table.getCanPreviousPage()}
-          className={`${
-            table.getCanPreviousPage() && "hover:bg-indigo-500 "
-          } p-1 border rounded-sm h-10 w-12 flex justify-center items-center text-xl text-white bg-indigo-400 border-gray-400 px-2 disabled:opacity-30 `}
-        >
-          {"<"}
-        </button>
+            {/* pagination */}
+            <div className="flex items-center justify-end mt-2 gap-3">
+                <button
+                    onClick={() => {
+                        table.previousPage();
+                    }}
+                    disabled={!table.getCanPreviousPage()}
+                    className={`${table.getCanPreviousPage() && "hover:bg-indigo-500 "
+                        } p-1 border rounded-sm h-10 w-12 flex justify-center items-center text-xl text-white bg-indigo-400 border-gray-400 px-2 disabled:opacity-30 `}
+                >
+                    {"<"}
+                </button>
 
-        <button
-          onClick={() => {
-            table.nextPage();
-          }}
-          disabled={!table.getCanNextPage()}
-          className={`${
-            table.getCanNextPage() && "hover:bg-indigo-500 "
-          } p-1 border rounded-sm h-10 w-12 flex justify-center items-center text-xl text-white bg-indigo-400 border-gray-400 px-2 disabled:opacity-30 `}
-        >
-          {">"}
-        </button>
+                <button
+                    onClick={() => {
+                        table.nextPage();
+                    }}
+                    disabled={!table.getCanNextPage()}
+                    className={`${table.getCanNextPage() && "hover:bg-indigo-500 "
+                        } p-1 border rounded-sm h-10 w-12 flex justify-center items-center text-xl text-white bg-indigo-400 border-gray-400 px-2 disabled:opacity-30 `}
+                >
+                    {">"}
+                </button>
 
-        <span className="flex items-center gap-1 text-lg text-gray-500">
-          <div>Page</div>
-          <div>
-            {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
-          </div>
-        </span>
+                <span className="flex items-center gap-1 text-lg text-gray-500">
+                    <div>Page</div>
+                    <div>
+                        {table.getState().pagination.pageIndex + 1} of{" "}
+                        {table.getPageCount()}
+                    </div>
+                </span>
 
-        <span className="flex items-center text-lg gap-1">
-          | Go to page:
-          <input
-            type="number"
-            defaultValue={table.getState().pagination.pageIndex + 1}
-            onChange={(e) => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              table.setPageIndex(page);
-            }}
-            className="border h-10 border-gray-400 p-1 rounded w-16 bg-transparent"
-          />
-        </span>
+                <span className="flex items-center text-lg gap-1">
+                    | Go to page:
+                    <input
+                        type="number"
+                        defaultValue={table.getState().pagination.pageIndex + 1}
+                        onChange={(e) => {
+                            const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                            table.setPageIndex(page);
+                        }}
+                        className="border h-10 border-gray-400 p-1 rounded w-16 bg-transparent"
+                    />
+                </span>
 
-        <select
-          value={table.getState().pagination.pageSize}
-          onChange={(e) => {
-            table.setPageSize(Number(e.target.value));
-          }}
-          className="p-1 h-10 rounded-sm font-medium text-white bg-indigo-400 px-2 hover:bg-indigo-500"
-        >
-          {[5, 10, 20, 30, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
-  );
+                <select
+                    value={table.getState().pagination.pageSize}
+                    onChange={(e) => {
+                        table.setPageSize(Number(e.target.value));
+                    }}
+                    className="p-1 h-10 rounded-sm font-medium text-white bg-indigo-400 px-2 hover:bg-indigo-500"
+                >
+                    {[5, 10, 20, 30, 50].map((pageSize) => (
+                        <option key={pageSize} value={pageSize}>
+                            Show {pageSize}
+                        </option>
+                    ))}
+                </select>
+            </div>
+        </div>
+    );
 };
 
 export default TanStackTable;
