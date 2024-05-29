@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
+
 
 const Login = () => {
   return (
@@ -10,7 +12,7 @@ const Login = () => {
       }}>
       <div className="flex flex-col items-center w-full max-w-2xl p-8 space-y-8 bg-gray-800 bg-opacity-70 rounded-xl">
         <h1 className="text-3xl font-semibold text-white">
-          ABC Institute of Technology
+          Pune Institute Computer of Technology
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
           <div className="h-80 md:h-96 w-full bg-blue-500 bg-opacity-80 rounded-lg flex flex-col justify-center items-center p-8">

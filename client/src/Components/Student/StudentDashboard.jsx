@@ -8,7 +8,7 @@ import { useCon } from "../../UserContext";
 import axios from "axios";
 
 const StudentDashboard = () => {
-  const { User } = useCon();
+  const { User, removeUserFromLS } = useCon();
   const [value, onChange] = useState(new Date());
   const [divi, setDivi] = useState([]);
   const [year, setYear] = useState([]);
@@ -38,14 +38,17 @@ const StudentDashboard = () => {
       if (res && res.data) {
         setBatch(res.data.name);
         setMid(res.data.TGID);
+        
       }
-
+      if(mid!==undefined || mid!=null){
       const r = await axios.get(`teachers/${mid}`);
+      
       console.log(r.data);
       if (r && r.data) {
         setfMentor(r.data.fname);
         setlMentor(r.data.lname);
       }
+    }
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
@@ -67,7 +70,10 @@ const StudentDashboard = () => {
                     <HomeIcon className=" space-x-4 " /> Dashboard
                   </h1>
                 </div>
-                <button className="mr-6 flex p-1 pr-5 pl-5 hover:bg-indigo-500 bg-indigo-600 rounded-md justify-center items-center gap-2">
+                <button
+                  onClick={removeUserFromLS}
+                  className="mr-6 flex p-1 pr-5 pl-5 hover:bg-indigo-500 bg-indigo-600 rounded-md justify-center items-center gap-2"
+                >
                   <h2 className=" text-white font-semibold text-xl ml-0.5 text-decoration-font: italic ">
                     {User.fname}
                   </h2>

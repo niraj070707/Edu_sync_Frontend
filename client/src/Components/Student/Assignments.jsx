@@ -8,6 +8,7 @@ import TanStackTable from "../ReusableComponents/Table";
 import axios from "axios";
 import { storage } from "../ReusableComponents/firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { toast } from "react-toastify";
 
 const Assignments = () => {
   const [CompletedAssignments, setCompletedAssignments] = useState([]);
@@ -66,8 +67,11 @@ const Assignments = () => {
         uploadLink: uploadedDocLink,
         isCompleted: true,
       });
+      toast.success("Assignment submited");
+      setAssignments(null);
     } catch (error) {
       console.error("Error updating assignment:", error);
+      toast.error("assignment not submited");
     }
   };
 

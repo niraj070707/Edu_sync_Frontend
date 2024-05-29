@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'; 
 import { useCon } from "../../../UserContext";
+import { toast } from 'react-toastify';
 
 const FacultyLogin = () => {
     const [email, setEmail] = useState('');
